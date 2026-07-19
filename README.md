@@ -16,9 +16,9 @@ npm run dev
 # Project folder structure
 
 ```
-Website
+Databist
 │
-├── Public
+├── (public)
 │     ├── Home
 │     ├── About
 │     ├── Services
@@ -29,8 +29,15 @@ Website
 │     ├── Contact
 │     ├── Booking
 │     └── Legal Pages
+├── components
+│     ├── dashboard
+│     ├── public
+│     ├── ui
+├── lib
+├── server
+├── types
 │
-└── Dashboard
+└── (dashboard)
       ├── Authentication
       ├── Service Management
       ├── Booking Management
