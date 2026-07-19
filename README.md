@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Digital Resolution
+
+Digital Resolution is a full-service digital agency offering website development, graphic design, content writing, SEO, video ads, social media management, digital marketing, and online maintenance packages.. This taskcovers a full rebuild into a dynamic, fast platform that can compete with established international IT/digital- services firms. The new site should adopt the structure, credibility signals, and interactive patterns used by top-tier B2Btechnology/agency websites — hero storytelling, visible trust indicators, an interactive consultation-bookingflow, rich service and case-study content, and a dashboard that lets non-technical staff manage services andbookings without a developer
 
 ## Getting Started
 
-First, run the development server:
+Project run on development mode:
 
 ```bash
+git clone https://github.com/UhaiMong/databist
+cd databist
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# Project folder structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+Website
+│
+├── Public
+│     ├── Home
+│     ├── About
+│     ├── Services
+│     ├── Service Details
+│     ├── Portfolio
+│     ├── Blog
+│     ├── FAQ
+│     ├── Contact
+│     ├── Booking
+│     └── Legal Pages
+│
+└── Dashboard
+      ├── Authentication
+      ├── Service Management
+      ├── Booking Management
+      ├── Blog Management
+      ├── Portfolio Management
+      ├── FAQ Management
+      ├── Testimonial Management
+      ├── Settings
+      └── Dashboard Overview
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# Technologies
 
-## Learn More
+```json
+{
+  "next": "16.2.10",
+  "react": "19.2.4",
+  "react-dom": "19.2.4"
+}
+```
 
-To learn more about Next.js, take a look at the following resources:
+# Core Features
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Project
+2. Project
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Functionality
 
-## Deploy on Vercel
+| Name | Purpose                                                       |
+| ---- | ------------------------------------------------------------- |
+| Hero | Automatic sliding, paused in touch and sliding mouse pointing |
+| Name | Description                                                   |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# Case study
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+case study
+
+# Deployment
