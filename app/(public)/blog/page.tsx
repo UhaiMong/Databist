@@ -49,9 +49,9 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
   const { posts, totalPages, categories } = await getPosts(page, category);
 
   return (
-    <section className="container mx-auto px-4 py-16">
+    <section className="container mx-auto px-4 py-16 mt-7">
       <div className="mx-auto mb-10 max-w-2xl text-center">
-        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Blog</h1>
+        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Blog</h1>
         <p className="mt-3 text-muted-foreground">
           Insights on web development, design, SEO, and digital marketing.
         </p>

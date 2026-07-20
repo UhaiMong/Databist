@@ -34,9 +34,9 @@ export default async function ServicesPage() {
   const regular = services.filter((s: any) => !s.isCombo);
 
   return (
-    <section className="container mx-auto px-4 py-16">
+    <section className="container mx-auto px-4 py-16 mt-7">
       <div className="mx-auto mb-12 max-w-2xl text-center">
-        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
+        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
           Our Service Packages
         </h1>
         <p className="mt-3 text-muted-foreground">
