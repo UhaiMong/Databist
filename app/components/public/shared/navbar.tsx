@@ -22,7 +22,7 @@ const NAV_LINKS = [
   { label: "Blog", href: "/blog" },
   { label: "Consultant", href: "/booking" },
   { label: "About Us", href: "/about" },
-  { label: "Contact", href: "/contactus" },
+  { label: "Contact", href: "/contact" },
 ] as const;
 
 export function PublicNavbar() {
