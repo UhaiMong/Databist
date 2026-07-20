@@ -14,8 +14,8 @@ const FOOTER_LINKS = [
   { label: "Services", href: "/services" },
   { label: "Portfolio", href: "/portfolio" },
   { label: "Blog", href: "/blog" },
-  { label: "Consultant", href: "/consultant" },
-  { label: "Contact", href: "/contactus" },
+  { label: "Consultant", href: "/booking" },
+  { label: "Contact", href: "/contact" },
   { label: "Sitemap", href: "/sitemap" },
 ] as const;
 
@@ -182,13 +182,13 @@ export function PublicFooter() {
           </div>
           <div className="flex items-center space-x-6">
             <Link
-              href="/terms"
+              href="/terms-of-service"
               className="hover:text-brand-light transition-colors"
             >
               Terms of Service
             </Link>
             <Link
-              href="/privacy"
+              href="/privacy-policy"
               className="hover:text-brand-light transition-colors"
             >
               Privacy Policy

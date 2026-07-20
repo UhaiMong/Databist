@@ -76,125 +76,92 @@ export function PublicNavbar() {
             })}
           </nav>
 
-          {/* CTA Buttons */}
-          <div className="flex items-center gap-2 shrink-0">
-            <Button
-              asChild
-              size="sm"
-              className={cn(
-                "rounded-xl gap-1 text-sm font-semibold transition-all duration-200",
-                "bg-[#2e318f] hover:bg-[#1e2066] text-white",
-              )}
-            >
-              <Link href="tel:+880 1840-930768">
-                <PhoneCall className="w-3.5 h-3.5 animate-pulse" /> +880
-                1840-930768
-              </Link>
-            </Button>
-            <Button
-              asChild
-              variant="ghost"
-              size="sm"
-              className={cn("text-sm font-medium", "bg-white text-brand")}
-            >
-              <Link href="/login">Login</Link>
-            </Button>
-          </div>
-
-          {/* Mobile Menu Trigger */}
-          <Sheet open={open} onOpenChange={setOpen}>
-            <SheetTrigger asChild className="lg:hidden">
+          <div className="flex gap-x-3.5 items-center">
+            {/* CTA Buttons */}
+            <div className="shrink-0">
               <Button
-                variant="ghost"
-                size="icon"
-                className={cn(
-                  "transition-colors duration-200",
-                  "text-brand bg-white",
-                )}
-                aria-label="Open menu"
+                asChild
+                variant="link"
+                size="sm"
+                className={cn("text-md font-bold", "bg-white text-brand")}
               >
-                {open ? (
-                  <X className="w-5 h-5" />
-                ) : (
-                  <Menu className="w-5 h-5" />
-                )}
+                <Link href="/contact">Hire Us</Link>
               </Button>
-            </SheetTrigger>
-
-            <SheetContent side="right" className="w-72 pt-6">
-              <VisuallyHidden.Root>
-                <SheetTitle>Navigate Menu</SheetTitle>
-                <SheetDescription>
-                  Access admin dashboard links
-                </SheetDescription>
-              </VisuallyHidden.Root>
-              {/* Sheet Logo */}
-              <div className="flex items-center gap-2.5 mb-8 px-2">
-                <div className="w-10 h-10 rounded-lg overflow-hidden shadow-md">
-                  <Image
-                    className="w-full h-full object-cover"
-                    src="/logo.jpeg"
-                    alt="Success Academy logo"
-                    width={40}
-                    height={40}
-                  />
-                </div>
-                <div className="leading-tight transition ease-in duration-300 text-[#2e318f]">
-                  <span className="block text-sm font-bold text-[#2e318f]">
-                    Success
-                  </span>
-                  <span className="block text-[9px] tracking-widest uppercase">
-                    Academic
-                  </span>
-                </div>
-              </div>
-
-              {/* Sheet Nav Links */}
-              <nav className="flex flex-col gap-1">
-                {NAV_LINKS.map(({ label, href }) => (
-                  <Link
-                    key={href}
-                    href={href}
-                    onClick={() => setOpen(false)}
-                    className={cn(
-                      "px-4 py-3 rounded-xl text-sm font-medium transition-colors",
-                      pathname === href
-                        ? "bg-[#eef0ff] text-[#2e318f]"
-                        : "text-slate-600 hover:bg-slate-50",
-                    )}
-                  >
-                    {label}
-                  </Link>
-                ))}
-              </nav>
-
-              {/* Sheet CTAs */}
-              <div className="mt-8 flex flex-col gap-2 px-2">
+            </div>
+            {/* Mobile Menu Trigger */}
+            <Sheet open={open} onOpenChange={setOpen}>
+              <SheetTrigger asChild className="lg:hidden">
                 <Button
-                  asChild
-                  variant="outline"
-                  className="w-full border-[#2e318f] text-[#2e318f] hover:bg-[#eef0ff]"
-                >
-                  <Link href="/login" onClick={() => setOpen(false)}>
-                    Sign In
-                  </Link>
-                </Button>
-                <Button
-                  asChild
-                  size="sm"
+                  variant="ghost"
+                  size="icon"
                   className={cn(
-                    "rounded-xl gap-1 text-sm font-semibold transition-all duration-200",
-                    "bg-[#2e318f] hover:bg-[#1e2066] text-white",
+                    "transition-colors duration-200",
+                    "text-brand bg-white",
                   )}
+                  aria-label="Open menu"
                 >
-                  <Link href="tel:+880 1840-930768">
-                    <PhoneCall className="w-3.5 h-3.5 animate-pulse" /> +880
-                    1840-930768
-                  </Link>
+                  {open ? (
+                    <X className="w-5 h-5" />
+                  ) : (
+                    <Menu className="w-5 h-5" />
+                  )}
                 </Button>
-              </div>
-            </SheetContent>
-          </Sheet>
+              </SheetTrigger>
+
+              <SheetContent side="right" className="w-72 pt-6">
+                <VisuallyHidden.Root>
+                  <SheetTitle>Navigate Menu</SheetTitle>
+                  <SheetDescription>
+                    Access admin dashboard links
+                  </SheetDescription>
+                </VisuallyHidden.Root>
+                {/* Sheet Logo */}
+                <div className="flex items-center gap-2.5 mb-8 px-2">
+                  <div className="w-10 h-10 rounded-lg overflow-hidden shadow-md">
+                    <Image
+                      className="w-full h-full object-cover"
+                      src={`${logo}`}
+                      alt="Digital Resolution logo"
+                      width={40}
+                      height={40}
+                    />
+                  </div>
+                </div>
+
+                {/* Sheet Nav Links */}
+                <nav className="flex flex-col gap-1">
+                  {NAV_LINKS.map(({ label, href }) => (
+                    <Link
+                      key={href}
+                      href={href}
+                      onClick={() => setOpen(false)}
+                      className={cn(
+                        "px-4 py-3 rounded-xl text-sm font-medium transition-colors",
+                        pathname === href
+                          ? "bg-[#eef0ff] text-[#2e318f]"
+                          : "text-slate-600 hover:bg-slate-50",
+                      )}
+                    >
+                      {label}
+                    </Link>
+                  ))}
+                </nav>
+
+                {/* Sheet CTAs */}
+                <div className="mt-8 flex flex-col gap-2 px-2">
+                  <Button
+                    asChild
+                    variant="default"
+                    className="w-full bg-brand text-white text-lg font-semibold hover:bg-linear-to-r from-brand to-blue-800 duration-300 transition-colors ease-in"
+                  >
+                    <Link href="/contact" onClick={() => setOpen(false)}>
+                      Hire Us
+                    </Link>
+                  </Button>
+                </div>
+              </SheetContent>
+            </Sheet>
+          </div>
         </div>
       </div>
     </header>
