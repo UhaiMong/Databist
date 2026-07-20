@@ -47,9 +47,9 @@ export function PublicFooter() {
               <Image
                 src="/logo.png"
                 alt="Digital Resolution Logo"
-                width={180}
-                height={50}
-                className="h-10 w-auto object-contain"
+                width={56}
+                height={56}
+                className="h-14 w-14 object-contain rounded-md"
                 priority
               />
             </Link>
