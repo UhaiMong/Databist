@@ -1,4 +1,4 @@
-export { auth as middleware } from "@/lib/auth/auth";
+export { default as proxy } from "next-auth/middleware";
 
 export const config = {
   matcher: ["/dashboard/:path*"],

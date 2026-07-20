@@ -1,6 +1,3 @@
-import { loadEnvConfig } from "@next/env";
-loadEnvConfig(process.cwd());
-
 import mongoose, { Model, Document, Schema } from "mongoose";
 
 const MONGODB_URI = process.env.MONGODB_URI as string;

@@ -1,6 +1,3 @@
-import { loadEnvConfig } from "@next/env";
-loadEnvConfig(process.cwd());
-
 import { NextRequest, NextResponse } from "next/server";
 import { contactFormSchema } from "@/lib/validations/contact";
 
