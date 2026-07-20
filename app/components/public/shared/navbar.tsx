@@ -20,7 +20,7 @@ const NAV_LINKS = [
   { label: "Services", href: "/services" },
   { label: "Portfolio", href: "/portfolio" },
   { label: "Blog", href: "/blog" },
-  { label: "Consultant", href: "/consultant" },
+  { label: "Consultant", href: "/booking" },
   { label: "About Us", href: "/about" },
   { label: "Contact", href: "/contactus" },
 ] as const;
