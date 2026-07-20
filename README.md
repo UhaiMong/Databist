@@ -16,8 +16,9 @@ npm run dev
 # Project folder structure
 
 ```
-Databist
+app
 │
+├── api/*
 ├── (public)
 │     ├── Home
 │     ├── About
@@ -30,12 +31,18 @@ Databist
 │     ├── Booking
 │     └── Legal Pages
 ├── components
-│     ├── dashboard
-│     ├── public
-│     ├── ui
-├── lib
-├── server
+│     ├── dashboard/*page components
+│     ├── public/*page components
+│     ├── ui/*all shadcn redix ui
+│     ├── shared
+│         ├── navbar.tsx --done
+│         ├── footer.tsx --done
+├── lib/db,models,*,
+├── server/*
 ├── types
+├── global.css --done
+├── layout.tsx
+├── not-found.tsx --done
 │
 └── (dashboard)
       ├── Authentication
