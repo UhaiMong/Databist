@@ -7,7 +7,7 @@ Digital Resolution is a full-service digital agency offering website development
 Project run on development mode:
 
 ```bash
-git clone https://github.com/UhaiMong/databist
+git clone https://github.com/UhaiMong/Databist.git
 cd databist
 npm install
 npm run dev
