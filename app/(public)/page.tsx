@@ -1,13 +1,3 @@
-import FaqPage from "./faq/page";
-
-// export default function HomePage() {
-//   return (
-//     <>
-//       <FaqPage />
-//     </>
-//   );
-// }
-
 import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
@@ -27,6 +17,8 @@ import HeroSlider from "@/app/components/public/home/HeroSlider";
 import IndustriesGrid from "@/app/components/public/home/IndustriesGrid";
 import BookingWidget from "@/app/components/public/booking/BookingWidget";
 import FaqAccordion from "@/app/components/public/faq/FaqAccordion";
+import TrustTrip from "./components/TrustStrip";
+import { Heading } from "./components/DynamicHeading";
 
 export const metadata: Metadata = {
   title: "Digital Resolution | Web Development & Digital Marketing Agency",
@@ -85,41 +77,18 @@ export default async function HomePage() {
   return (
     <>
       <HeroSlider />
-
-      {/* Trust strip */}
-      <section className="border-y bg-muted/30 py-6">
-        <div className="container mx-auto grid grid-cols-2 gap-6 px-4 text-center sm:grid-cols-4">
-          <div>
-            <p className="text-2xl font-bold text-primary">6+</p>
-            <p className="text-sm text-muted-foreground">Years in Operation</p>
-          </div>
-          <div>
-            <p className="text-2xl font-bold text-primary">150+</p>
-            <p className="text-sm text-muted-foreground">Clients Served</p>
-          </div>
-          <div>
-            <p className="text-2xl font-bold text-primary">10+</p>
-            <p className="text-sm text-muted-foreground">Countries Served</p>
-          </div>
-          <div className="flex flex-col items-center">
-            <div className="flex items-center gap-1 text-primary">
-              <Star className="h-5 w-5 fill-primary" />
-              <span className="text-2xl font-bold">4.9</span>
-            </div>
-            <p className="text-sm text-muted-foreground">Average Rating</p>
-          </div>
-        </div>
-      </section>
+      <TrustTrip />
 
       {/* Services overview grid */}
       <section className="container mx-auto px-4 py-16">
-        <div className="mx-auto mb-10 max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight">Our Services</h2>
-          <p className="mt-3 text-muted-foreground">
-            Everything you need to build and grow your digital presence, under
-            one roof.
-          </p>
-        </div>
+        <Heading
+          title="We Offering"
+          titleClassName="text-center"
+          subTitleClassName="text-center"
+          subTitle="Everything you need to build and grow your digital presence, under
+            one roof."
+          className="mx-auto"
+        />
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {services.map((service: any) => (
             <Link
@@ -138,7 +107,7 @@ export default async function HomePage() {
           ))}
         </div>
         <div className="mt-8 text-center">
-          <Button asChild variant="outline">
+          <Button asChild variant="link" className="bg-brand text-slate-50">
             <Link href="/services">
               View All Services <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
@@ -161,14 +130,22 @@ export default async function HomePage() {
       {/* Engagement model */}
       <section className="container mx-auto px-4 py-16">
         <div className="mx-auto max-w-3xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight">How We Work</h2>
-          <p className="mt-4 text-muted-foreground">
-            We price by project, not by the hour — so you know the full cost
+          <Heading
+            title="How We Work"
+            titleClassName="text-center"
+            subTitleClassName="text-center"
+            subTitle="            We price by project, not by the hour — so you know the full cost
             upfront. Need more than one service? Our Combo/All-in-One Package
             bundles Website, Social Media, SEO, and Content Writing at a
-            discounted combined rate.
-          </p>
-          <Button asChild size="lg" className="mt-6">
+            discounted combined rate."
+            className="mx-auto"
+          />
+          <Button
+            asChild
+            variant="link"
+            size="lg"
+            className="mt-6 bg-brand text-slate-50"
+          >
             <Link href="/services">
               Explore Packages <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
@@ -177,12 +154,14 @@ export default async function HomePage() {
       </section>
 
       {/* Portfolio highlights */}
-      {portfolioItems.length > 0 && (
-        <section className="bg-muted/30 py-16">
-          <div className="container mx-auto px-4">
-            <div className="mx-auto mb-10 max-w-2xl text-center">
-              <h2 className="text-3xl font-bold tracking-tight">Recent Work</h2>
-            </div>
+      <section className="bg-muted/30 py-16">
+        <div className="container mx-auto px-4">
+          <Heading
+            title="Recent Work"
+            titleClassName="text-center tracking-tight"
+            className="mx-auto"
+          />
+          {portfolioItems.length > 0 && (
             <div className="grid gap-6 sm:grid-cols-3">
               {portfolioItems.map((item: any) => (
                 <Link
@@ -207,25 +186,25 @@ export default async function HomePage() {
                 </Link>
               ))}
             </div>
-            <div className="mt-8 text-center">
-              <Button asChild variant="outline">
-                <Link href="/portfolio">
-                  View All Work <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-            </div>
+          )}
+          <div className="mt-8 text-center">
+            <Button asChild variant="link" className="bg-brand text-slate-50">
+              <Link href="/portfolio">
+                View All Work <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
           </div>
-        </section>
-      )}
+        </div>
+      </section>
 
       {/* Testimonials */}
-      {testimonials.length > 0 && (
-        <section className="container mx-auto px-4 py-16">
-          <div className="mx-auto mb-10 max-w-2xl text-center">
-            <h2 className="text-3xl font-bold tracking-tight">
-              What Clients Say
-            </h2>
-          </div>
+      <section className="container mx-auto px-4 py-16">
+        <div className="mx-auto mb-10 max-w-2xl text-center">
+          <h2 className="text-3xl font-bold tracking-tight">
+            What Clients Say
+          </h2>
+        </div>
+        {testimonials.length > 0 && (
           <div className="grid gap-6 sm:grid-cols-2">
             {testimonials.map((t: any) => (
               <div key={t._id} className="rounded-lg border p-6">
@@ -246,8 +225,8 @@ export default async function HomePage() {
               </div>
             ))}
           </div>
-        </section>
-      )}
+        )}
+      </section>
 
       {/* Global presence */}
       {settings?.offices?.length > 0 && (
