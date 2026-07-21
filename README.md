@@ -66,6 +66,26 @@ app
 }
 ```
 
+| Category           | Tech                                                                    |
+| ------------------ | ----------------------------------------------------------------------- |
+| Framework          | Next.js 16 (App Router)                                                 |
+| Language           | TypeScript                                                              |
+| Styling            | Tailwind CSS + Shadcn UI                                                |
+| Database           | MongoDB Atlas                                                           |
+| ODM                | Mongoose                                                                |
+| Authentication     | Auth.js (NextAuth v5)                                                   |
+| Forms              | React Hook Form + Zod                                                   |
+| Rich Text Editor   | Tiptap                                                                  |
+| Calendar           | React Day Picker                                                        |
+| Image Upload       | Cloudinary                                                              |
+| Email              | Resend                                                                  |
+| Spam Protection    | Google reCAPTCHA v3                                                     |
+| Animations         | Framer Motion                                                           |
+| Data Table         | TanStack Table                                                          |
+| Notifications      | Sonner                                                                  |
+| Charts (Dashboard) | Recharts                                                                |
+| Deployment         | Vercel (easy) or Hostinger VPS with Coolify (as requested in the brief) |
+
 # Core Features
 
 1. Project
