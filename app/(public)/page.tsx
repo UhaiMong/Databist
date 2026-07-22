@@ -19,6 +19,7 @@ import BookingWidget from "@/app/components/public/booking/BookingWidget";
 import FaqAccordion from "@/app/components/public/faq/FaqAccordion";
 import TrustTrip from "./components/TrustStrip";
 import { Heading } from "./components/DynamicHeading";
+import GlobalPresence from "./components/GlobePresence";
 
 export const metadata: Metadata = {
   title: "Digital Resolution | Web Development & Digital Marketing Agency",
@@ -227,35 +228,7 @@ export default async function HomePage() {
           </div>
         )}
       </section>
-
-      {/* Global presence */}
-      {settings?.offices?.length > 0 && (
-        <section className="bg-muted/30 py-16">
-          <div className="container mx-auto px-4">
-            <div className="mx-auto mb-10 max-w-2xl text-center">
-              <h2 className="text-3xl font-bold tracking-tight">
-                Global Presence
-              </h2>
-            </div>
-            <div className="mx-auto grid max-w-3xl gap-6 sm:grid-cols-2">
-              {settings.offices.map((office: any) => (
-                <div
-                  key={office.label}
-                  className="flex gap-4 rounded-lg border bg-background p-6"
-                >
-                  <MapPin className="mt-1 h-5 w-5 shrink-0 text-primary" />
-                  <div>
-                    <p className="font-semibold">{office.label}</p>
-                    <p className="mt-1 text-sm text-muted-foreground">
-                      {office.address}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
+      <GlobalPresence settings={settings} />
 
       {/* Booking widget */}
       <section id="booking" className="container mx-auto px-4 py-16">
