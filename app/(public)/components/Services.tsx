@@ -24,7 +24,7 @@ export default function Services({ services }: { services: any }) {
           >
             <h3 className="font-semibold">{service.name}</h3>
             <p className="mt-1 text-sm font-medium text-primary">
-              {service.priceLabel}
+              $ {service.priceLabel}
             </p>
             <p className="mt-2 line-clamp-2 text-sm text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100">
               {service.shortDescription}

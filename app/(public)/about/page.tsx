@@ -34,7 +34,7 @@ export default async function AboutUsPage() {
   const offices = await getOffices();
 
   return (
-    <section className="mt-18">
+    <section className="mt-16">
       <HeaderBannerSection
         title="Digital Resolution"
         subtitle="Connecting offices and clients worldwide"

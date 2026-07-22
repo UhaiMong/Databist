@@ -35,7 +35,7 @@ export default async function ServicesPage() {
   const regular = services.filter((s: any) => !s.isCombo);
 
   return (
-    <section className="mt-18">
+    <section className="mt-16">
       <HeaderBannerSection
         title="What we provide you"
         subtitle="Choice one, visulaize your brand in the world"
@@ -52,7 +52,7 @@ export default async function ServicesPage() {
         </p>
       </div>
 
-      <div className="container mx-auto px-4 py-16 ">
+      <div className="container md:max-w-5xl w-full mx-auto px-4 py-16 ">
         {combo && (
           <Card className="mb-10 border-primary bg-primary/5">
             <CardHeader>
@@ -61,7 +61,7 @@ export default async function ServicesPage() {
             </CardHeader>
             <CardContent className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
               <div>
-                <p className="text-lg font-semibold">{combo.priceLabel}</p>
+                <p className="text-lg font-bold">$ {combo.priceLabel}</p>
                 <p className="mt-1 text-muted-foreground">
                   {combo.shortDescription}
                 </p>

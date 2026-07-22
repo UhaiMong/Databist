@@ -24,7 +24,7 @@ export default async function PortfolioPage() {
   const items = await getPortfolioItems();
 
   return (
-    <section className="mt-18">
+    <section className="mt-16">
       <HeaderBannerSection
         title="To Visualize Development"
         subtitle="Seamless visualization of your thinking"

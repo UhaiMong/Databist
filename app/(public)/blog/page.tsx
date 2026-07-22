@@ -50,7 +50,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
   const { posts, totalPages, categories } = await getPosts(page, category);
 
   return (
-    <section className="mt-18">
+    <section className="mt-16">
       <HeaderBannerSection
         title="Our Insights"
         subtitle="A global impact of techlogies is the part of Databist"
