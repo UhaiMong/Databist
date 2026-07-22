@@ -5,6 +5,7 @@ import connectDB from "@/lib/db/connectDB";
 import { Blog } from "@/lib/models";
 import { Badge } from "@/app/components/ui/badge";
 import { Button } from "@/app/components/ui/button";
+import HeaderBannerSection from "../components/HeaderBannerSection";
 
 export const metadata: Metadata = {
   title: "Blog | Digital Resolution",
@@ -49,64 +50,75 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
   const { posts, totalPages, categories } = await getPosts(page, category);
 
   return (
-    <section className="container mx-auto px-4 py-16 mt-7">
-      <div className="mx-auto mb-10 max-w-2xl text-center">
-        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Blog</h1>
+    <section className="mt-18">
+      <HeaderBannerSection
+        title="Our Insights"
+        subtitle="A global impact of techlogies is the part of Databist"
+        imageSrc="/blogBanner.jpg"
+        overlayClass="bg-linear-to-b from-brand/30 via-brand-dark/40 to-brand/70"
+      />
+      <div className="mx-auto mb-10 max-w-2xl text-center mt-4 py-3.5">
+        <h1 className="text-2xl font-bold tracking-tight md:text-3xl inline-block bg-linear-to-r from-indigo-600 via-pink-500 to-indigo-700 bg-clip-text text-transparent">
+          Recent Article
+        </h1>
         <p className="mt-3 text-muted-foreground">
           Insights on web development, design, SEO, and digital marketing.
         </p>
       </div>
-
-      <div className="mb-8 flex flex-wrap justify-center gap-2">
-        <Link href="/blog">
-          <Badge variant={!category ? "default" : "outline"}>All</Badge>
-        </Link>
-        {categories.map((cat) => (
-          <Link key={cat} href={`/blog?category=${encodeURIComponent(cat)}`}>
-            <Badge variant={category === cat ? "default" : "outline"}>
-              {cat}
-            </Badge>
+      <div className="container mx-auto px-4 py-16">
+        <div className="mb-8 flex flex-wrap justify-center gap-2">
+          <Link href="/blog">
+            <Badge variant={!category ? "default" : "outline"}>All</Badge>
           </Link>
-        ))}
-      </div>
-
-      {posts.length === 0 ? (
-        <p className="text-center text-muted-foreground">No articles found.</p>
-      ) : (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {posts.map((post: any) => (
-            <Link
-              key={post.slug}
-              href={`/blog/${post.slug}`}
-              className="group overflow-hidden rounded-lg border"
-            >
-              <div className="relative aspect-video overflow-hidden bg-muted">
-                {post.featuredImage && (
-                  <Image
-                    src={post.featuredImage}
-                    alt={post.title}
-                    fill
-                    className="object-cover transition-transform group-hover:scale-105"
-                  />
-                )}
-              </div>
-              <div className="p-4">
-                <Badge variant="secondary" className="mb-2">
-                  {post.category}
-                </Badge>
-                <h2 className="font-semibold leading-snug">{post.title}</h2>
-                <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">
-                  {post.excerpt}
-                </p>
-                <p className="mt-3 text-xs text-muted-foreground">
-                  {new Date(post.publishedAt).toLocaleDateString()} ·{" "}
-                  {post.readingTimeMinutes} min read
-                </p>
-              </div>
+          {categories.map((cat) => (
+            <Link key={cat} href={`/blog?category=${encodeURIComponent(cat)}`}>
+              <Badge variant={category === cat ? "default" : "outline"}>
+                {cat}
+              </Badge>
             </Link>
           ))}
         </div>
-      )}
+
+        {posts.length === 0 ? (
+          <p className="text-center text-muted-foreground">
+            No articles found.
+          </p>
+        ) : (
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {posts.map((post: any) => (
+              <Link
+                key={post.slug}
+                href={`/blog/${post.slug}`}
+                className="group overflow-hidden rounded-lg border"
+              >
+                <div className="relative aspect-video overflow-hidden bg-muted">
+                  {post.featuredImage && (
+                    <Image
+                      src={post.featuredImage}
+                      alt={post.title}
+                      fill
+                      className="object-cover transition-transform group-hover:scale-105"
+                    />
+                  )}
+                </div>
+                <div className="p-4">
+                  <Badge variant="secondary" className="mb-2">
+                    {post.category}
+                  </Badge>
+                  <h2 className="font-semibold leading-snug">{post.title}</h2>
+                  <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">
+                    {post.excerpt}
+                  </p>
+                  <p className="mt-3 text-xs text-muted-foreground">
+                    {new Date(post.publishedAt).toLocaleDateString()} ·{" "}
+                    {post.readingTimeMinutes} min read
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        )}
+      </div>
 
       {totalPages > 1 && (
         <div className="mt-10 flex justify-center gap-2">

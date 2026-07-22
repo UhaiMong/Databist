@@ -4,6 +4,8 @@ import connectDB from "@/lib/db/connectDB";
 import { SiteSettings } from "@/lib/models";
 import { Button } from "@/app/components/ui/button";
 import { MapPin, ArrowRight } from "lucide-react";
+import TrustTrip from "../components/TrustStrip";
+import HeaderBannerSection from "../components/HeaderBannerSection";
 
 export const metadata: Metadata = {
   title: "About Us | Digital Resolution",
@@ -32,9 +34,15 @@ export default async function AboutUsPage() {
   const offices = await getOffices();
 
   return (
-    <section className="container mx-auto px-4 py-16 mt-7">
-      <div className="mx-auto max-w-3xl text-center">
-        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
+    <section className="mt-18">
+      <HeaderBannerSection
+        title="Digital Resolution"
+        subtitle="Connecting offices and clients worldwide"
+        imageSrc="/aboutBanner.jpg"
+        overlayClass="bg-linear-to-b from-brand/30 via-brand-dark/40 to-brand/70"
+      />
+      <div className="mx-auto max-w-3xl text-center mt-4 py-3.5">
+        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl inline-block bg-linear-to-r from-indigo-500 to-pink-500 bg-clip-text text-transparent">
           About Digital Resolution
         </h1>
         <p className="mt-4 text-lg text-muted-foreground">
@@ -44,15 +52,7 @@ export default async function AboutUsPage() {
         </p>
       </div>
 
-      <div className="mx-auto mt-12 grid max-w-4xl gap-4 sm:grid-cols-4">
-        {MILESTONES.map((m) => (
-          <div key={m.label} className="rounded-lg border p-6 text-center">
-            <p className="text-3xl font-bold text-primary">{m.value}</p>
-            <p className="mt-1 text-sm text-muted-foreground">{m.label}</p>
-          </div>
-        ))}
-      </div>
-
+      <TrustTrip />
       <div className="mx-auto mt-16 max-w-3xl space-y-4">
         <h2 className="text-2xl font-semibold">
           Why Choose Digital Resolution
@@ -66,7 +66,7 @@ export default async function AboutUsPage() {
       </div>
 
       <div className="mx-auto mt-16 max-w-4xl">
-        <h2 className="mb-6 text-center text-2xl font-semibold">Our Offices</h2>
+        <h2 className="mb-6 text-center text-2xl font-semibold">We located_</h2>
         <div className="grid gap-6 sm:grid-cols-2">
           {offices.map((office: any) => (
             <div

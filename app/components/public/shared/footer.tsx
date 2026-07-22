@@ -37,9 +37,18 @@ export function PublicFooter() {
   };
 
   return (
-    <footer className="bg-brand text-white">
+    <footer className="relative text-white">
+      <Image
+        src="/virtualOffice.jpg"
+        alt="Digital Resolution Logo"
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover object-center"
+      />
+      <div className="absolute inset-0 z-10 bg-brand/80" />
       {/* Main Footer Content Container */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16 z-20 relative">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* Column 1: Company Branding & Socials */}
           <div className="flex flex-col space-y-6">

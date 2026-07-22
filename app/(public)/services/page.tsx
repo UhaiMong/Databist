@@ -11,6 +11,7 @@ import {
 } from "@/app/components/ui/card";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/app/components/ui/button";
+import HeaderBannerSection from "../components/HeaderBannerSection";
 
 export const metadata: Metadata = {
   title: "Our Services | Digital Resolution",
@@ -34,9 +35,15 @@ export default async function ServicesPage() {
   const regular = services.filter((s: any) => !s.isCombo);
 
   return (
-    <section className="container mx-auto px-4 py-16 mt-7">
-      <div className="mx-auto mb-12 max-w-2xl text-center">
-        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
+    <section className="mt-18">
+      <HeaderBannerSection
+        title="What we provide you"
+        subtitle="Choice one, visulaize your brand in the world"
+        imageSrc="/serviceBanner.jpg"
+        overlayClass="bg-linear-to-b from-brand/30 via-brand-dark/40 to-brand/70"
+      />
+      <div className="mx-auto mb-12 max-w-2xl text-center mt-4 py-3.5">
+        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl inline-block bg-linear-to-r from-indigo-500 to-pink-500 bg-clip-text text-transparent">
           Our Service Packages
         </h1>
         <p className="mt-3 text-muted-foreground">
@@ -45,57 +52,59 @@ export default async function ServicesPage() {
         </p>
       </div>
 
-      {combo && (
-        <Card className="mb-10 border-primary bg-primary/5">
-          <CardHeader>
-            <Badge className="w-fit">Best Value</Badge>
-            <CardTitle className="text-2xl">{combo.name}</CardTitle>
-          </CardHeader>
-          <CardContent className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-            <div>
-              <p className="text-lg font-semibold">{combo.priceLabel}</p>
-              <p className="mt-1 text-muted-foreground">
-                {combo.shortDescription}
-              </p>
-            </div>
-            <Button asChild>
-              <Link href={`/services/${combo.slug}`}>
-                View Bundle <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
-          </CardContent>
-        </Card>
-      )}
-
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {regular.map((service: any) => (
-          <Card key={service.slug} className="flex flex-col justify-between">
+      <div className="container mx-auto px-4 py-16 ">
+        {combo && (
+          <Card className="mb-10 border-primary bg-primary/5">
             <CardHeader>
-              <CardTitle>{service.name}</CardTitle>
-              <p className="text-sm font-medium text-primary">
-                {service.priceLabel}
-              </p>
+              <Badge className="w-fit">Best Value</Badge>
+              <CardTitle className="text-2xl">{combo.name}</CardTitle>
             </CardHeader>
-            <CardContent className="flex flex-1 flex-col justify-between gap-4">
-              <p className="text-sm text-muted-foreground">
-                {service.shortDescription}
-              </p>
-              <Button asChild variant="outline" className="w-full">
-                <Link href={`/services/${service.slug}`}>
-                  View Details <ArrowRight className="ml-2 h-4 w-4" />
+            <CardContent className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+              <div>
+                <p className="text-lg font-semibold">{combo.priceLabel}</p>
+                <p className="mt-1 text-muted-foreground">
+                  {combo.shortDescription}
+                </p>
+              </div>
+              <Button asChild>
+                <Link href={`/services/${combo.slug}`}>
+                  View Bundle <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
             </CardContent>
           </Card>
-        ))}
-      </div>
+        )}
 
-      <div className="mt-12 text-center">
-        <Button asChild size="lg">
-          <Link href="/booking">
-            Not sure which package fits? Book a Consultation
-          </Link>
-        </Button>
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {regular.map((service: any) => (
+            <Card key={service.slug} className="flex flex-col justify-between">
+              <CardHeader>
+                <CardTitle>{service.name}</CardTitle>
+                <p className="text-sm font-medium text-primary">
+                  {service.priceLabel}
+                </p>
+              </CardHeader>
+              <CardContent className="flex flex-1 flex-col justify-between gap-4">
+                <p className="text-sm text-muted-foreground">
+                  {service.shortDescription}
+                </p>
+                <Button asChild variant="outline" className="w-full">
+                  <Link href={`/services/${service.slug}`}>
+                    View Details <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        <div className="mt-12 text-center">
+          <Button asChild size="lg">
+            <Link href="/booking">
+              Not sure which package fits? Book a Consultation
+            </Link>
+          </Button>
+        </div>
       </div>
     </section>
   );

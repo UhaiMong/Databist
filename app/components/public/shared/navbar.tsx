@@ -83,7 +83,7 @@ export function PublicNavbar() {
                 asChild
                 variant="link"
                 size="sm"
-                className={cn("text-md font-bold", "bg-white text-brand")}
+                className={cn("text-md font-bold", "bg-brand text-slate-50")}
               >
                 <Link href="/contact">Hire Us</Link>
               </Button>
