@@ -26,9 +26,9 @@ export default function IndustriesGrid({ industries }: IndustriesGridProps) {
         return (
           <div
             key={industry.name}
-            className="flex flex-col items-center gap-3 rounded-lg border bg-background p-6 text-center"
+            className="flex flex-col items-center gap-3 rounded-lg bg-brand text-slate-50 p-6 text-center"
           >
-            <IconComponent className="h-8 w-8 text-primary" />
+            <IconComponent className="h-8 w-8 text-slate-50" />
             <p className="text-sm font-medium">{industry.name}</p>
           </div>
         );

@@ -10,7 +10,7 @@ const INDUSTRIES = [
 
 export default function Industries() {
   return (
-    <section className="bg-muted/30 py-16">
+    <section className="bg-brand/60 py-16">
       <div className="container mx-auto px-4">
         <div className="mx-auto mb-10 max-w-2xl text-center">
           <h2 className="text-3xl font-bold tracking-tight">
