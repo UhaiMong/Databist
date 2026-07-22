@@ -1,4 +1,5 @@
-import { Schema, model, models } from "mongoose";
+import mongoose, { Schema, model, models } from "mongoose";
+import slugify from "slugify";
 
 const ProcessStepSchema = new Schema(
   {
@@ -39,6 +40,19 @@ const ServicePackageSchema = new Schema(
   },
   { timestamps: true },
 );
+
+// Pre-save slug auto generate
+ServicePackageSchema.pre("save", async function () {
+  if (!this.isModified("name")) return;
+
+  let baseSlug = slugify(this.name, { lower: true, strict: true });
+  let slug = baseSlug;
+  let counter = 1;
+  while (await mongoose.models.ServicePackage.findOne({ slug })) {
+    slug = `${baseSlug}-${counter++}`;
+  }
+  this.slug = slug;
+});
 
 ServicePackageSchema.index({ order: 1 });
 

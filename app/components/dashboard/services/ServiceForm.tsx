@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -10,6 +10,7 @@ import { Label } from "../../ui/label";
 import { Textarea } from "../../ui/textarea";
 import { Switch } from "../../ui/switch";
 import { Card, CardContent } from "../../ui/card";
+import slugify from "slugify";
 import { Plus, Trash2 } from "lucide-react";
 import {
   servicePackageSchema,
@@ -24,6 +25,7 @@ interface ServiceFormProps {
 export default function ServiceForm({ mode, initialData }: ServiceFormProps) {
   const router = useRouter();
   const [error, setError] = useState("");
+  const [slugPreview, setSlugPreview] = useState("");
 
   const {
     register,
@@ -33,8 +35,14 @@ export default function ServiceForm({ mode, initialData }: ServiceFormProps) {
     watch,
     setValue,
   } = useForm<ServicePackageValues>({
-    resolver: zodResolver(servicePackageSchema),
+    resolver: zodResolver(servicePackageSchema as any),
     defaultValues: initialData ?? {
+      name: "",
+      priceLabel: "",
+      shortDescription: "",
+      longDescription: "",
+      heroImage: "",
+      isCombo: false,
       inclusions: [""],
       processSteps: [],
       faqs: [],
@@ -49,6 +57,13 @@ export default function ServiceForm({ mode, initialData }: ServiceFormProps) {
 
   const status = watch("status");
 
+  useEffect(() => {
+    const name = watch("name");
+    if (!name) return;
+    const generateSluge = slugify(name, { lower: true, strict: true });
+    setSlugPreview(generateSluge);
+    setValue("slug", generateSluge, { shouldValidate: true });
+  }, [watch("name")]);
   async function onSubmit(values: ServicePackageValues) {
     setError("");
 
@@ -82,7 +97,11 @@ export default function ServiceForm({ mode, initialData }: ServiceFormProps) {
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-2">
               <Label htmlFor="name">Name</Label>
-              <Input id="name" {...register("name")} />
+              <Input
+                id="name"
+                placeholder="e.g. Realstate web application"
+                {...register("name")}
+              />
               {errors.name && (
                 <p className="text-sm text-destructive">
                   {errors.name.message}
@@ -93,6 +112,7 @@ export default function ServiceForm({ mode, initialData }: ServiceFormProps) {
               <Label htmlFor="slug">Slug</Label>
               <Input
                 id="slug"
+                readOnly
                 {...register("slug")}
                 placeholder="website-package"
               />

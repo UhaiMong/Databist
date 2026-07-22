@@ -30,8 +30,12 @@ export async function GET(req: NextRequest, { params }: RouteParams) {
   }
 }
 
-export async function PATCH(req: NextRequest, { params }: RouteParams) {
+export async function PATCH(
+  req: NextRequest,
+  { params }: { params: Promise<{ slug: string }> },
+) {
   try {
+    const { slug } = await params;
     const body = await req.json();
     const parsed = servicePackageSchema.partial().safeParse(body);
 
@@ -50,7 +54,7 @@ export async function PATCH(req: NextRequest, { params }: RouteParams) {
 
     try {
       const updated = await ServicePackage.findOneAndUpdate(
-        { slug: params.slug },
+        { slug },
         parsed.data,
         { new: true },
       );
