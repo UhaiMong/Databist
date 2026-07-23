@@ -7,11 +7,14 @@ interface RouteParams {
   params: { slug: string };
 }
 
-export async function GET(req: NextRequest, { params }: RouteParams) {
+export async function GET(
+  req: NextRequest,
+  { params }: { params: Promise<{ slug: string }> },
+) {
   try {
     await connectDB();
-
-    const item = await Portfolio.findOne({ slug: params.slug }).lean();
+    const { slug } = await params;
+    const item = await Portfolio.findOne({ slug }).lean();
 
     if (!item) {
       return NextResponse.json(
@@ -30,11 +33,14 @@ export async function GET(req: NextRequest, { params }: RouteParams) {
   }
 }
 
-export async function PATCH(req: NextRequest, { params }: RouteParams) {
+export async function PATCH(
+  req: NextRequest,
+  { params }: { params: Promise<{ slug: string }> },
+) {
   try {
     const body = await req.json();
     const parsed = portfolioSchema.partial().safeParse(body);
-
+    const { slug } = await params;
     if (!parsed.success) {
       return NextResponse.json(
         {
@@ -48,11 +54,9 @@ export async function PATCH(req: NextRequest, { params }: RouteParams) {
 
     await connectDB();
 
-    const updated = await Portfolio.findOneAndUpdate(
-      { slug: params.slug },
-      parsed.data,
-      { new: true },
-    );
+    const updated = await Portfolio.findOneAndUpdate({ slug }, parsed.data, {
+      new: true,
+    });
 
     if (!updated) {
       return NextResponse.json(
@@ -71,11 +75,14 @@ export async function PATCH(req: NextRequest, { params }: RouteParams) {
   }
 }
 
-export async function DELETE(req: NextRequest, { params }: RouteParams) {
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: Promise<{ slug: string }> },
+) {
   try {
     await connectDB();
-
-    const deleted = await Portfolio.findOneAndDelete({ slug: params.slug });
+    const { slug } = await params;
+    const deleted = await Portfolio.findOneAndDelete({ slug });
 
     if (!deleted) {
       return NextResponse.json(

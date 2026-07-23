@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,6 +11,7 @@ import { Textarea } from "../../ui/textarea";
 import { Card, CardContent } from "../../ui/card";
 import { Switch } from "../../ui/switch";
 import { portfolioSchema } from "@/lib/validations/misc";
+import slugify from "slugify";
 import { z } from "zod";
 
 type PortfolioValues = z.infer<typeof portfolioSchema>;
@@ -26,6 +27,7 @@ export default function PortfolioForm({
 }: PortfolioFormProps) {
   const router = useRouter();
   const [error, setError] = useState("");
+  const [slugPreview, setSlugPreview] = useState("");
 
   const {
     register,
@@ -34,11 +36,19 @@ export default function PortfolioForm({
     setValue,
     formState: { errors, isSubmitting },
   } = useForm<PortfolioValues>({
-    resolver: zodResolver(portfolioSchema),
-    defaultValues: initialData ?? { status: "draft", order: 0 },
+    resolver: zodResolver(portfolioSchema as any),
+    defaultValues: initialData ?? { status: "completed", order: 0 },
   });
 
   const status = watch("status");
+
+  useEffect(() => {
+    const title = watch("title");
+    if (!title) return;
+    const generateSlug = slugify(title, { lower: true, strict: true });
+    setSlugPreview(generateSlug);
+    setValue("slug", generateSlug, { shouldValidate: true });
+  }, [watch("title")]);
 
   async function onSubmit(values: PortfolioValues) {
     setError("");
@@ -73,7 +83,11 @@ export default function PortfolioForm({
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-2">
               <Label htmlFor="title">Title</Label>
-              <Input id="title" {...register("title")} />
+              <Input
+                id="title"
+                placeholder="Success Hub"
+                {...register("title")}
+              />
               {errors.title && (
                 <p className="text-sm text-destructive">
                   {errors.title.message}
@@ -82,7 +96,12 @@ export default function PortfolioForm({
             </div>
             <div className="space-y-2">
               <Label htmlFor="slug">Slug</Label>
-              <Input id="slug" {...register("slug")} />
+              <Input
+                id="slug"
+                placeholder="success-hub"
+                readOnly
+                {...register("slug")}
+              />
               {errors.slug && (
                 <p className="text-sm text-destructive">
                   {errors.slug.message}
@@ -107,17 +126,26 @@ export default function PortfolioForm({
             </div>
             <div className="space-y-2">
               <Label htmlFor="thumbnail">Thumbnail Image URL</Label>
-              <Input id="thumbnail" {...register("thumbnail")} />
+              <Input
+                id="thumbnail"
+                placeholder="https://www.img.come"
+                {...register("thumbnail")}
+              />
             </div>
             <div className="space-y-2">
               <Label htmlFor="externalLink">External Link (optional)</Label>
-              <Input id="externalLink" {...register("externalLink")} />
+              <Input
+                id="externalLink"
+                placeholder="https://successhub.net"
+                {...register("externalLink")}
+              />
             </div>
             <div className="space-y-2">
               <Label htmlFor="order">Display Order</Label>
               <Input
                 id="order"
                 type="number"
+                placeholder="e.g. 1"
                 {...register("order", { valueAsNumber: true })}
               />
             </div>
@@ -125,13 +153,19 @@ export default function PortfolioForm({
 
           <div className="space-y-2">
             <Label htmlFor="summary">Summary</Label>
-            <Textarea id="summary" rows={3} {...register("summary")} />
+            <Textarea
+              id="summary"
+              placeholder="Success hub is a university alumni management system.."
+              rows={3}
+              {...register("summary")}
+            />
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="resultsSummary">Results Summary (optional)</Label>
             <Textarea
               id="resultsSummary"
+              placeholder="e.g. Alumni directory, Networking..."
               rows={2}
               {...register("resultsSummary")}
             />
@@ -139,12 +173,23 @@ export default function PortfolioForm({
 
           <div className="flex items-center gap-2">
             <Switch
-              checked={status === "published"}
+              className=""
+              checked={status === "completed"}
               onCheckedChange={(v) =>
-                setValue("status", v ? "published" : "draft")
+                setValue("status", v ? "completed" : "under-development")
               }
             />
-            <Label>Published</Label>
+            <Label>Project status</Label>
+          </div>
+          {/* Description */}
+          <div className="space-y-2">
+            <Label htmlFor="description">Description (optional)</Label>
+            <Textarea
+              id="description"
+              placeholder="Full details about the project"
+              rows={4}
+              {...register("description")}
+            />
           </div>
         </CardContent>
       </Card>
@@ -152,7 +197,11 @@ export default function PortfolioForm({
       {error && <p className="text-sm text-destructive">{error}</p>}
 
       <div className="flex gap-3">
-        <Button type="submit" disabled={isSubmitting}>
+        <Button
+          className="bg-brand text-slate-50 cursor-pointer"
+          type="submit"
+          disabled={isSubmitting}
+        >
           {isSubmitting
             ? "Saving..."
             : mode === "create"
@@ -160,6 +209,7 @@ export default function PortfolioForm({
               : "Save Changes"}
         </Button>
         <Button
+          className="text-slate-50 bg-brand"
           type="button"
           variant="outline"
           onClick={() => router.push("/dashboard/portfolio")}

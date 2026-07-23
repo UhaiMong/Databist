@@ -13,20 +13,26 @@ export const testimonialSchema = z.object({
   order: z.number().int().default(0),
 });
 
+// Portfolio
 export const portfolioSchema = z.object({
   title: z.string().min(2).max(150),
   slug: z
     .string()
     .min(2)
-    .regex(/^[a-z0-9-]+$/),
+    .max(100)
+    .regex(
+      /^[a-z0-9-]+$/,
+      "Slug must be lowercase, alphanumeric, hyphens only",
+    ),
   thumbnail: z.string().min(1),
   serviceType: z.string().min(1),
   industry: z.string().min(1),
   summary: z.string().min(10).max(500),
   resultsSummary: z.string().optional(),
+  description: z.string().optional(),
   externalLink: z.string().url().optional().or(z.literal("")),
   order: z.number().int().default(0),
-  status: z.enum(["draft", "published"]).default("draft"),
+  status: z.enum(["under-development", "completed"]).default("completed"),
 });
 
 export const faqGlobalSchema = z.object({

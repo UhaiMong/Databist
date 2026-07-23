@@ -6,7 +6,7 @@ import connectDB from "@/lib/db/connectDB";
 import { Portfolio } from "@/lib/models";
 import { Badge } from "@/app/components/ui/badge";
 import { Button } from "@/app/components/ui/button";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRightSquare } from "lucide-react";
 
 interface PortfolioDetailPageProps {
   params: Promise<{ slug: string }>;
@@ -14,7 +14,7 @@ interface PortfolioDetailPageProps {
 
 async function getItem(slug: string) {
   await connectDB();
-  const item = await Portfolio.findOne({ slug, status: "published" }).lean();
+  const item = await Portfolio.findOne({ slug, status: "completed" }).lean();
   return item ? JSON.parse(JSON.stringify(item)) : null;
 }
 
@@ -43,7 +43,7 @@ export default async function PortfolioDetailPage({
   if (!item) notFound();
 
   return (
-    <article className="container mx-auto px-4 py-16">
+    <article className="container mx-auto px-4 py-16 mt-16">
       <div className="mx-auto max-w-3xl">
         <Link
           href="/portfolio"
@@ -66,6 +66,7 @@ export default async function PortfolioDetailPage({
             src={item.thumbnail}
             alt={item.title}
             fill
+            loading="eager"
             className="object-cover"
           />
         </div>
@@ -83,6 +84,18 @@ export default async function PortfolioDetailPage({
             <p className="whitespace-pre-line text-muted-foreground">
               {item.resultsSummary}
             </p>
+          </div>
+        )}
+        {item.externalLink && (
+          <div className="w-full text-lg font-semibold bg-brand text-slate-50 py-1 flex justify-center items-center gap-4">
+            <a
+              href={item.externalLink}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Open External
+            </a>
+            <ArrowUpRightSquare size={19} />
           </div>
         )}
 

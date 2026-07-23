@@ -14,7 +14,7 @@ export const revalidate = 60;
 
 async function getPortfolioItems() {
   await connectDB();
-  const items = await Portfolio.find({ status: "published" })
+  const items = await Portfolio.find({ status: "completed" })
     .sort({ order: 1 })
     .lean();
   return JSON.parse(JSON.stringify(items));
@@ -31,7 +31,7 @@ export default async function PortfolioPage() {
         imageSrc="/portfolioBanner.jpg"
         overlayClass="bg-linear-to-b from-brand/30 via-brand-dark/40 to-brand/70"
       />
-      <div className="mx-auto mb-10 max-w-2xl text-center mt-4 py-3.5">
+      <div className="mx-auto mb-10 max-w-2xl text-center py-3.5">
         <h1 className="text-2xl font-bold tracking-tight sm:text-3xl inline-block bg-linear-to-r from-indigo-500 to-pink-500 bg-clip-text text-transparent">
           Our Impact
         </h1>

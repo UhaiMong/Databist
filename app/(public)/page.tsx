@@ -36,7 +36,7 @@ async function getHomeData() {
         .sort({ order: 1 })
         .limit(8)
         .lean(),
-      Portfolio.find({ status: "published" })
+      Portfolio.find({ status: "completed" })
         .sort({ order: 1 })
         .limit(3)
         .lean(),
