@@ -132,6 +132,15 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+html {
+  overflow-y: scroll;
+}
+/* html[data-scroll-locked] {
+  overflow: visible !important;
+  padding-right: 0 !important;
+  margin-right: 0 !important;
+} */
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -139,7 +148,9 @@
   html,
   body {
     min-height: 100%;
+    scrollbar-gutter: stable;
   }
+
   body {
     margin: 0;
     padding: 0;
@@ -178,6 +189,11 @@
     opacity: 0.08;
     pointer-events: none;
     z-index: -1;
+  }
+  html[data-scroll-locked] {
+    overflow: visible !important;
+    padding-right: 0 !important;
+    margin-right: 0 !important;
   }
   h1,
   h2,

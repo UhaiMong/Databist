@@ -71,7 +71,9 @@ export default async function ServiceDetailPage({
           </p>
 
           <Button asChild size="lg" className="mt-6 bg-brand text-slate-50">
-            <Link href={`/booking?service=${encodeURIComponent(service.name)}`}>
+            <Link
+              href={`/booking?serviceId=${encodeURIComponent(service._id)}`}
+            >
               Book a Consultation <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </Button>
@@ -138,7 +140,7 @@ export default async function ServiceDetailPage({
               className="mt-4 bg-brand text-primary-foreground"
             >
               <Link
-                href={`/booking?service=${encodeURIComponent(service.name)}`}
+                href={`/booking?serviceId=${encodeURIComponent(service._id)}`}
               >
                 Book a Free Consultation
               </Link>

@@ -24,7 +24,7 @@ interface Booking {
   name: string;
   email: string;
   phone: string;
-  serviceOfInterest?: string;
+  serviceOfInterest?: { _id: string; name: string } | null;
   date: string;
   timeSlot: string;
   status: BookingStatus;
@@ -162,7 +162,7 @@ export default function BookingsTable({ initialBookings }: BookingsTableProps) {
                     <br />
                     {b.phone}
                   </td>
-                  <td className="p-3">{b.serviceOfInterest || "—"}</td>
+                  <td className="p-3">{b.serviceOfInterest?.name || "—"}</td>
                   <td className="p-3">
                     {b.date} · {b.timeSlot}
                   </td>

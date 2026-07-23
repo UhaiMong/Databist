@@ -6,7 +6,7 @@ const BookingSchema = new Schema(
     email: { type: String, required: true },
     phone: { type: String, required: true },
     company: { type: String },
-    serviceOfInterest: { type: String },
+    serviceOfInterest: { type: Schema.Types.ObjectId, ref: "ServicePackage" },
     message: { type: String },
     date: { type: String, required: true }, // "YYYY-MM-DD"
     timeSlot: { type: String, required: true }, // "HH:mm"

@@ -17,10 +17,8 @@ async function getData() {
     blackoutDates: JSON.parse(JSON.stringify(blackoutDates)),
   };
 }
-
 export default async function AvailabilityPage() {
   const { rules, blackoutDates } = await getData();
-
   return (
     <div className="space-y-6">
       <div>

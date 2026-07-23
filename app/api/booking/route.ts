@@ -22,7 +22,6 @@ export async function POST(req: NextRequest) {
 
     const { honeypot, ...data } = parsed.data;
 
-    // Spam protection: honeypot field must be empty
     if (honeypot) {
       return NextResponse.json(
         { success: false, message: "Spam detected" },
@@ -42,6 +41,7 @@ export async function POST(req: NextRequest) {
     try {
       const booking = await Booking.create({
         ...data,
+        serviceOfInterest: data.serviceOfInterest || undefined,
         status: "pending",
       });
 
@@ -50,7 +50,6 @@ export async function POST(req: NextRequest) {
 
       return NextResponse.json({ success: true, booking }, { status: 201 });
     } catch (err: any) {
-      // Duplicate key = slot was taken by a concurrent request
       if (err.code === 11000) {
         return NextResponse.json(
           {
@@ -79,6 +78,7 @@ export async function GET(req: NextRequest) {
     const filter = status ? { status } : {};
 
     const bookings = await Booking.find(filter)
+      .populate("serviceOfInterest", "name slug")
       .sort({ date: -1, timeSlot: 1 })
       .lean();
 

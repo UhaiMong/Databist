@@ -13,10 +13,8 @@ import {
   HelpCircle,
   MessageSquareQuote,
   Settings,
-  ChevronRight,
-  ChevronLeft,
-  ListChevronsDownUp,
   ChevronsLeftRight,
+  TimerIcon,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -24,6 +22,11 @@ const NAV_ITEMS = [
   { label: "Overview", href: "/dashboard", icon: LayoutDashboard },
   { label: "Services", href: "/dashboard/services", icon: Package },
   { label: "Bookings", href: "/dashboard/bookings", icon: CalendarCheck },
+  {
+    label: "Avalability",
+    href: "/dashboard/availability",
+    icon: TimerIcon,
+  },
   { label: "Blog", href: "/dashboard/blog", icon: Newspaper },
   { label: "Portfolio", href: "/dashboard/portfolio", icon: Images },
   { label: "FAQ", href: "/dashboard/faq", icon: HelpCircle },

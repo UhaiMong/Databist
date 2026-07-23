@@ -5,7 +5,11 @@ export const bookingFormSchema = z.object({
   email: z.string().email("Invalid email address"),
   phone: z.string().min(6, "Phone/WhatsApp number is required").max(20),
   company: z.string().max(100).optional().or(z.literal("")),
-  serviceOfInterest: z.string().max(100).optional().or(z.literal("")),
+  serviceOfInterest: z
+    .string()
+    .regex(/^[0-9a-fA-F]{24}$/, "Invalid service selected")
+    .optional()
+    .or(z.literal("")),
   message: z.string().max(1000).optional().or(z.literal("")),
   date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid date format"),
   timeSlot: z.string().regex(/^\d{2}:\d{2}$/, "Invalid time slot"),

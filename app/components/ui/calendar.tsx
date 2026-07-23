@@ -122,15 +122,15 @@ function Calendar({
           defaultClassNames.range_end,
         ),
         today: cn(
-          "rounded-(--cell-radius) bg-muted text-foreground data-[selected=true]:rounded-none",
+          "bg-brand text-white data-[selected=true]:rounded-none",
           defaultClassNames.today,
         ),
         outside: cn(
-          "text-muted-foreground aria-selected:text-muted-foreground",
+          " aria-selected:text-muted-foreground",
           defaultClassNames.outside,
         ),
         disabled: cn(
-          "text-muted-foreground opacity-50",
+          "text-slate-100 opacity-50 bg-gray-500 cursor-not-allowed",
           defaultClassNames.disabled,
         ),
         hidden: cn("invisible", defaultClassNames.hidden),
