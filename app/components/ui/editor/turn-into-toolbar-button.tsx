@@ -32,7 +32,7 @@ import {
   DropdownMenuContent,
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "../dropdown-menu";
 
 import { ToolbarButton, ToolbarMenuGroup } from "./toolbar";
 import { getBlockType, setBlockType } from "@/app/editor/transforms";
@@ -174,7 +174,7 @@ export function TurnIntoToolbarButton(props: DropdownMenuProps) {
       >
         <ToolbarMenuGroup
           value={value}
-          onValueChange={(type) => {
+          onValueChange={(type: any) => {
             setBlockType(editor, type);
           }}
           label="Turn into"

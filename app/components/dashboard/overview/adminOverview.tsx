@@ -44,7 +44,7 @@ async function getStats() {
     Booking.countDocuments({ status: "pending" }),
     ServicePackage.countDocuments({ status: "published" }),
     Blog.countDocuments({ status: "published" }),
-    Portfolio.countDocuments({ status: "published" }),
+    Portfolio.countDocuments({ status: "completed" }),
     Booking.aggregate([
       { $match: { serviceOfInterest: { $nin: [null, ""] } } },
       { $group: { _id: "$serviceOfInterest", count: { $sum: 1 } } },

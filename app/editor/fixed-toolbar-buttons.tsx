@@ -77,34 +77,43 @@ export function FixedToolbarButtons() {
         <AlignToolbarButton />
         <ToolbarButton
           tooltip="Bulleted list"
-          onClick={() => editor.tf.toggle.list({ listStyleType: KEYS.ul })}
+          onClick={() =>
+            (editor?.tf as any)?.toggle?.list?.({ listStyleType: KEYS.ul })
+          }
         >
           <ListIcon />
         </ToolbarButton>
         <ToolbarButton
           tooltip="Numbered list"
-          onClick={() => editor.tf.toggle.list({ listStyleType: KEYS.ol })}
+          onClick={() =>
+            (editor?.tf as any)?.toggle?.list?.({ listStyleType: KEYS.ol })
+          }
         >
           <ListOrderedIcon />
         </ToolbarButton>
         <ToolbarButton
           tooltip="To-do list"
           onClick={() =>
-            editor.tf.toggle.list({ listStyleType: KEYS.listTodo })
+            (editor?.tf as any)?.toggle?.list?.({
+              listStyleType: KEYS.listTodo,
+            })
           }
         >
           <SquareIcon />
         </ToolbarButton>
         <ToolbarButton
           tooltip="Quote"
-          onClick={() => editor.tf.blockquote.toggle()}
+          onClick={() => (editor?.tf as any)?.blockquote?.toggle?.()}
         >
           <QuoteIcon />
         </ToolbarButton>
         <ToolbarButton
           tooltip="Divider"
           onClick={() =>
-            editor.tf.insertNodes({ type: KEYS.hr, children: [{ text: "" }] })
+            (editor?.tf as any)?.insertNodes?.({
+              type: KEYS.hr,
+              children: [{ text: "" }],
+            })
           }
         >
           <MinusIcon />

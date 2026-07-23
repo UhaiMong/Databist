@@ -22,18 +22,12 @@ import { CodeBlockPlugin } from "@platejs/code-block/react";
 import { KEYS } from "platejs";
 import { createPlatePlugin } from "platejs/react";
 
-// import { BlockquoteElement } from "@/components/ui/blockquote-node";
-// import { H1Element, H2Element, H3Element } from "@/components/ui/heading-node";
-// import { HrElement } from "@/components/ui/hr-node";
-// import { LinkElement } from "@/components/ui/link-node";
-// import { ImageElement } from "@/components/ui/media-image-node";
 // import {
 //   CodeBlockElement,
 //   CodeLineElement,
 // } from "@/components/ui/code-block-node";
 // import { BlockList } from "@/components/ui/block-list";
-// import { FixedToolbar } from "@/components/ui/fixed-toolbar";
-// import { FixedToolbarButtons } from "@/components/editor/fixed-toolbar-buttons";
+
 import { BlockquoteElement } from "@/app/components/ui/editor/blockquote-node";
 import {
   H1Element,
