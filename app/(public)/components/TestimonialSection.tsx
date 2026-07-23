@@ -137,6 +137,7 @@ export default function TestimonialSection({
                             alt={t.clientName}
                             width={36}
                             height={36}
+                            loading="eager"
                             className="rounded-full object-cover object-center ring-1 ring-[#2A2B31]"
                           />
                         ) : (

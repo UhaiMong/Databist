@@ -3,12 +3,57 @@ import connectDB from "@/lib/db/connectDB";
 import { Blog } from "@/lib/models";
 import { blogPostSchema } from "@/lib/validations/blog";
 
-function estimateReadingTime(html: string): number {
-  const words = html
-    .replace(/<[^>]*>/g, " ")
-    .trim()
-    .split(/\s+/).length;
+function estimateReadingTime(content: unknown): number {
+  let plainText = "";
+  if (typeof content === "string") {
+    // If it's HTML or plain text string
+    if (content.startsWith("[") || content.startsWith("{")) {
+      try {
+        // Handle stringified JSON
+        const parsed = JSON.parse(content);
+        plainText = extractTextFromPlate(parsed);
+      } catch {
+        plainText = content.replace(/<[^>]*>/g, " ");
+      }
+    } else {
+      plainText = content.replace(/<[^>]*>/g, " ");
+    }
+  } else if (
+    Array.isArray(content) ||
+    (typeof content === "object" && content !== null)
+  ) {
+    // If it's already a Plate.js JSON array/object
+    plainText = extractTextFromPlate(content);
+  }
+
+  const words = plainText.trim().split(/\s+/).filter(Boolean).length;
   return Math.max(1, Math.ceil(words / 200));
+}
+
+function extractTextFromPlate(nodes: unknown): string {
+  if (!nodes) return "";
+
+  if (typeof nodes === "string") return nodes;
+
+  if (Array.isArray(nodes)) {
+    return nodes.map(extractTextFromPlate).join(" ");
+  }
+
+  if (typeof nodes === "object" && nodes !== null) {
+    const node = nodes as { text?: string; children?: unknown[] };
+
+    // If it's a leaf node containing text
+    if (typeof node.text === "string") {
+      return node.text;
+    }
+
+    // If it has children nodes (paragraphs, headings, lists, etc.)
+    if (Array.isArray(node.children)) {
+      return node.children.map(extractTextFromPlate).join(" ");
+    }
+  }
+
+  return "";
 }
 
 export async function GET(req: NextRequest) {

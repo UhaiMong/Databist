@@ -39,6 +39,8 @@ function ProjectCard({ item }: { item: any }) {
           src={item.thumbnail}
           alt={item.title}
           fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          loading="eager"
           className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
         />
 
@@ -52,7 +54,7 @@ function ProjectCard({ item }: { item: any }) {
         {/* Service type tag */}
         {item.serviceType && (
           <span
-            className="absolute left-4 top-4 rounded-full border border-[#C9A15A]/40 bg-black/30 px-2.5 py-1 text-[10px] tracking-[0.15em] text-[#C9A15A] backdrop-blur-sm"
+            className="absolute left-4 top-4 rounded-full border border-[#C9A15A]/40 bg-black/30 px-2.5 py-1 text-[11px] tracking-[0.15em] text-brand-light backdrop-blur-sm"
             style={{ fontFamily: "var(--font-plex-mono)" }}
           >
             {item.serviceType}

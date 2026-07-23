@@ -1,4 +1,5 @@
-import { Schema, model, models } from "mongoose";
+import mongoose, { Schema, model, models } from "mongoose";
+import slugify from "slugify";
 
 const BlogSchema = new Schema(
   {
@@ -11,7 +12,7 @@ const BlogSchema = new Schema(
       trim: true,
     },
     excerpt: { type: String, required: true },
-    body: { type: String, required: true }, // rich text HTML
+    body: { type: Schema.Types.Mixed, required: true },
     featuredImage: { type: String },
     category: { type: String, required: true },
     tags: { type: [String], default: [] },
@@ -30,6 +31,19 @@ const BlogSchema = new Schema(
   },
   { timestamps: true },
 );
+
+// pre save slug function
+BlogSchema.pre("save", async function () {
+  if (!this.isModified("title")) return;
+
+  let baseSlug = slugify(this.title, { lower: true, strict: true });
+  let slug = baseSlug;
+  let counter = 1;
+  while (await mongoose.models.Blog.findOne({ slug })) {
+    slug = `${baseSlug}-${counter++}`;
+  }
+  this.slug = slug;
+});
 
 BlogSchema.index({ category: 1, status: 1 });
 BlogSchema.index({ publishedAt: -1 });

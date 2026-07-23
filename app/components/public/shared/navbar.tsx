@@ -46,6 +46,8 @@ export function PublicNavbar() {
                   className="w-full h-full object-cover"
                   src={logo}
                   alt="Logo"
+                  priority
+                  loading="eager"
                   width={40}
                   height={40}
                 />
@@ -122,6 +124,8 @@ export function PublicNavbar() {
                       className="w-full h-full object-cover"
                       src={`${logo}`}
                       alt="Digital Resolution logo"
+                      priority
+                      loading="eager"
                       width={40}
                       height={40}
                     />

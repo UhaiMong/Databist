@@ -150,6 +150,7 @@ function SlideCard({
         src={slide.bannerImage}
         alt=""
         fill
+        loading="eager"
         priority={isActive}
         sizes="(min-width: 1280px) 60vw, (min-width: 1024px) 68vw, (min-width: 640px) 78vw, 86vw"
         className={cn(

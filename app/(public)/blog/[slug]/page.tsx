@@ -7,6 +7,7 @@ import { Blog } from "@/lib/models";
 import { Badge } from "@/app/components/ui/badge";
 import { Button } from "@/app/components/ui/button";
 import ShareButtons from "@/app/components/public/blog/ShareButtons";
+import { BlogReader } from "../../components/BlogReader";
 
 interface BlogArticlePageProps {
   params: Promise<{ slug: string }>;
@@ -60,7 +61,7 @@ export default async function BlogArticlePage({
   if (!post) notFound();
 
   return (
-    <article className="container mx-auto px-4 py-16">
+    <article className="container mx-auto px-4 py-16 mt-7">
       <div className="mx-auto max-w-3xl">
         <Badge variant="secondary" className="mb-3">
           {post.category}
@@ -82,15 +83,18 @@ export default async function BlogArticlePage({
               src={post.featuredImage}
               alt={post.title}
               fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              priority
               className="object-cover"
             />
           </div>
         )}
 
-        <div
+        {/* <div
           className="prose prose-neutral mt-8 max-w-none dark:prose-invert"
           dangerouslySetInnerHTML={{ __html: post.body }}
-        />
+        /> */}
+        <BlogReader body={post.body} />
 
         <ShareButtons title={post.title} />
 
@@ -106,6 +110,8 @@ export default async function BlogArticlePage({
                         src={r.featuredImage}
                         alt={r.title}
                         fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        loading="eager"
                         className="object-cover transition-transform group-hover:scale-105"
                       />
                     )}

@@ -10,7 +10,7 @@ export const blogPostSchema = z.object({
       "Slug must be lowercase, alphanumeric, hyphens only",
     ),
   excerpt: z.string().min(10).max(300),
-  body: z.string().min(20),
+  body: z.array(z.record(z.string(), z.unknown())).min(1, "Blog body cannot be empty"),
   featuredImage: z.string().optional(),
   category: z.string().min(1),
   tags: z.array(z.string()).optional().default([]),

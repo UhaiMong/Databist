@@ -7,12 +7,57 @@ interface RouteParams {
   params: { slug: string };
 }
 
-function estimateReadingTime(html: string): number {
-  const words = html
-    .replace(/<[^>]*>/g, " ")
-    .trim()
-    .split(/\s+/).length;
+function estimateReadingTime(content: unknown): number {
+  let plainText = "";
+  if (typeof content === "string") {
+    // If it's HTML or plain text string
+    if (content.startsWith("[") || content.startsWith("{")) {
+      try {
+        // Handle stringified JSON
+        const parsed = JSON.parse(content);
+        plainText = extractTextFromPlate(parsed);
+      } catch {
+        plainText = content.replace(/<[^>]*>/g, " ");
+      }
+    } else {
+      plainText = content.replace(/<[^>]*>/g, " ");
+    }
+  } else if (
+    Array.isArray(content) ||
+    (typeof content === "object" && content !== null)
+  ) {
+    // If it's already a Plate.js JSON array/object
+    plainText = extractTextFromPlate(content);
+  }
+
+  const words = plainText.trim().split(/\s+/).filter(Boolean).length;
   return Math.max(1, Math.ceil(words / 200));
+}
+
+function extractTextFromPlate(nodes: unknown): string {
+  if (!nodes) return "";
+
+  if (typeof nodes === "string") return nodes;
+
+  if (Array.isArray(nodes)) {
+    return nodes.map(extractTextFromPlate).join(" ");
+  }
+
+  if (typeof nodes === "object" && nodes !== null) {
+    const node = nodes as { text?: string; children?: unknown[] };
+
+    // If it's a leaf node containing text
+    if (typeof node.text === "string") {
+      return node.text;
+    }
+
+    // If it has children nodes (paragraphs, headings, lists, etc.)
+    if (Array.isArray(node.children)) {
+      return node.children.map(extractTextFromPlate).join(" ");
+    }
+  }
+
+  return "";
 }
 
 export async function GET(req: NextRequest, { params }: RouteParams) {
@@ -50,10 +95,14 @@ export async function GET(req: NextRequest, { params }: RouteParams) {
   }
 }
 
-export async function PATCH(req: NextRequest, { params }: RouteParams) {
+export async function PATCH(
+  req: NextRequest,
+  { params }: { params: Promise<{ slug: string }> },
+) {
   try {
     const body = await req.json();
     const parsed = blogPostSchema.partial().safeParse(body);
+    const { slug } = await params;
 
     if (!parsed.success) {
       return NextResponse.json(
@@ -75,7 +124,7 @@ export async function PATCH(req: NextRequest, { params }: RouteParams) {
       data.publishedAt = new Date();
 
     try {
-      const updated = await Blog.findOneAndUpdate({ slug: params.slug }, data, {
+      const updated = await Blog.findOneAndUpdate({ slug }, data, {
         new: true,
       });
 
@@ -105,11 +154,15 @@ export async function PATCH(req: NextRequest, { params }: RouteParams) {
   }
 }
 
-export async function DELETE(req: NextRequest, { params }: RouteParams) {
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: Promise<{ slug: string }> },
+) {
+  const { slug } = await params;
   try {
     await connectDB();
 
-    const deleted = await Blog.findOneAndDelete({ slug: params.slug });
+    const deleted = await Blog.findOneAndDelete({ slug });
 
     if (!deleted) {
       return NextResponse.json(

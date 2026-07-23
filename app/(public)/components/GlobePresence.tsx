@@ -56,7 +56,8 @@ export default function GlobalPresence({ settings }: { settings: any }) {
           alt="Global map"
           fill
           priority
-          sizes="100vw"
+          loading="eager"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="object-contain object-center"
         />
 

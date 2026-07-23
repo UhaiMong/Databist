@@ -22,7 +22,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../../ui/select";
-import { cn } from "@/app/lib/utils";
+import { cn } from "@/lib/utils";
 
 interface BookingWidgetProps {
   defaultServiceId?: string;

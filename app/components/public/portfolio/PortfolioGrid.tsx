@@ -92,6 +92,8 @@ export default function PortfolioGrid({ items }: PortfolioGridProps) {
                     src={item.thumbnail}
                     alt={item.title}
                     fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    loading="eager"
                     className="object-cover transition-transform group-hover:scale-105"
                   />
                 </div>
