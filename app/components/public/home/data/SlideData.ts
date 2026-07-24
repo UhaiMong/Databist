@@ -17,9 +17,9 @@ export const SLIDES: Slide[] = [
       "Web development, design, SEO, and marketing — all under one accountable team.",
     bannerImage: "/slide1.jpg",
     primaryButtonText: "Explore",
-    p_link: "/contact",
-    secondaryButtonText: "More",
-    s_link: "/slug-title",
+    p_link: "/services",
+    secondaryButtonText: "",
+    s_link: "",
   },
   {
     id: "02",
@@ -27,7 +27,7 @@ export const SLIDES: Slide[] = [
     subtext:
       "Custom-designed, responsive builds optimised for Core Web Vitals.",
     bannerImage: "/slide2.jpg",
-    primaryButtonText: "Explore",
+    primaryButtonText: "Contact",
     p_link: "/contact",
     secondaryButtonText: "",
     s_link: "",
@@ -38,9 +38,9 @@ export const SLIDES: Slide[] = [
     subtext:
       "Serving clients across multiple markets with local expertise, global standards.",
     bannerImage: "/slide3.jpg",
-    primaryButtonText: "Visit",
-    p_link: "/contact",
-    secondaryButtonText: "Consultant",
-    s_link: "/booking",
+    primaryButtonText: "Consultant",
+    p_link: "/booking",
+    secondaryButtonText: "",
+    s_link: "",
   },
 ];

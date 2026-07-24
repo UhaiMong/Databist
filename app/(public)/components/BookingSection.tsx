@@ -4,7 +4,6 @@ import { DesignTokens, fraunces, plexMono } from "@/lib/utils";
 export default function BookingSection() {
   return (
     <section
-      id="booking"
       className={`${fraunces.variable} ${plexMono.variable} w-full px-4 py-24 sm:px-6`}
       style={{ background: DesignTokens.bg }}
     >
@@ -36,10 +35,11 @@ export default function BookingSection() {
             Pick a time that works for you — no back-and-forth emails.
           </p>
         </div>
-
+      </div>
+      <div>
         {/* Framed panel around the widget — same plate motif used across the site */}
         <div
-          className="relative overflow-hidden rounded-sm ring-1"
+          className="relative overflow-hidden rounded-sm ring-1 border"
           style={{
             background: DesignTokens.surface,
             borderColor: DesignTokens.hairline,
