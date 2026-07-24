@@ -15,6 +15,7 @@ import {
   Settings,
   ChevronsLeftRight,
   TimerIcon,
+  Mail,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -35,6 +36,7 @@ const NAV_ITEMS = [
     href: "/dashboard/testimonials",
     icon: MessageSquareQuote,
   },
+  { label: "Subscribers", href: "/dashboard/subscribers", icon: Mail },
   { label: "Settings", href: "/dashboard/settings", icon: Settings },
 ];
 

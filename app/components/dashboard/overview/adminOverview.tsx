@@ -168,9 +168,9 @@ export default async function DashboardOverview() {
               </p>
             ) : (
               <ul className="space-y-3">
-                {stats.conversionByService.map((item: any) => (
+                {stats?.conversionByService?.map((item: any, i: number) => (
                   <li
-                    key={item._id}
+                    key={i}
                     className="flex items-center justify-between text-sm"
                   >
                     <span>{item._id}</span>

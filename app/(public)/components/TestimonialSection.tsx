@@ -1,31 +1,14 @@
-import { Fraunces, IBM_Plex_Mono } from "next/font/google";
+"use client";
+
+import { useCallback, useEffect, useState } from "react";
+import useEmblaCarousel from "embla-carousel-react";
+import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
-
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  style: ["normal", "italic"],
-  variable: "--font-fraunces",
-});
-
-const plexMono = IBM_Plex_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  variable: "--font-plex-mono",
-});
-
-interface Testimonial {
-  _id: string;
-  quote: string;
-  rating: number;
-  clientName: string;
-  avatar?: string;
-  clientRole?: string;
-  companyName?: string;
-}
+import { ArrowLeft, ArrowRight } from "lucide-react";
+import { DesignTokens, fraunces, plexMono } from "@/lib/utils";
 
 function RatingSeal({ rating, max = 5 }: { rating: number; max?: number }) {
-  const size = 64;
+  const size = 52;
   const stroke = 1.5;
   const r = (size - stroke * 2) / 2;
   const circumference = 2 * Math.PI * r;
@@ -34,8 +17,8 @@ function RatingSeal({ rating, max = 5 }: { rating: number; max?: number }) {
 
   return (
     <div
-      className="relative shrink-0 flex items-center justify-center rounded-full bg-[#0E0F13]"
-      style={{ width: size, height: size }}
+      className="relative flex shrink-0 items-center justify-center rounded-full"
+      style={{ width: size, height: size, background: DesignTokens.bg }}
     >
       <svg width={size} height={size} className="-rotate-90">
         <circle
@@ -43,7 +26,7 @@ function RatingSeal({ rating, max = 5 }: { rating: number; max?: number }) {
           cy={size / 2}
           r={r}
           fill="none"
-          stroke="#2A2B31"
+          stroke={DesignTokens.hairline}
           strokeWidth={stroke}
         />
         <circle
@@ -51,15 +34,15 @@ function RatingSeal({ rating, max = 5 }: { rating: number; max?: number }) {
           cy={size / 2}
           r={r}
           fill="none"
-          stroke="#C9A15A"
+          stroke={DesignTokens.gold}
           strokeWidth={stroke}
           strokeLinecap="round"
           strokeDasharray={`${filled} ${circumference - filled}`}
         />
       </svg>
       <span
-        className="absolute text-[13px] tracking-tight text-[#EDEAE2]"
-        style={{ fontFamily: "var(--font-plex-mono)" }}
+        className="absolute text-[11px]"
+        style={{ fontFamily: "var(--font-plex-mono)", color: DesignTokens.ink }}
       >
         {rating.toFixed(1)}
       </span>
@@ -70,115 +53,193 @@ function RatingSeal({ rating, max = 5 }: { rating: number; max?: number }) {
 export default function TestimonialSection({
   testimonials,
 }: {
-  testimonials: Testimonial[];
+  testimonials: any;
 }) {
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    { loop: true, align: "start", skipSnaps: false },
+    [
+      Autoplay({
+        delay: 4200,
+        stopOnInteraction: true,
+        stopOnMouseEnter: true,
+      }),
+    ],
+  );
+
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [slideCount, setSlideCount] = useState(0);
+
+  const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
+  const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    setSlideCount(emblaApi.scrollSnapList().length);
+    const onSelect = () => setSelectedIndex(emblaApi.selectedScrollSnap());
+    onSelect();
+    emblaApi.on("select", onSelect);
+    emblaApi.on("reInit", onSelect);
+    return () => {
+      emblaApi.off("select", onSelect);
+      emblaApi.off("reInit", onSelect);
+    };
+  }, [emblaApi]);
+
+  if (!testimonials?.length) return null;
+
   return (
     <section
-      className={`${fraunces.variable} ${plexMono.variable} relative bg-[#101014] py-24 px-4 sm:px-6`}
+      className={`${fraunces.variable} ${plexMono.variable} relative overflow-hidden px-4 py-24 sm:px-6`}
+      style={{ background: DesignTokens.bg }}
     >
-      <div className="mx-auto max-w-3xl">
+      <div className="mx-auto max-w-6xl">
         {/* Header */}
-        <div className="mb-16 md:mb-20">
-          <span
-            className="block text-[11px] tracking-[0.25em] text-[#8A8779] uppercase"
-            style={{ fontFamily: "var(--font-plex-mono)" }}
-          >
-            Correspondence — Verified
-          </span>
-          <h2
-            className="mt-3 text-4xl sm:text-5xl text-[#EDEAE2] italic"
-            style={{ fontFamily: "var(--font-fraunces)" }}
-          >
-            Entries from the field
-          </h2>
-          <p className="mt-3 max-w-md text-sm text-[#8A8779] leading-relaxed">
-            A running log of what clients have told us, dated and kept exactly
-            as received.
-          </p>
+        <div className="mb-12 flex flex-wrap items-end justify-between gap-6 md:mb-14">
+          <div>
+            <span
+              className="block text-[11px] tracking-[0.25em] uppercase"
+              style={{
+                fontFamily: "var(--font-plex-mono)",
+                color: DesignTokens.muted,
+              }}
+            >
+              Correspondence — Verified
+            </span>
+            <h2
+              className="mt-3 text-4xl italic sm:text-5xl"
+              style={{
+                fontFamily: "var(--font-fraunces)",
+                color: DesignTokens.ink,
+              }}
+            >
+              Entries from the field
+            </h2>
+          </div>
+
+          {/* Controls */}
+          <div className="flex items-center gap-4">
+            <span
+              className="text-[11px] tracking-[0.2em]"
+              style={{
+                fontFamily: "var(--font-plex-mono)",
+                color: DesignTokens.mutedDark,
+              }}
+            >
+              {String(selectedIndex + 1).padStart(2, "0")} /{" "}
+              {String(slideCount).padStart(2, "0")}
+            </span>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={scrollPrev}
+                aria-label="Previous testimonial"
+                className="flex h-9 w-9 items-center justify-center rounded-full ring-1 transition-colors hover:text-[#C9A15A]"
+                style={{
+                  borderColor: DesignTokens.hairline,
+                  color: DesignTokens.muted,
+                }}
+              >
+                <ArrowLeft className="h-4 w-4" />
+              </button>
+              <button
+                type="button"
+                onClick={scrollNext}
+                aria-label="Next testimonial"
+                className="flex h-9 w-9 items-center justify-center rounded-full ring-1 transition-colors hover:text-[#C9A15A]"
+                style={{
+                  borderColor: DesignTokens.hairline,
+                  color: DesignTokens.muted,
+                }}
+              >
+                <ArrowRight className="h-4 w-4" />
+              </button>
+            </div>
+          </div>
         </div>
 
-        {/* Log */}
-        {testimonials.length > 0 ? (
-          <div className="relative">
-            {/* spine */}
-            <div className="absolute left-8 top-2 bottom-2 w-px bg-[#2A2B31]" />
+        {/* Carousel */}
+        <div
+          className="cursor-grab overflow-hidden active:cursor-grabbing"
+          ref={emblaRef}
+        >
+          <div className="-ml-6 flex">
+            {testimonials.map((t: any) => (
+              <div
+                key={t._id}
+                className="min-w-0 shrink-0 grow-0 basis-[86%] pl-6 sm:basis-[60%] lg:basis-[38%]"
+              >
+                <div
+                  className="flex h-full flex-col rounded-sm p-6 ring-1 transition-colors sm:p-7"
+                  style={{
+                    background: DesignTokens.surface,
+                    borderColor: DesignTokens.hairline,
+                  }}
+                >
+                  <RatingSeal rating={t.rating} />
 
-            <ul>
-              {testimonials.map((t: any, idx: number) => (
-                <li key={t._id} className="relative pb-14 last:pb-0">
-                  <div className="flex gap-6 md:gap-8">
-                    <RatingSeal rating={t.rating} />
+                  <p
+                    className="mt-5 flex-1 text-lg italic leading-[1.55] sm:text-xl"
+                    style={{
+                      fontFamily: "var(--font-fraunces)",
+                      color: "rgba(237,234,226,0.9)",
+                    }}
+                  >
+                    <span style={{ color: DesignTokens.gold }}>&ldquo;</span>
+                    {t.quote}
+                    <span style={{ color: DesignTokens.gold }}>&rdquo;</span>
+                  </p>
 
-                    <div className="flex-1 min-w-0 pt-1">
-                      <span
-                        className="block text-[11px] tracking-[0.2em] text-[#5C5A50] uppercase mb-3"
-                        style={{ fontFamily: "var(--font-plex-mono)" }}
+                  <div className="mt-6 flex items-center gap-3">
+                    {t.avatar ? (
+                      <Image
+                        src={t.avatar}
+                        alt={t.clientName}
+                        width={36}
+                        height={36}
+                        className="rounded-full object-cover object-center ring-1"
+                        style={{ borderColor: DesignTokens.hairline }}
+                      />
+                    ) : (
+                      <div
+                        className="flex h-9 w-9 items-center justify-center rounded-full ring-1"
+                        style={{
+                          background: DesignTokens.bg,
+                          borderColor: DesignTokens.hairline,
+                        }}
                       >
-                        No. {String(idx + 1).padStart(2, "0")}
-                      </span>
-
-                      <p
-                        className="text-xl sm:text-[22px] leading-normal text-[#EDEAE2]/90 italic"
-                        style={{ fontFamily: "var(--font-fraunces)" }}
-                      >
-                        <span className="text-[#C9A15A] not-italic mr-0.5">
-                          &ldquo;
-                        </span>
-                        {t.quote}
-                        <span className="text-[#C9A15A] not-italic ml-0.5">
-                          &rdquo;
-                        </span>
-                      </p>
-
-                      <div className="mt-5 flex items-center gap-3">
-                        {t.avatar ? (
-                          <Image
-                            src={t.avatar}
-                            alt={t.clientName}
-                            width={36}
-                            height={36}
-                            loading="eager"
-                            className="rounded-full object-cover object-center ring-1 ring-[#2A2B31]"
-                          />
-                        ) : (
-                          <div className="w-9 h-9 rounded-full bg-[#1B1C21] ring-1 ring-[#2A2B31] flex items-center justify-center">
-                            <span
-                              className="text-[11px] text-[#8A8779]"
-                              style={{ fontFamily: "var(--font-plex-mono)" }}
-                            >
-                              {t.clientName?.[0]?.toUpperCase()}
-                            </span>
-                          </div>
-                        )}
-                        <div
-                          className="text-xs tracking-wide"
-                          style={{ fontFamily: "var(--font-plex-mono)" }}
+                        <span
+                          className="text-[11px]"
+                          style={{
+                            fontFamily: "var(--font-plex-mono)",
+                            color: DesignTokens.muted,
+                          }}
                         >
-                          <span className="text-[#EDEAE2]">{t.clientName}</span>
-                          {(t.clientRole || t.companyName) && (
-                            <span className="text-[#8A8779]">
-                              {"  —  "}
-                              {t.clientRole}
-                              {t.clientRole && t.companyName ? ", " : ""}
-                              {t.companyName}
-                            </span>
-                          )}
-                        </div>
+                          {t.clientName?.[0]?.toUpperCase()}
+                        </span>
                       </div>
+                    )}
+                    <div
+                      className="text-xs tracking-wide"
+                      style={{ fontFamily: "var(--font-plex-mono)" }}
+                    >
+                      <span style={{ color: DesignTokens.ink }}>
+                        {t.clientName}
+                      </span>
+                      {(t.clientRole || t.companyName) && (
+                        <span style={{ color: DesignTokens.muted }}>
+                          {"  —  "}
+                          {t.clientRole}
+                          {t.clientRole && t.companyName ? ", " : ""}
+                          {t.companyName}
+                        </span>
+                      )}
                     </div>
                   </div>
-                </li>
-              ))}
-            </ul>
+                </div>
+              </div>
+            ))}
           </div>
-        ) : (
-          <p
-            className="text-sm text-[#5C5A50]"
-            style={{ fontFamily: "var(--font-plex-mono)" }}
-          >
-            No entries logged yet.
-          </p>
-        )}
+        </div>
       </div>
     </section>
   );

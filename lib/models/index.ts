@@ -7,3 +7,4 @@ export { Portfolio } from "./Portfolio";
 export { Testimonial } from "./Testimonial";
 export { FaqGlobal } from "./FaqGlobal";
 export { SiteSettings } from "./SiteSettings";
+export { Subscriber } from "./Subscriber";
