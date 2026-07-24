@@ -35,7 +35,14 @@ export default function ContactForm() {
       toast.error("Capture is loading...");
       return;
     }
-    const recaptchaToken = executeRecaptcha("contact_form");
+    const recaptchaToken = await executeRecaptcha("contact_form");
+
+    if (!recaptchaToken) {
+      toast.error(
+        "reCAPTCHA failed to generate a token. Please refresh and try again.",
+      );
+      return;
+    }
 
     const res = await fetch("/api/contact", {
       method: "POST",
