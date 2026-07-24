@@ -8,6 +8,24 @@ import {
   contactNotificationTemplate,
 } from "@/lib/email/templates";
 
+// async function verifyRecaptcha(token: string): Promise<boolean> {
+//   if (!process.env.RECAPTCHA_SECRET_KEY) return true;
+
+//   try {
+//     const res = await fetch("https://www.google.com/recaptcha/api/siteverify", {
+//       method: "POST",
+//       headers: { "Content-Type": "application/x-www-form-urlencoded" },
+//       body: `secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${token}`,
+//     });
+//     const data = await res.json();
+//     return data.success === true;
+//   } catch {
+//     return false;
+//   }
+// }
+
+// for debug
+
 async function verifyRecaptcha(token: string): Promise<boolean> {
   if (!process.env.RECAPTCHA_SECRET_KEY) return true;
 
@@ -18,8 +36,17 @@ async function verifyRecaptcha(token: string): Promise<boolean> {
       body: `secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${token}`,
     });
     const data = await res.json();
+
+    if (!data.success) {
+      console.error("reCAPTCHA verification failed:", data["error-codes"]);
+    } else if (typeof data.score === "number" && data.score < 0.5) {
+      console.warn("reCAPTCHA low score:", data.score);
+      return false;
+    }
+
     return data.success === true;
-  } catch {
+  } catch (err) {
+    console.error("reCAPTCHA verification request error:", err);
     return false;
   }
 }

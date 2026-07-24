@@ -8,19 +8,16 @@ export default function AppProviders({
 }: {
   children: React.ReactNode;
 }) {
-  console.log(process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY);
   return (
-    <TooltipProvider>
-      <GoogleReCaptchaProvider
-        reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}
-        scriptProps={{
-          async: true,
-          defer: true,
-          appendTo: "body",
-        }}
-      >
-        {children}
-      </GoogleReCaptchaProvider>
-    </TooltipProvider>
+    <GoogleReCaptchaProvider
+      reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}
+      scriptProps={{
+        async: true,
+        defer: true,
+        appendTo: "body",
+      }}
+    >
+      <TooltipProvider>{children}</TooltipProvider>
+    </GoogleReCaptchaProvider>
   );
 }
