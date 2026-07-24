@@ -5,7 +5,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { DesignTokens, fraunces, plexMono } from "@/lib/utils";
+import { cn, DesignTokens, fraunces, plexMono } from "@/lib/utils";
 
 function RatingSeal({ rating, max = 5 }: { rating: number; max?: number }) {
   const size = 52;
@@ -166,7 +166,7 @@ export default function TestimonialSection({
             {testimonials.map((t: any) => (
               <div
                 key={t._id}
-                className="min-w-0 shrink-0 grow-0 basis-[86%] pl-6 sm:basis-[60%] lg:basis-[38%]"
+                className="min-w-0 h-96 shrink-0 grow-0 basis-[86%] pl-6 sm:basis-[60%] lg:basis-[38%]"
               >
                 <div
                   className="flex h-full flex-col rounded-sm p-6 ring-1 transition-colors sm:p-7"
@@ -177,17 +177,22 @@ export default function TestimonialSection({
                 >
                   <RatingSeal rating={t.rating} />
 
-                  <p
-                    className="mt-5 flex-1 text-lg italic leading-[1.55] sm:text-xl"
+                  <div
+                    className={cn(
+                      "h-80 mt-5 flex-1 text-lg italic leading-[1.55] sm:text-xl",
+                      t.quote.length > 200 ? "overflow-y-scroll" : "",
+                    )}
                     style={{
                       fontFamily: "var(--font-fraunces)",
                       color: "rgba(237,234,226,0.9)",
                     }}
                   >
                     <span style={{ color: DesignTokens.gold }}>&ldquo;</span>
+
                     {t.quote}
+
                     <span style={{ color: DesignTokens.gold }}>&rdquo;</span>
-                  </p>
+                  </div>
 
                   <div className="mt-6 flex items-center gap-3">
                     {t.avatar ? (
