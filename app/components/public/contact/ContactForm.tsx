@@ -13,8 +13,11 @@ import {
   ContactFormValues,
 } from "@/lib/validations/contact";
 import { Card, CardContent } from "../../ui/card";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
+import { toast } from "sonner";
 
 export default function ContactForm() {
+  const { executeRecaptcha } = useGoogleReCaptcha();
   const [submitted, setSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState("");
 
@@ -28,11 +31,16 @@ export default function ContactForm() {
 
   async function onSubmit(values: ContactFormValues) {
     setSubmitError("");
+    if (!executeRecaptcha) {
+      toast.error("Capture is loading...");
+      return;
+    }
+    const recaptchaToken = executeRecaptcha("contact_form");
 
     const res = await fetch("/api/contact", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(values),
+      body: JSON.stringify({ ...values, recaptchaToken }),
     });
 
     const data = await res.json();
