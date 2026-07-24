@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { MapPin, Phone, Mail, Send } from "lucide-react";
@@ -8,6 +8,7 @@ import Instagram from "@mui/icons-material/Instagram";
 import LinkedIn from "@mui/icons-material/LinkedIn";
 import YouTube from "@mui/icons-material/YouTube";
 import X from "@mui/icons-material/X";
+import { toast } from "sonner";
 
 // Provided footer navigation links
 const FOOTER_LINKS = [
@@ -30,11 +31,29 @@ const SOCIAL_LINKS = [
 
 export function PublicFooter() {
   const currentYear = new Date().getFullYear();
+  const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState("");
 
-  const handleNewsletterSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
+  async function handleNewsletterSubmit(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
-    // Handle newsletter logic here
-  };
+    setLoading(true);
+    const res = await fetch("/api/newsletter", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email }),
+    });
+
+    const data = await res.json();
+    console.log(data);
+    setLoading(false);
+
+    if (data.success) {
+      toast.success(data.message);
+      setEmail("");
+    } else {
+      toast.error(data.message ?? "Something went wrong");
+    }
+  }
 
   return (
     <footer className="relative text-white">
@@ -169,6 +188,8 @@ export function PublicFooter() {
                 <input
                   type="email"
                   required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email"
                   className="w-full px-4 py-2.5 pr-12 text-sm text-brand-muted bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-brand-light transition-all placeholder:text-gray-400"
                 />
@@ -177,7 +198,11 @@ export function PublicFooter() {
                   className="absolute right-1 p-2 bg-brand hover:bg-brand-dark text-white rounded-md transition-colors duration-200"
                   aria-label="Subscribe"
                 >
-                  <Send className="w-4 h-4" />
+                  {loading ? (
+                    <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                  ) : (
+                    <Send className="w-4 h-4" />
+                  )}
                 </button>
               </div>
             </form>

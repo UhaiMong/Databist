@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
+import connectDB from "@/lib/db/connectDB";
+// import { Subscriber } from "@/lib/models";
 import { newsletterSchema } from "@/lib/validations/contact";
+import Subscriber from "@/lib/models/Subscriber";
 
 export async function POST(req: NextRequest) {
   try {
@@ -13,8 +16,20 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // TODO: add to newsletter provider (Mailchimp, Brevo, etc.) or a Subscriber collection
-    console.log("Newsletter signup:", parsed.data.email);
+    await connectDB();
+
+    try {
+      await Subscriber.create({ email: parsed.data.email });
+    } catch (err: any) {
+      if (err.code === 11000) {
+        // Already subscribed — treat as success, don't leak that info as an error
+        return NextResponse.json(
+          { success: true, message: "You're already subscribed" },
+          { status: 200 },
+        );
+      }
+      throw err;
+    }
 
     return NextResponse.json(
       { success: true, message: "Subscribed successfully" },

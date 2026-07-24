@@ -143,10 +143,10 @@ export default function BookingWidget({
                 <span
                   className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[11px] font-medium transition-colors ${
                     isDone
-                      ? "bg-brand text-primary-foreground"
+                      ? "bg-brand text-late-100"
                       : isCurrent
-                        ? "border-2 border-primary text-primary"
-                        : "border border-slate-200 text-slate-400"
+                        ? "border-2 border-slate-100 text-slate-50"
+                        : "border border-slate-200 text-slate-100"
                   }`}
                 >
                   {isDone ? <Check className="h-3.5 w-3.5" /> : i + 1}
@@ -154,10 +154,10 @@ export default function BookingWidget({
                 <span
                   className={`hidden text-xs font-medium sm:inline ${
                     isCurrent
-                      ? "text-foreground"
+                      ? "text-slate-50"
                       : isDone
-                        ? "text-foreground/70"
-                        : "text-slate-400"
+                        ? "text-slate-50"
+                        : "text-slate-100"
                   }`}
                 >
                   {s.label}
@@ -166,7 +166,7 @@ export default function BookingWidget({
               {i < STEPS.length - 1 && (
                 <span
                   className={`h-px w-8 sm:w-12 ${
-                    isDone ? "bg-primary" : "bg-slate-200"
+                    isDone ? "bg-slate-50" : "bg-slate-200"
                   }`}
                 />
               )}

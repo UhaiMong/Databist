@@ -74,7 +74,7 @@ export default function ContactForm() {
 
   return (
     <Card>
-      <CardContent>
+      <CardContent className="p-4">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="name">Name</Label>
