@@ -8,24 +8,6 @@ import {
   contactNotificationTemplate,
 } from "@/lib/email/templates";
 
-// async function verifyRecaptcha(token: string): Promise<boolean> {
-//   if (!process.env.RECAPTCHA_SECRET_KEY) return true;
-
-//   try {
-//     const res = await fetch("https://www.google.com/recaptcha/api/siteverify", {
-//       method: "POST",
-//       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-//       body: `secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${token}`,
-//     });
-//     const data = await res.json();
-//     return data.success === true;
-//   } catch {
-//     return false;
-//   }
-// }
-
-// for debug
-
 async function verifyRecaptcha(token: string): Promise<boolean> {
   if (!process.env.RECAPTCHA_SECRET_KEY) return true;
 
@@ -82,6 +64,7 @@ export async function POST(req: NextRequest) {
         { status: 400 },
       );
     }
+
     if (!recaptchaToken) {
       return NextResponse.json(
         { success: false, message: "reCAPTCHA verification required" },
@@ -101,21 +84,29 @@ export async function POST(req: NextRequest) {
 
     const submission = await Contact.create(data);
 
-    const agencyEmail = process.env.AGENCY_NOTIFY_EMAIL;
-    // to owner
-    if (agencyEmail) {
+    // Email sending is best-effort — a config issue here must not fail the whole submission
+    try {
+      const agencyEmail = process.env.AGENCY_NOTIFY_EMAIL;
+
+      if (agencyEmail) {
+        await sendEmail({
+          to: agencyEmail,
+          subject: `New Contact: ${data.subject}`,
+          html: contactNotificationTemplate(data),
+        });
+      }
+
       await sendEmail({
-        to: agencyEmail,
-        subject: `New Contact: ${data.subject}`,
-        html: contactNotificationTemplate(data),
+        to: data.email,
+        subject: "We've received your message — Digital Resolution",
+        html: contactAcknowledgementTemplate(data.name),
       });
+    } catch (emailError) {
+      console.error(
+        "Contact email sending failed (submission still saved):",
+        emailError,
+      );
     }
-    // to requester
-    await sendEmail({
-      to: data.email,
-      subject: "We've received your message — Digital Resolution",
-      html: contactAcknowledgementTemplate(data.name),
-    });
 
     return NextResponse.json(
       { success: true, message: "Message sent successfully", submission },
