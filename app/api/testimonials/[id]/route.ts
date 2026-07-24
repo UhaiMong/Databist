@@ -4,10 +4,6 @@ import connectDB from "@/lib/db/connectDB";
 import { Testimonial } from "@/lib/models";
 import { testimonialSchema } from "@/lib/validations/misc";
 
-interface RouteParams {
-  params: { id: string };
-}
-
 export async function PATCH(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> },
@@ -59,9 +55,12 @@ export async function PATCH(
   }
 }
 
-export async function DELETE(req: NextRequest, { params }: RouteParams) {
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> },
+) {
   try {
-    const { id } = params;
+    const { id } = await params;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return NextResponse.json(

@@ -3,10 +3,6 @@ import connectDB from "@/lib/db/connectDB";
 import { Blog } from "@/lib/models";
 import { blogPostSchema } from "@/lib/validations/blog";
 
-interface RouteParams {
-  params: { slug: string };
-}
-
 function estimateReadingTime(content: unknown): number {
   let plainText = "";
   if (typeof content === "string") {
@@ -60,11 +56,15 @@ function extractTextFromPlate(nodes: unknown): string {
   return "";
 }
 
-export async function GET(req: NextRequest, { params }: RouteParams) {
+export async function GET(
+  req: NextRequest,
+  { params }: { params: Promise<{ slug: string }> },
+) {
+  const { slug } = await params;
   try {
     await connectDB();
 
-    const post = await Blog.findOne({ slug: params.slug }).lean();
+    const post = await Blog.findOne({ slug }).lean();
 
     if (!post) {
       return NextResponse.json(
@@ -74,7 +74,7 @@ export async function GET(req: NextRequest, { params }: RouteParams) {
     }
 
     const related = await Blog.find({
-      slug: { $ne: params.slug },
+      slug: { $ne: slug },
       status: "published",
       $or: [
         { category: (post as any).category },
@@ -99,11 +99,10 @@ export async function PATCH(
   req: NextRequest,
   { params }: { params: Promise<{ slug: string }> },
 ) {
+  const { slug } = await params;
   try {
     const body = await req.json();
     const parsed = blogPostSchema.partial().safeParse(body);
-    const { slug } = await params;
-
     if (!parsed.success) {
       return NextResponse.json(
         {

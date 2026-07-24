@@ -144,7 +144,7 @@ export function CodeBlockElement({
       {...props}
     >
       <div className="relative rounded-md bg-muted/50">
-        <pre className="overflow-x-auto p-8 pr-4 font-mono text-sm leading-[normal] [tab-size:2] print:break-inside-avoid">
+        <pre className="overflow-x-auto p-8 pr-4 font-mono text-sm leading-[normal] tab-2 print:break-inside-avoid">
           <code>{props.children}</code>
         </pre>
 
@@ -160,7 +160,7 @@ export function CodeBlockElement({
               onClick={() => formatCodeBlock(editor, { element })}
               title="Format code"
             >
-              <BracesIcon className="!size-3.5 text-muted-foreground" />
+              <BracesIcon className="size-3.5! text-muted-foreground" />
             </Button>
           )}
 
@@ -220,7 +220,7 @@ function CodeBlockCombobox({
         </Button>
       </PopoverTrigger>
       <PopoverContent
-        className="w-[200px] p-0"
+        className="w-50 p-0"
         onCloseAutoFocus={() => setSearchValue("")}
       >
         <Command shouldFilter={false}>
@@ -232,7 +232,7 @@ function CodeBlockCombobox({
           />
           <CommandEmpty>No language found.</CommandEmpty>
 
-          <CommandList className="h-[344px] overflow-y-auto">
+          <CommandList className="h-86 overflow-y-auto">
             <CommandGroup>
               {items.map((language) => (
                 <CommandItem
@@ -303,9 +303,9 @@ function CopyButton({
     >
       <span className="sr-only">Copy</span>
       {hasCopied ? (
-        <CheckIcon className="!size-3" />
+        <CheckIcon className="size-3!" />
       ) : (
-        <CopyIcon className="!size-3" />
+        <CopyIcon className="size-3!" />
       )}
     </Button>
   );

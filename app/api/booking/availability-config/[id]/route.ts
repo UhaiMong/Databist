@@ -4,10 +4,6 @@ import connectDB from "@/lib/db/connectDB";
 import { Availability } from "@/lib/models";
 import { availabilitySchema } from "@/lib/validations/booking";
 
-interface RouteParams {
-  params: { id: string };
-}
-
 export async function PATCH(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> },

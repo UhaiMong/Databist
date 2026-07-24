@@ -3,15 +3,15 @@ import connectDB from "@/lib/db/connectDB";
 import { ServicePackage } from "@/lib/models";
 import { servicePackageSchema } from "@/lib/validations/servicePackage";
 
-interface RouteParams {
-  params: { slug: string };
-}
-
-export async function GET(req: NextRequest, { params }: RouteParams) {
+export async function GET(
+  req: NextRequest,
+  { params }: { params: Promise<{ slug: string }> },
+) {
+  const { slug } = await params;
   try {
     await connectDB();
 
-    const service = await ServicePackage.findOne({ slug: params.slug }).lean();
+    const service = await ServicePackage.findOne({ slug }).lean();
 
     if (!service) {
       return NextResponse.json(
@@ -88,12 +88,16 @@ export async function PATCH(
   }
 }
 
-export async function DELETE(req: NextRequest, { params }: RouteParams) {
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: Promise<{ slug: string }> },
+) {
+  const { slug } = await params;
   try {
     await connectDB();
 
     const deleted = await ServicePackage.findOneAndDelete({
-      slug: params.slug,
+      slug,
     });
 
     if (!deleted) {

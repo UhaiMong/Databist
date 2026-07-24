@@ -3,10 +3,6 @@ import connectDB from "@/lib/db/connectDB";
 import { Portfolio } from "@/lib/models";
 import { portfolioSchema } from "@/lib/validations/misc";
 
-interface RouteParams {
-  params: { slug: string };
-}
-
 export async function GET(
   req: NextRequest,
   { params }: { params: Promise<{ slug: string }> },

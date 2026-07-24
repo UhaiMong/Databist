@@ -1,13 +1,13 @@
 "use client";
 
-import { Input } from "@/components/ui/input";
+import { Input } from "./input";
 import {
   Select,
   SelectTrigger,
   SelectValue,
   SelectContent,
   SelectItem,
-} from "@/components/ui/select";
+} from "./select";
 import { Control, FieldValues, Path } from "react-hook-form";
 import {
   FormControl,
