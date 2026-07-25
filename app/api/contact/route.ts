@@ -2,12 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 import { contactFormSchema } from "@/lib/validations/contact";
 import connectDB from "@/lib/db/connectDB";
 import Contact from "@/lib/models/contact";
-// import { sendEmail } from "@/lib/email/sendEmail";
 import {
   contactAcknowledgementTemplate,
   contactNotificationTemplate,
 } from "@/lib/email/templates";
-import { sendEmail } from "@/lib/nodemailer";
+import { sendEmail } from "@/lib/email/config/resend.config";
 
 async function verifyRecaptcha(token: string): Promise<boolean> {
   if (!process.env.RECAPTCHA_SECRET_KEY) return true;

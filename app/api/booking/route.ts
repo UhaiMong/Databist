@@ -3,12 +3,12 @@ import connectDB from "@/lib/db/connectDB";
 import { Booking } from "@/lib/models";
 import { bookingFormSchema } from "@/lib/validations/booking";
 import { isPastDate } from "@/lib/utils/timeSlots";
-import { sendEmail } from "@/lib/nodemailer";
 import {
   bookingConfirmationTemplate,
   bookingNotificationTemplate,
 } from "@/lib/email/templates";
 import { sendGA4Event } from "@/lib/ga4";
+import { sendEmail } from "@/lib/email/config/resend.config";
 
 export async function POST(req: NextRequest) {
   try {
@@ -94,7 +94,13 @@ export async function POST(req: NextRequest) {
             }),
           );
         }
-        await Promise.allSettled(sideEffects);
+        const results = await Promise.allSettled(sideEffects);
+
+        results.forEach((result, index) => {
+          if (result.status === "rejected") {
+            console.error(`Side effect task [${index}] failed:`, result.reason);
+          }
+        });
       } catch (sideEffectError) {
         console.error("Booking error: ", sideEffectError);
       }

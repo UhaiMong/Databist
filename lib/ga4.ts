@@ -19,21 +19,26 @@ export async function sendGA4Event({
 
   const endpoint = `https://www.google-analytics.com/mp/collect?measurement_id=${measurementId}&api_secret=${apiSecret}`;
 
-  await fetch(endpoint, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      client_id: clientId || "server.booking.event",
-      events: [
-        {
-          name: eventName,
-          params: {
-            engagement_time_msec: "100",
-            session_id: Date.now().toString(),
-            ...params,
+  try {
+    const res = await fetch(endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        client_id: clientId || "server.booking.event",
+        events: [
+          {
+            name: eventName,
+            params: {
+              engagement_time_msec: "100",
+              session_id: Date.now().toString(),
+              ...params,
+            },
           },
-        },
-      ],
-    }),
-  });
+        ],
+      }),
+    });
+    if (!res.ok) console.error("GA4 MP error: ", res.status);
+  } catch (error) {
+    console.error("GA4 MP request failed: ", error);
+  }
 }
