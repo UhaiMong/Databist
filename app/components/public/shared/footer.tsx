@@ -44,11 +44,10 @@ export function PublicFooter() {
     });
 
     const data = await res.json();
-    console.log(data);
     setLoading(false);
 
     if (data.success) {
-      toast.success(data.message);
+      toast.success("We appriciate it! ", data.message ?? "");
       setEmail("");
     } else {
       toast.error(data.message ?? "Something went wrong");

@@ -2,11 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 import { contactFormSchema } from "@/lib/validations/contact";
 import connectDB from "@/lib/db/connectDB";
 import Contact from "@/lib/models/contact";
-import { sendEmail } from "@/lib/email/sendEmail";
+// import { sendEmail } from "@/lib/email/sendEmail";
 import {
   contactAcknowledgementTemplate,
   contactNotificationTemplate,
 } from "@/lib/email/templates";
+import { sendEmail } from "@/lib/nodemailer";
 
 async function verifyRecaptcha(token: string): Promise<boolean> {
   if (!process.env.RECAPTCHA_SECRET_KEY) return true;
@@ -84,23 +85,31 @@ export async function POST(req: NextRequest) {
 
     const submission = await Contact.create(data);
 
-    // Email sending is best-effort — a config issue here must not fail the whole submission
+    // Email sending
     try {
       const agencyEmail = process.env.AGENCY_NOTIFY_EMAIL;
+      const emailPromise: Promise<unknown>[] = [
+        // 1. User acknowledgement
+        sendEmail({
+          to: data?.email,
+          subject: "We've received your message - Digital Resolution",
+          html: contactAcknowledgementTemplate(data.name),
+        }),
+      ];
+
+      //2. Agency Notification with replyTo
 
       if (agencyEmail) {
-        await sendEmail({
-          to: agencyEmail,
-          subject: `New Contact: ${data.subject}`,
-          html: contactNotificationTemplate(data),
-        });
+        emailPromise.push(
+          sendEmail({
+            to: agencyEmail,
+            replyTo: data.email,
+            subject: `New Contact: ${data.subject}`,
+            html: contactNotificationTemplate(data),
+          }),
+        );
       }
-
-      await sendEmail({
-        to: data.email,
-        subject: "We've received your message — Digital Resolution",
-        html: contactAcknowledgementTemplate(data.name),
-      });
+      await Promise.allSettled(emailPromise);
     } catch (emailError) {
       console.error(
         "Contact email sending failed (submission still saved):",
@@ -121,6 +130,7 @@ export async function POST(req: NextRequest) {
   }
 }
 
+// Get contact list
 export async function GET(req: NextRequest) {
   try {
     await connectDB();

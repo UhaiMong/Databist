@@ -22,7 +22,6 @@ export async function POST(req: NextRequest) {
       await Subscriber.create({ email: parsed.data.email });
     } catch (err: any) {
       if (err.code === 11000) {
-        // Already subscribed — treat as success, don't leak that info as an error
         return NextResponse.json(
           { success: true, message: "You're already subscribed" },
           { status: 200 },
@@ -32,7 +31,7 @@ export async function POST(req: NextRequest) {
     }
 
     return NextResponse.json(
-      { success: true, message: "Subscribed successfully" },
+      { success: true, message: "Subscribed successfully." },
       { status: 201 },
     );
   } catch (error) {

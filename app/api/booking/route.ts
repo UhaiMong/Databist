@@ -3,6 +3,12 @@ import connectDB from "@/lib/db/connectDB";
 import { Booking } from "@/lib/models";
 import { bookingFormSchema } from "@/lib/validations/booking";
 import { isPastDate } from "@/lib/utils/timeSlots";
+import { sendEmail } from "@/lib/nodemailer";
+import {
+  bookingConfirmationTemplate,
+  bookingNotificationTemplate,
+} from "@/lib/email/templates";
+import { sendGA4Event } from "@/lib/ga4";
 
 export async function POST(req: NextRequest) {
   try {
@@ -45,8 +51,53 @@ export async function POST(req: NextRequest) {
         status: "pending",
       });
 
-      // TODO: send confirmation email / WhatsApp notification here
-      // TODO: trigger GA4 conversion event
+      // Confirmation mail sending and GA4 analytics
+      try {
+        const agencyEmail = process.env.AGENCY_NOTIFY_EMAIL;
+        const sideEffects: Promise<unknown>[] = [
+          // client confirmation mailing
+          sendEmail({
+            to: data.email,
+            subject: "Your Booking Request Received - Digital Resolution",
+            html: bookingConfirmationTemplate(
+              data.name,
+              data.date,
+              data.timeSlot,
+              data.timezone,
+            ),
+          }),
+          // GA conversion event
+          sendGA4Event({
+            clientId: data.email,
+            eventName: "generate_lead",
+            params: {
+              currency: "USD",
+              value: 1,
+              service: data.serviceOfInterest || "General consultation",
+              booking_id: booking._id
+                ? booking._id.toString()
+                : booking?.data?._id
+                  ? booking?.data?._id.toString()
+                  : "udefined",
+            },
+          }),
+        ];
+
+        // to agency notification
+        if (agencyEmail) {
+          sideEffects.push(
+            sendEmail({
+              to: agencyEmail,
+              replyTo: data.email,
+              subject: `New Booking Request: ${data.name} (${data.timeSlot})`,
+              html: bookingNotificationTemplate(data),
+            }),
+          );
+        }
+        await Promise.allSettled(sideEffects);
+      } catch (sideEffectError) {
+        console.error("Booking error: ", sideEffectError);
+      }
 
       return NextResponse.json({ success: true, booking }, { status: 201 });
     } catch (err: any) {
@@ -70,6 +121,7 @@ export async function POST(req: NextRequest) {
   }
 }
 
+// Get booking list
 export async function GET(req: NextRequest) {
   try {
     await connectDB();

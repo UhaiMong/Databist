@@ -130,7 +130,6 @@ export default function GlobalPresence({ settings }: { settings: any }) {
               }}
             />
 
-            {/* Corner frame, echoing the header banner's plate motif */}
             <div className="pointer-events-none absolute inset-4 sm:inset-5">
               {[
                 "left-0 top-0 border-l border-t",
@@ -143,6 +142,39 @@ export default function GlobalPresence({ settings }: { settings: any }) {
                   className={`absolute h-4 w-4 ${pos}`}
                   style={{ borderColor: `${DesignTokens.gold}80` }}
                 />
+              ))}
+            </div>
+            {/* Pointed location */}
+            <div className="pointer-events-none absolute inset-4 sm:inset-5">
+              {[
+                {
+                  label: "Hello ",
+                  position: "left-10 top-25",
+                },
+                {
+                  label: "مرحبًا",
+                  position: "left-55 top-35",
+                },
+                {
+                  label: "नमस्ते",
+                  position: "left-20 top-45",
+                },
+                {
+                  label: "你好",
+                  position: "left-70 top-20",
+                },
+                {
+                  label: "Hola",
+                  position: "right-5 bottom-20",
+                },
+              ].map((pos) => (
+                <span
+                  key={pos.label}
+                  className={`absolute text-sm font-semibold text-slate-50 ${pos.position}`}
+                  style={{ borderColor: `${DesignTokens.gold}80` }}
+                >
+                  {pos.label}
+                </span>
               ))}
             </div>
 

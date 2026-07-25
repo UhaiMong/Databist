@@ -77,7 +77,12 @@ export default function BookingWidget({
       <div className="mx-auto max-w-4xl mt-14">
         <div className="w-full">
           <Card className="rounded-2xl bg-page-bg text-slate-50">
-            <CardContent className={cn("p-5 sm:p-6", "flex")}>
+            <CardContent
+              className={cn(
+                "p-5 sm:p-6",
+                "flex flex-col-reverse md:flex-row gap-4",
+              )}
+            >
               <div className="flex-1">
                 <div className="mb-4 flex items-center gap-2">
                   <CalendarDays className="h-4 w-4 " />
