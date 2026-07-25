@@ -1,19 +1,17 @@
 import nodemailer from "nodemailer";
 
-// Fail fast instead of silently falling back to a default host.
 const host = process.env.SMTP_HOST;
 if (!host) {
   throw new Error("SMTP_HOST environment variable is not set.");
 }
 
 const port = Number(process.env.SMTP_PORT) || 465;
-const isSecure = process.env.SMTP_SECURE === "true" || port === 465;
 
+// Transporter
 export const transporter = nodemailer.createTransport({
   host,
   port,
-  secure: isSecure,
-  requireTLS: !isSecure,
+  secure: true,
   auth: {
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASSWORD,
@@ -26,7 +24,6 @@ export const transporter = nodemailer.createTransport({
   socketTimeout: 10000,
 });
 
-// Call once at app startup (not per-request) to catch bad credentials/host early.
 export async function verifyMailer() {
   try {
     await transporter.verify();

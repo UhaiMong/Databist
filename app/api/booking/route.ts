@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db/connectDB";
-import { Booking } from "@/lib/models";
+import { Booking, ServicePackage } from "@/lib/models";
 import { bookingFormSchema } from "@/lib/validations/booking";
 import { isPastDate } from "@/lib/utils/timeSlots";
 import {
@@ -8,7 +8,8 @@ import {
   bookingNotificationTemplate,
 } from "@/lib/email/templates";
 import { sendGA4Event } from "@/lib/ga4";
-import { sendEmail } from "@/lib/email/config/resend.config";
+import { sendEmail } from "@/lib/email/config/nodemail.config";
+// import { sendEmail } from "@/lib/email/config/resend.config";
 
 async function verifyRecaptcha(token: string): Promise<boolean> {
   if (!process.env.RECAPTCHA_SECRET_KEY) return true;
@@ -122,11 +123,7 @@ export async function POST(req: NextRequest) {
               currency: "USD",
               value: 1,
               service: data.serviceOfInterest || "General consultation",
-              booking_id: booking._id
-                ? booking._id.toString()
-                : booking?.data?._id
-                  ? booking?.data?._id.toString()
-                  : "unknown",
+              booking_id: booking._id ? booking._id.toString() : "unknown",
             },
           }),
         ];
@@ -187,7 +184,7 @@ export async function GET(req: NextRequest) {
 
     const bookings = await Booking.find(filter)
       .populate("serviceOfInterest", "name slug")
-      .sort({ date: -1, timeSlot: 1 })
+      .sort({ date: 1, timeSlot: 1 })
       .lean();
 
     return NextResponse.json({ success: true, bookings });

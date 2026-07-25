@@ -21,6 +21,11 @@ export type BookingFormValues = z.infer<typeof bookingFormSchema>;
 
 export const bookingStatusUpdateSchema = z.object({
   status: z.enum(["pending", "confirmed", "completed", "cancelled", "no-show"]),
+  date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid date format"),
+});
+
+export const rescheduleSchema = z.object({
+  timeSlot: z.string().regex(/^\d{2}:\d{2}$/, "Invalid time slot"),
 });
 
 export const availabilitySchema = z.object({

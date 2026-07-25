@@ -2,12 +2,16 @@ import { NextRequest, NextResponse } from "next/server";
 import mongoose from "mongoose";
 import connectDB from "@/lib/db/connectDB";
 import { Booking } from "@/lib/models";
-import { bookingStatusUpdateSchema } from "@/lib/validations/booking";
-import { sendEmail } from "@/lib/email/config/resend.config";
+import {
+  bookingStatusUpdateSchema,
+  rescheduleSchema,
+} from "@/lib/validations/booking";
+// import { sendEmail } from "@/lib/email/config/resend.config";
 import {
   bookingRescheduledTemplate,
   bookingStatusUpdateTemplate,
 } from "@/lib/email/templates";
+import { sendEmail } from "@/lib/email/config/nodemail.config";
 
 export async function GET(
   req: NextRequest,
@@ -63,10 +67,52 @@ export async function PATCH(
     await connectDB();
 
     if (body.date && body.timeSlot) {
-      const conflict = await Booking.findOne({
-        _id: { $ne: id },
+      const rescheduleParsed = rescheduleSchema.safeParse({
         date: body.date,
         timeSlot: body.timeSlot,
+      });
+
+      if (!rescheduleParsed.success) {
+        return NextResponse.json(
+          {
+            success: false,
+            message: "Invalid input",
+            errors: rescheduleParsed.error.flatten(),
+          },
+          { status: 400 },
+        );
+      }
+
+      const { timeSlot } = rescheduleParsed.data;
+      const date = new Date(body.date);
+
+      if (date < new Date(new Date().setHours(0, 0, 0, 0))) {
+        return NextResponse.json(
+          { success: false, message: "Cannot reschedule to a past date" },
+          { status: 400 },
+        );
+      }
+
+      const existing = await Booking.findById(id);
+      if (!existing) {
+        return NextResponse.json(
+          { success: false, message: "Booking not found" },
+          { status: 404 },
+        );
+      }
+
+      if (existing.date === date && existing.timeSlot === timeSlot) {
+        return NextResponse.json({
+          success: true,
+          booking: existing,
+          message: "No change",
+        });
+      }
+
+      const conflict = await Booking.findOne({
+        _id: { $ne: id },
+        date,
+        timeSlot,
         status: { $in: ["pending", "confirmed"] },
       });
 
@@ -77,23 +123,27 @@ export async function PATCH(
         );
       }
 
-      const updated = await Booking.findByIdAndUpdate(
-        id,
-        { date: body.date, timeSlot: body.timeSlot },
-        { new: true },
-      );
-
-      if (!updated) {
-        return NextResponse.json(
-          { success: false, message: "Booking not found" },
-          { status: 404 },
+      let updated;
+      try {
+        updated = await Booking.findByIdAndUpdate(
+          id,
+          { date, timeSlot },
+          { new: true },
         );
+      } catch (err: any) {
+        if (err.code === 11000) {
+          return NextResponse.json(
+            { success: false, message: "Selected slot was just booked" },
+            { status: 409 },
+          );
+        }
+        throw err;
       }
 
       try {
         const agencyEmail = process.env.AGENCY_NOTIFY_EMAIL;
 
-        const emailTasks = [
+        const emailTasks: Promise<unknown>[] = [
           // 1. Notify Client
           sendEmail({
             to: updated.email,
@@ -118,6 +168,8 @@ export async function PATCH(
         results.forEach((res, i) => {
           if (res.status === "rejected") {
             console.error(`Reschedule email task [${i}] failed:`, res.reason);
+          } else {
+            console.log("Succeeded");
           }
         });
       } catch (emailError) {
@@ -157,7 +209,7 @@ export async function PATCH(
     try {
       const agencyEmail = process.env.AGENCY_NOTIFY_EMAIL;
 
-      const emailTasks = [
+      const emailTasks: Promise<unknown>[] = [
         // 1. Notify Client
         sendEmail({
           to: updated.email,
@@ -182,6 +234,8 @@ export async function PATCH(
       results.forEach((res, i) => {
         if (res.status === "rejected") {
           console.error(`Status update email task [${i}] failed:`, res.reason);
+        } else {
+          console.log("Succeeded");
         }
       });
     } catch (emailError) {

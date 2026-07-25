@@ -18,6 +18,7 @@ import {
 } from "../../ui/dropdown-menu";
 import { MoreVertical, Download } from "lucide-react";
 import { BookingStatus } from "@/app/types";
+import { RescheduleModal } from "./RescheduleModal";
 
 interface Booking {
   _id: string;
@@ -27,6 +28,7 @@ interface Booking {
   serviceOfInterest?: { _id: string; name: string } | null;
   date: string;
   timeSlot: string;
+  timezone: string;
   status: BookingStatus;
 }
 
@@ -49,6 +51,9 @@ export default function BookingsTable({ initialBookings }: BookingsTableProps) {
   const [bookings, setBookings] = useState(initialBookings);
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [updatingId, setUpdatingId] = useState<string | null>(null);
+  const [rescheduleTarget, setRescheduleTarget] = useState<Booking | null>(
+    null,
+  );
 
   const filtered = useMemo(
     () =>
@@ -57,7 +62,7 @@ export default function BookingsTable({ initialBookings }: BookingsTableProps) {
         : bookings.filter((b) => b.status === statusFilter),
     [bookings, statusFilter],
   );
-
+  console.log("Bookings:", bookings);
   async function updateStatus(id: string, status: BookingStatus) {
     setUpdatingId(id);
 
@@ -140,6 +145,7 @@ export default function BookingsTable({ initialBookings }: BookingsTableProps) {
               <th className="p-3 font-medium">Service</th>
               <th className="p-3 font-medium">Date / Time</th>
               <th className="p-3 font-medium">Status</th>
+              <th className="p-3 font-medium">Reschedule</th>
               <th className="p-3 font-medium text-right">Actions</th>
             </tr>
           </thead>
@@ -173,6 +179,15 @@ export default function BookingsTable({ initialBookings }: BookingsTableProps) {
                     >
                       {b.status}
                     </Badge>
+                  </td>
+                  <td>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => setRescheduleTarget(b)}
+                    >
+                      Reschedule
+                    </Button>
                   </td>
                   <td className="p-3 text-right">
                     <DropdownMenu>
@@ -216,6 +231,21 @@ export default function BookingsTable({ initialBookings }: BookingsTableProps) {
           </tbody>
         </table>
       </div>
+
+      {rescheduleTarget && (
+        <RescheduleModal
+          booking={rescheduleTarget}
+          open={!!rescheduleTarget}
+          onOpenChange={(open) => !open && setRescheduleTarget(null)}
+          onSuccess={(updated) => {
+            setBookings((prev) =>
+              prev.map((b) =>
+                b._id === updated._id ? (updated as Booking) : b,
+              ),
+            );
+          }}
+        />
+      )}
     </div>
   );
 }

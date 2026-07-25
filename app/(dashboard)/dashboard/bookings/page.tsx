@@ -8,7 +8,10 @@ export const metadata = {
 
 async function getBookings() {
   await connectDB();
-  const bookings = await Booking.find().sort({ date: -1, timeSlot: 1 }).lean();
+  const bookings = await Booking.find()
+    .populate("serviceOfInterest", "name slug")
+    .sort({ date: 1, timeSlot: 1 })
+    .lean();
   return JSON.parse(JSON.stringify(bookings));
 }
 
