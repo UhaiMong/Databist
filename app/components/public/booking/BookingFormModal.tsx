@@ -27,7 +27,7 @@ import {
   SelectValue,
 } from "../../ui/select";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 
 const formatDateString = (d: Date | undefined) => {
   if (!d) return "";
@@ -49,6 +49,7 @@ export function BookingFormModal({
   date: Date | undefined;
   selectedSlot: string;
 }) {
+  const { executeRecaptcha } = useGoogleReCaptcha();
   const [submitError, setSubmitError] = useState("");
   const [services, setServices] = useState<{ _id: string; name: string }[]>([]);
   const [loading, setLoading] = useState(false);
@@ -96,8 +97,18 @@ export function BookingFormModal({
   };
 
   async function onSubmit(values: BookingFormValues) {
+    if (!executeRecaptcha) {
+      toast.error("reCaptcha is loading...");
+      return;
+    }
     setLoading(true);
     setSubmitError("");
+    const recaptchaToken = await executeRecaptcha("booking_form");
+
+    if (!recaptchaToken) {
+      toast.error("reCaptcha failed to generate. Please try again.");
+      return;
+    }
 
     if (!date && !selectedSlot) {
       setSubmitError("Date and time slot are required.");
@@ -114,6 +125,7 @@ export function BookingFormModal({
           date: formatDateString(date),
           timeSlot: selectedSlot,
           timezone,
+          recaptchaToken,
         }),
       });
 
@@ -121,7 +133,7 @@ export function BookingFormModal({
 
       if (data.success) {
         setLoading(false);
-        setIsSubmitted(true); // Switch view inside modal
+        setIsSubmitted(true);
         return;
       }
 

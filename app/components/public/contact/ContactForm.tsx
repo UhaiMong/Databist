@@ -30,11 +30,11 @@ export default function ContactForm() {
   });
 
   async function onSubmit(values: ContactFormValues) {
-    setSubmitError("");
     if (!executeRecaptcha) {
       toast.error("Capture is loading...");
       return;
     }
+    setSubmitError("");
     const recaptchaToken = await executeRecaptcha("contact_form");
 
     if (!recaptchaToken) {

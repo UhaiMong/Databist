@@ -16,6 +16,7 @@ import {
   ChevronsLeftRight,
   TimerIcon,
   Mail,
+  PhoneCall,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -30,6 +31,7 @@ const NAV_ITEMS = [
   },
   { label: "Blog", href: "/dashboard/blog", icon: Newspaper },
   { label: "Portfolio", href: "/dashboard/portfolio", icon: Images },
+  { label: "Contact", href: "/dashboard/contact", icon: PhoneCall },
   { label: "FAQ", href: "/dashboard/faq", icon: HelpCircle },
   {
     label: "Testimonials",

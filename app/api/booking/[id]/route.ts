@@ -3,6 +3,11 @@ import mongoose from "mongoose";
 import connectDB from "@/lib/db/connectDB";
 import { Booking } from "@/lib/models";
 import { bookingStatusUpdateSchema } from "@/lib/validations/booking";
+import { sendEmail } from "@/lib/email/config/resend.config";
+import {
+  bookingRescheduledTemplate,
+  bookingStatusUpdateTemplate,
+} from "@/lib/email/templates";
 
 export async function GET(
   req: NextRequest,
@@ -39,6 +44,7 @@ export async function GET(
   }
 }
 
+// Booking update trigger
 export async function PATCH(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> },
@@ -56,7 +62,6 @@ export async function PATCH(
     const body = await req.json();
     await connectDB();
 
-    // Reschedule: date + timeSlot provided
     if (body.date && body.timeSlot) {
       const conflict = await Booking.findOne({
         _id: { $ne: id },
@@ -85,12 +90,43 @@ export async function PATCH(
         );
       }
 
-      // TODO: trigger re-notification email/WhatsApp
+      try {
+        const agencyEmail = process.env.AGENCY_NOTIFY_EMAIL;
+
+        const emailTasks = [
+          // 1. Notify Client
+          sendEmail({
+            to: updated.email,
+            subject: "Your Booking Has Been Rescheduled — Digital Resolution",
+            html: bookingRescheduledTemplate(updated),
+          }),
+        ];
+
+        // 2. Notify Agency
+        if (agencyEmail) {
+          emailTasks.push(
+            sendEmail({
+              to: agencyEmail,
+              replyTo: updated.email,
+              subject: `Booking Rescheduled: ${updated.name}`,
+              html: bookingRescheduledTemplate(updated),
+            }),
+          );
+        }
+
+        const results = await Promise.allSettled(emailTasks);
+        results.forEach((res, i) => {
+          if (res.status === "rejected") {
+            console.error(`Reschedule email task [${i}] failed:`, res.reason);
+          }
+        });
+      } catch (emailError) {
+        console.error("Reschedule email execution error:", emailError);
+      }
 
       return NextResponse.json({ success: true, booking: updated });
     }
 
-    // Status update
     const parsed = bookingStatusUpdateSchema.safeParse(body);
 
     if (!parsed.success) {
@@ -117,7 +153,40 @@ export async function PATCH(
       );
     }
 
-    // TODO: trigger re-notification email/WhatsApp on status change
+    // Best-effort Status Update Email Notification via Resend
+    try {
+      const agencyEmail = process.env.AGENCY_NOTIFY_EMAIL;
+
+      const emailTasks = [
+        // 1. Notify Client
+        sendEmail({
+          to: updated.email,
+          subject: `Booking Status Updated: ${updated.status.toUpperCase()} — Digital Resolution`,
+          html: bookingStatusUpdateTemplate(updated),
+        }),
+      ];
+
+      // 2. Notify Agency
+      if (agencyEmail) {
+        emailTasks.push(
+          sendEmail({
+            to: agencyEmail,
+            replyTo: updated.email,
+            subject: `Booking Status Changed (${updated.status}): ${updated.name}`,
+            html: bookingStatusUpdateTemplate(updated),
+          }),
+        );
+      }
+
+      const results = await Promise.allSettled(emailTasks);
+      results.forEach((res, i) => {
+        if (res.status === "rejected") {
+          console.error(`Status update email task [${i}] failed:`, res.reason);
+        }
+      });
+    } catch (emailError) {
+      console.error("Status update email execution error:", emailError);
+    }
 
     return NextResponse.json({ success: true, booking: updated });
   } catch (error) {
@@ -157,8 +226,6 @@ export async function DELETE(
         { status: 404 },
       );
     }
-
-    // TODO: trigger cancellation notification
 
     return NextResponse.json({ success: true, booking: cancelled });
   } catch (error) {

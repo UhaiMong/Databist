@@ -19,6 +19,15 @@ interface BookingEmailData {
   notes?: string;
 }
 
+interface BookingData {
+  name: string;
+  email: string;
+  date: string | Date;
+  timeSlot: string;
+  serviceOfInterest?: string;
+  status: string;
+}
+
 // 1.1. Notification sent to the Agency
 export function contactNotificationTemplate(data: ContactFormData): string {
   return `
@@ -271,6 +280,120 @@ export function bookingConfirmationTemplate(
           <p>Best regards,<br><strong>Digital Resolution Team</strong></p>
         </div>
 
+        <div class="footer">
+          &copy; ${new Date().getFullYear()} Digital Resolution. All rights reserved.
+        </div>
+      </div>
+    </body>
+  </html>
+  `;
+}
+
+// Booking update triger
+
+// Helper to format dates consistently
+function formatDate(date: string | Date): string {
+  return new Date(date).toLocaleDateString("en-US", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+
+// 2.3. Rescheduled Notification Template
+export function bookingRescheduledTemplate(data: BookingData): string {
+  return `
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="utf-8">
+      <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #f4f5f7; margin: 0; padding: 20px; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 8px; padding: 32px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .brand { font-size: 22px; font-weight: 700; color: #2563eb; text-align: center; margin-bottom: 24px; }
+        .content { font-size: 15px; line-height: 1.6; color: #334155; }
+        .booking-card { background-color: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 20px; margin: 20px 0; }
+        .booking-card-item { margin-bottom: 8px; font-size: 15px; color: #1e40af; }
+        .footer { margin-top: 32px; padding-top: 20px; border-top: 1px solid #e2e8f0; font-size: 13px; color: #94a3b8; text-align: center; }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="brand">Digital Resolution</div>
+        <div class="content">
+          <p>Hi ${escapeHtml(data.name)},</p>
+          <p>Your booking schedule has been updated. Here are your new appointment details:</p>
+
+          <div class="booking-card">
+            <div class="booking-card-item"><strong>New Date:</strong> ${formatDate(data.date)}</div>
+            <div class="booking-card-item"><strong>New Time Slot:</strong> ${escapeHtml(data.timeSlot)}</div>
+            <div class="booking-card-item"><strong>Status:</strong> ${escapeHtml(data.status.toUpperCase())}</div>
+          </div>
+
+          <p>If this new time doesn't work for you, please reply directly to this email to let us know.</p>
+          <p>Best regards,<br><strong>Digital Resolution Team</strong></p>
+        </div>
+        <div class="footer">
+          &copy; ${new Date().getFullYear()} Digital Resolution. All rights reserved.
+        </div>
+      </div>
+    </body>
+  </html>
+  `;
+}
+
+// 2.4. Status Change Notification Template (Confirmed / Canceled / Rejected)
+export function bookingStatusUpdateTemplate(data: BookingData): string {
+  const statusColors: Record<
+    string,
+    { bg: string; border: string; text: string }
+  > = {
+    confirmed: { bg: "#f0fdf4", border: "#bbf7d0", text: "#166534" },
+    cancelled: { bg: "#fef2f2", border: "#fecaca", text: "#991b1b" },
+    rejected: { bg: "#fff7ed", border: "#ffedd5", text: "#9a3412" },
+    pending: { bg: "#f8fafc", border: "#e2e8f0", text: "#334155" },
+  };
+
+  const style = statusColors[data.status.toLowerCase()] || statusColors.pending;
+
+  return `
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="utf-8">
+      <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #f4f5f7; margin: 0; padding: 20px; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 8px; padding: 32px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .brand { font-size: 22px; font-weight: 700; color: #2563eb; text-align: center; margin-bottom: 24px; }
+        .content { font-size: 15px; line-height: 1.6; color: #334155; }
+        .status-card { background-color: ${style.bg}; border: 1px solid ${style.border}; border-radius: 8px; padding: 20px; margin: 20px 0; }
+        .status-title { font-size: 18px; font-weight: 700; color: ${style.text}; margin-bottom: 12px; text-transform: capitalize; }
+        .booking-detail { font-size: 14px; color: #475569; margin-bottom: 6px; }
+        .footer { margin-top: 32px; padding-top: 20px; border-top: 1px solid #e2e8f0; font-size: 13px; color: #94a3b8; text-align: center; }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="brand">Digital Resolution</div>
+        <div class="content">
+          <p>Hi ${escapeHtml(data.name)},</p>
+          <p>There is an update on your booking request status:</p>
+
+          <div class="status-card">
+            <div class="status-title">Status: ${escapeHtml(data.status)}</div>
+            <div class="booking-detail"><strong>Date:</strong> ${formatDate(data.date)}</div>
+            <div class="booking-detail"><strong>Time:</strong> ${escapeHtml(data.timeSlot)}</div>
+          </div>
+
+          ${
+            data.status === "confirmed"
+              ? "<p>We look forward to speaking with you! We'll send over a calendar invite shortly.</p>"
+              : "<p>If you have any questions or would like to pick a different date, feel free to reply to this email.</p>"
+          }
+
+          <p>Best regards,<br><strong>Digital Resolution Team</strong></p>
+        </div>
         <div class="footer">
           &copy; ${new Date().getFullYear()} Digital Resolution. All rights reserved.
         </div>

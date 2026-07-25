@@ -10,10 +10,43 @@ import {
 import { sendGA4Event } from "@/lib/ga4";
 import { sendEmail } from "@/lib/email/config/resend.config";
 
+async function verifyRecaptcha(token: string): Promise<boolean> {
+  if (!process.env.RECAPTCHA_SECRET_KEY) return true;
+
+  try {
+    const params = new URLSearchParams({
+      secret: process.env.RECAPTCHA_SECRET_KEY,
+      response: token,
+    });
+
+    const res = await fetch("https://www.google.com/recaptcha/api/siteverify", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: params.toString(),
+    });
+    const data = await res.json();
+
+    if (!data.success) {
+      console.error("reCAPTCHA verification failed:", data["error-codes"]);
+    } else if (typeof data.score === "number" && data.score < 0.5) {
+      console.warn("reCAPTCHA low score:", data.score);
+      return false;
+    }
+
+    return data.success === true;
+  } catch (err) {
+    console.error("reCAPTCHA verification request error:", err);
+    return false;
+  }
+}
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const parsed = bookingFormSchema.safeParse(body);
+
+    const { recaptchaToken, ...formData } = body;
+
+    const parsed = bookingFormSchema.safeParse(formData);
 
     if (!parsed.success) {
       return NextResponse.json(
@@ -38,6 +71,21 @@ export async function POST(req: NextRequest) {
     if (isPastDate(data.date)) {
       return NextResponse.json(
         { success: false, message: "Cannot book a past date" },
+        { status: 400 },
+      );
+    }
+
+    if (!recaptchaToken) {
+      return NextResponse.json(
+        { success: false, message: "reCAPTCHA verification required" },
+        { status: 400 },
+      );
+    }
+
+    const isHuman = await verifyRecaptcha(recaptchaToken);
+    if (!isHuman) {
+      return NextResponse.json(
+        { success: false, message: "reCAPTCHA verification failed" },
         { status: 400 },
       );
     }
@@ -78,7 +126,7 @@ export async function POST(req: NextRequest) {
                 ? booking._id.toString()
                 : booking?.data?._id
                   ? booking?.data?._id.toString()
-                  : "udefined",
+                  : "unknown",
             },
           }),
         ];
@@ -99,6 +147,8 @@ export async function POST(req: NextRequest) {
         results.forEach((result, index) => {
           if (result.status === "rejected") {
             console.error(`Side effect task [${index}] failed:`, result.reason);
+          } else {
+            console.log(`Side effect task [${index}] succeeded`, result.value);
           }
         });
       } catch (sideEffectError) {
