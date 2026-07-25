@@ -6,7 +6,8 @@ import {
   contactAcknowledgementTemplate,
   contactNotificationTemplate,
 } from "@/lib/email/templates";
-import { sendEmail } from "@/lib/email/config/resend.config";
+import { sendEmail } from "@/lib/email/config/nodemail.config";
+// import { sendEmail } from "@/lib/email/config/resend.config";
 
 async function verifyRecaptcha(token: string): Promise<boolean> {
   if (!process.env.RECAPTCHA_SECRET_KEY) return true;
@@ -108,7 +109,15 @@ export async function POST(req: NextRequest) {
           }),
         );
       }
-      await Promise.allSettled(emailPromise);
+      const results = await Promise.allSettled(emailPromise);
+
+      results.forEach((result, index) => {
+        if (result.status === "rejected") {
+          console.error(`Side effect task [${index}] failed:`, result.reason);
+        } else {
+          console.log(`Side effect task [${index}] succeeded`, result.value);
+        }
+      });
     } catch (emailError) {
       console.error(
         "Contact email sending failed (submission still saved):",
