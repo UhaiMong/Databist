@@ -12,7 +12,7 @@ export interface Slide {
 export const SLIDES: Slide[] = [
   {
     id: "01",
-    headline: "Digital Growth Partners for Ambitious Businesses",
+    headline: "The Digital Marketing and Web Development Agency You Can Trust",
     subtext:
       "Web development, design, SEO, and marketing — all under one accountable team.",
     bannerImage: "/slide1.jpg",
@@ -34,7 +34,8 @@ export const SLIDES: Slide[] = [
   },
   {
     id: "03",
-    headline: "From Bangladesh to the UAE and Beyond",
+    headline:
+      "Serving Clients Across Multiple Markets with Local Expertise, Global Standards",
     subtext:
       "Serving clients across multiple markets with local expertise, global standards.",
     bannerImage: "/slide3.jpg",

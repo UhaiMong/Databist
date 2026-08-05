@@ -14,7 +14,7 @@ import {
 } from "../../ui/sheet";
 import { Button } from "../../ui/button";
 import { VisuallyHidden } from "radix-ui";
-const logo = "/logo.png";
+const logo = "/logo.svg";
 const NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "Services", href: "/services" },
@@ -33,14 +33,14 @@ export function PublicNavbar() {
     <header
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        "bg-[#05070F]",
+        "bg-transparent",
       )}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-18">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 group shrink-0">
-            <div className="w-10 h-10 rounded-lg overflow-hidden shadow-md ring-1 ring-white/20">
+            <div className="w-15 h-15 rounded-lg overflow-hidden shadow-md ring-1 ring-white/20">
               {logo ? (
                 <Image
                   className="w-full h-full object-cover"
@@ -48,8 +48,8 @@ export function PublicNavbar() {
                   alt="Logo"
                   priority
                   loading="eager"
-                  width={40}
-                  height={40}
+                  width={60}
+                  height={60}
                 />
               ) : (
                 <div>

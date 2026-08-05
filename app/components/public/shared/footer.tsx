@@ -10,6 +10,8 @@ import YouTube from "@mui/icons-material/YouTube";
 import X from "@mui/icons-material/X";
 import { toast } from "sonner";
 
+const logo = "/logo.svg";
+
 // Provided footer navigation links
 const FOOTER_LINKS = [
   { label: "Services", href: "/services" },
@@ -64,7 +66,7 @@ export function PublicFooter() {
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         className="object-cover object-center"
       />
-      <div className="absolute inset-0 z-10 bg-brand/80" />
+      <div className="absolute inset-0 z-10 bg-yellow-800/60" />
       {/* Main Footer Content Container */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16 z-20 relative">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
@@ -72,11 +74,11 @@ export function PublicFooter() {
           <div className="flex flex-col space-y-6">
             <Link href="/" className="inline-block">
               <Image
-                src="/logo.png"
+                src={logo}
                 alt="Digital Resolution Logo"
-                width={56}
-                height={56}
-                className="h-14 w-14 object-contain rounded-md"
+                width={72}
+                height={72}
+                className="h-18 w-18 object-contain rounded-md"
                 priority
               />
             </Link>
@@ -94,7 +96,7 @@ export function PublicFooter() {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 bg-brand-dark rounded-full hover:bg-brand-light transition-colors duration-200 group"
+                    className="p-2 bg-yellow-800 rounded-full hover:bg-brand-light transition-colors duration-200 group"
                     aria-label={social.label}
                   >
                     <Icon className="w-4 h-4 text-white group-hover:scale-110 transition-transform" />
@@ -194,7 +196,7 @@ export function PublicFooter() {
                 />
                 <button
                   type="submit"
-                  className="absolute right-1 p-2 bg-brand hover:bg-brand-dark text-white rounded-md transition-colors duration-200"
+                  className="absolute right-1 p-2 bg-yellow-600 hover:bg-yellow-700 text-white rounded-md transition-colors duration-200 cursor-pointer"
                   aria-label="Subscribe"
                 >
                   {loading ? (

@@ -1,3 +1,4 @@
+import { spaceGrotesk, plexMono } from "./fonts";
 import type { Metadata } from "next";
 import "./globals.css";
 import { Geist } from "next/font/google";
@@ -22,7 +23,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn("h-full", "antialiased", "font-sans", geist.variable)}
+      className={cn(
+        "h-full",
+        "antialiased",
+        "font-sans",
+        geist.variable,
+        `${spaceGrotesk.variable} ${plexMono.variable}`,
+      )}
     >
       <body className="min-h-full flex flex-col">
         <AppProviders>

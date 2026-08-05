@@ -46,7 +46,7 @@ interface DashboardSidebarProps {
   role: "admin" | "staff";
 }
 
-const logo = "/logo.png";
+const logo = "/logo.svg";
 
 export default function DashboardSidebar({ role }: DashboardSidebarProps) {
   const pathname = usePathname();

@@ -78,6 +78,23 @@
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
+
+  /* Custom theme for Hero */
+  --color-ink: #0a0f1c;
+  --color-ink-2: #0d1424;
+  --color-blue-line: #4e7a98;
+  --color-blue-line-dim: #2c4051;
+  --color-blue-bright: #a8d8f0;
+  --color-paper: #eceef2;
+  --color-amber: #f0a83c;
+  --color-steel: #8791a1;
+
+  /* --- type roles ---
+     display: personality / headline
+     mono:    annotation, labels, dimension callouts, data
+     body:    default readable text (already covers Tailwind's font-sans if you prefer) */
+  --font-display: var(--font-space-grotesk), "Space Grotesk", sans-serif;
+  --font-mono: var(--font-plex-mono), "IBM Plex Mono", monospace;
 }
 
 .dark {
@@ -246,4 +263,79 @@ html[data-scroll-locked] {
   --radius-4xl: calc(var(--radius) * 2.6);
   --color-brand: var(--brand);
   --color-highlight: var(--highlight);
+}
+
+/* --- signature motion: boot-sequence draw-in --- */
+@keyframes db-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes db-node-in {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes db-dot-on {
+  to {
+    opacity: 1;
+  }
+}
+@keyframes db-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes db-status-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@layer utilities {
+  .animate-fade-up {
+    animation: db-fade-up 0.6s ease forwards;
+    opacity: 0;
+  }
+  .animate-node-in {
+    animation: db-node-in 0.5s ease forwards;
+    opacity: 0;
+  }
+  .animate-dot-on {
+    animation: db-dot-on 0.4s ease forwards;
+  }
+  .animate-draw {
+    animation: db-draw 0.55s ease forwards;
+  }
+  .animate-status-pulse {
+    animation: db-status-pulse 2.2s ease-in-out infinite;
+  }
+}
+
+/* Respect reduced motion globally for the boot sequence */
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up,
+  .animate-node-in,
+  .animate-dot-on,
+  .animate-draw,
+  .animate-status-pulse {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    stroke-dashoffset: 0 !important;
+  }
 }

@@ -18,6 +18,7 @@ import TestimonialSection from "./components/TestimonialSection";
 import BookingSection from "./components/BookingSection";
 import BlogSection from "./components/BlogSection";
 import FaqSection from "./components/FaqSection";
+import { TopBanner } from "../components/public/home/TopBanner";
 
 export const metadata: Metadata = {
   title: "Digital Resolution | Web Development & Digital Marketing Agency",
@@ -67,6 +68,7 @@ export default async function HomePage() {
 
   return (
     <>
+      <TopBanner />
       <HeroSlider />
       <TrustTrip />
       <Services services={services} />
