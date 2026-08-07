@@ -3,7 +3,7 @@ import { Schema, model, models } from "mongoose";
 const SiteSettingsSchema = new Schema(
   {
     key: { type: String, required: true, unique: true, default: "global" },
-    companyName: { type: String, default: "Digital Resolution" },
+    companyName: { type: String, default: "Databist" },
     contactEmail: { type: String, required: true },
     phone: { type: String, required: true },
     whatsapp: { type: String, required: true },

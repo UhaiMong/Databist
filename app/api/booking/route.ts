@@ -107,7 +107,7 @@ export async function POST(req: NextRequest) {
           // client confirmation mailing
           sendEmail({
             to: data.email,
-            subject: "Your Booking Request Received - Digital Resolution",
+            subject: "Your Booking Request Received - Databist",
             html: bookingConfirmationTemplate(
               data.name,
               data.date,

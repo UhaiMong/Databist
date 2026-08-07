@@ -4,7 +4,7 @@ import { ServicePackage } from "@/lib/models";
 import ServiceForm from "@/app/components/dashboard/services/ServiceForm";
 
 export const metadata = {
-  title: "Edit Service | Digital Resolution",
+  title: "Edit Service | Databist",
 };
 
 interface EditServicePageProps {

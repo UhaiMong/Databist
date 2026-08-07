@@ -23,12 +23,9 @@ export default function HeaderBannerSection({
 }: HeaderBannerProps) {
   return (
     <div
-      className={`${fraunces.variable} ${plexMono.variable} w-full overflow-hidden`}
+      className={`${fraunces.variable} ${plexMono.variable} ${heightClass} w-full relative -mt-16`}
     >
-      <div
-        className={`relative ${heightClass}`}
-        style={{ background: DesignTokens.bg }}
-      >
+      <div className={`w-full h-full`} style={{ background: DesignTokens.bg }}>
         {/* Background image */}
         <Image
           src={imageSrc}
@@ -41,7 +38,7 @@ export default function HeaderBannerSection({
         />
 
         {/* Directional scrim for text legibility */}
-        <div className={cn("absolute inset-0 z-10", overlayClass)} />
+        <div className={cn("absolute inset-0 z-10", "bg-page-bg/80")} />
 
         {/* Vignette for depth */}
         <div

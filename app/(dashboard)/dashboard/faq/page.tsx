@@ -3,7 +3,7 @@ import { FaqGlobal } from "@/lib/models";
 import FaqManager from "@/app/components/dashboard/faq/FaqManager";
 
 export const metadata = {
-  title: "FAQ Management | Digital Resolution",
+  title: "FAQ Management | Databist",
 };
 
 async function getFaqs() {

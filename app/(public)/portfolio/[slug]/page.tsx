@@ -24,10 +24,10 @@ export async function generateMetadata({
   const { slug } = await params;
   const item = await getItem(slug);
 
-  if (!item) return { title: "Case Study Not Found | Digital Resolution" };
+  if (!item) return { title: "Case Study Not Found | Databist" };
 
   return {
-    title: `${item.title} | Digital Resolution Portfolio`,
+    title: `${item.title} | Databist Portfolio`,
     description: item.summary,
   };
 }

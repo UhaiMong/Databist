@@ -1,7 +1,7 @@
 import LoginForm from "../components/public/auth/LoginForm";
 
 export const metadata = {
-  title: "Login | Digital Resolution Dashboard",
+  title: "Login | Databist Dashboard",
 };
 
 export default function LoginPage() {

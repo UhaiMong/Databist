@@ -3,7 +3,7 @@ import { Booking } from "@/lib/models";
 import BookingsTable from "@/app/components/dashboard/bookings/BookingsTable";
 
 export const metadata = {
-  title: "Booking Management | Digital Resolution",
+  title: "Booking Management | Databist",
 };
 
 async function getBookings() {

@@ -3,7 +3,7 @@ import connectDB from "@/lib/db/connectDB";
 import { Subscriber } from "@/lib/models";
 
 export const metadata = {
-  title: "Newsletter Subscribers | Digital Resolution",
+  title: "Newsletter Subscribers | Databist",
 };
 
 async function getSubscribers() {

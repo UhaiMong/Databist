@@ -97,7 +97,7 @@ export function contactNotificationTemplate(data: ContactFormData): string {
         </div>
 
         <div class="footer">
-          Received via Website Contact Form • Digital Resolution
+          Received via Website Contact Form • Databist
         </div>
       </div>
     </body>
@@ -127,7 +127,7 @@ export function contactAcknowledgementTemplate(name: string): string {
     <body>
       <div class="container">
         <div class="header">
-          <div class="brand">Digital Resolution</div>
+          <div class="brand">Databist</div>
         </div>
 
         <div class="content">
@@ -140,11 +140,11 @@ export function contactAcknowledgementTemplate(name: string): string {
           </div>
 
           <p>If you have any urgent follow-up details to share, feel free to reply directly to this email.</p>
-          <p>Best regards,<br><strong>Digital Resolution Team</strong></p>
+          <p>Best regards,<br><strong>Databist Team</strong></p>
         </div>
 
         <div class="footer">
-          &copy; ${new Date().getFullYear()} Digital Resolution. All rights reserved.
+          &copy; ${new Date().getFullYear()} Databist. All rights reserved.
         </div>
       </div>
     </body>
@@ -263,7 +263,7 @@ export function bookingConfirmationTemplate(
     </head>
     <body>
       <div class="container">
-        <div class="brand">Digital Resolution</div>
+        <div class="brand">Databist</div>
 
         <div class="content">
           <p>Hi ${escapeHtml(name)},</p>
@@ -277,11 +277,11 @@ export function bookingConfirmationTemplate(
           </div>
 
           <p>Our team is reviewing the availability and will send a calendar invitation or reach out shortly to finalize your meeting.</p>
-          <p>Best regards,<br><strong>Digital Resolution Team</strong></p>
+          <p>Best regards,<br><strong>Databist Team</strong></p>
         </div>
 
         <div class="footer">
-          &copy; ${new Date().getFullYear()} Digital Resolution. All rights reserved.
+          &copy; ${new Date().getFullYear()} Databist. All rights reserved.
         </div>
       </div>
     </body>
@@ -320,7 +320,7 @@ export function bookingRescheduledTemplate(data: BookingData): string {
     </head>
     <body>
       <div class="container">
-        <div class="brand">Digital Resolution</div>
+        <div class="brand">Databist</div>
         <div class="content">
           <p>Hi ${escapeHtml(data.name)},</p>
           <p>Your booking schedule has been updated. Here are your new appointment details:</p>
@@ -332,10 +332,10 @@ export function bookingRescheduledTemplate(data: BookingData): string {
           </div>
 
           <p>If this new time doesn't work for you, please reply directly to this email to let us know.</p>
-          <p>Best regards,<br><strong>Digital Resolution Team</strong></p>
+          <p>Best regards,<br><strong>Databist Team</strong></p>
         </div>
         <div class="footer">
-          &copy; ${new Date().getFullYear()} Digital Resolution. All rights reserved.
+          &copy; ${new Date().getFullYear()} Databist. All rights reserved.
         </div>
       </div>
     </body>
@@ -375,7 +375,7 @@ export function bookingStatusUpdateTemplate(data: BookingData): string {
     </head>
     <body>
       <div class="container">
-        <div class="brand">Digital Resolution</div>
+        <div class="brand">Databist</div>
         <div class="content">
           <p>Hi ${escapeHtml(data.name)},</p>
           <p>There is an update on your booking request status:</p>
@@ -392,10 +392,10 @@ export function bookingStatusUpdateTemplate(data: BookingData): string {
               : "<p>If you have any questions or would like to pick a different date, feel free to reply to this email.</p>"
           }
 
-          <p>Best regards,<br><strong>Digital Resolution Team</strong></p>
+          <p>Best regards,<br><strong>Databist Team</strong></p>
         </div>
         <div class="footer">
-          &copy; ${new Date().getFullYear()} Digital Resolution. All rights reserved.
+          &copy; ${new Date().getFullYear()} Databist. All rights reserved.
         </div>
       </div>
     </body>

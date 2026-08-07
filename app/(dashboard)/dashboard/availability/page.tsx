@@ -3,7 +3,7 @@ import connectDB from "@/lib/db/connectDB";
 import { Availability, BlackoutDate } from "@/lib/models";
 
 export const metadata = {
-  title: "Availability Settings | Digital Resolution",
+  title: "Availability Settings | Databist",
 };
 
 async function getData() {

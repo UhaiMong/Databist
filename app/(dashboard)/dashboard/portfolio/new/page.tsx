@@ -1,7 +1,7 @@
 import PortfolioForm from "@/app/components/dashboard/portfolio/PortfolioForm";
 
 export const metadata = {
-  title: "New Portfolio Item | Digital Resolution",
+  title: "New Portfolio Item | Databist",
 };
 
 export default function NewPortfolioPage() {

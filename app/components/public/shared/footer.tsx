@@ -57,16 +57,16 @@ export function PublicFooter() {
   }
 
   return (
-    <footer className="relative text-white">
+    <footer className="relative text-ink">
       <Image
         src="/virtualOffice.jpg"
-        alt="Digital Resolution Logo"
+        alt="Databist Logo"
         fill
         priority
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         className="object-cover object-center"
       />
-      <div className="absolute inset-0 z-10 bg-yellow-800/60" />
+      <div className="absolute inset-0 z-10 bg-page-bg" />
       {/* Main Footer Content Container */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16 z-20 relative">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
@@ -75,7 +75,7 @@ export function PublicFooter() {
             <Link href="/" className="inline-block">
               <Image
                 src={logo}
-                alt="Digital Resolution Logo"
+                alt="Databist Logo"
                 width={72}
                 height={72}
                 className="h-18 w-18 object-contain rounded-md"
@@ -83,8 +83,8 @@ export function PublicFooter() {
               />
             </Link>
             <p className="text-sm text-gray-200 leading-relaxed">
-              Digital Resolution — a full-service digital marketing and web
-              development agency dedicated to scaling your online footprint.
+              Databist — a full-service digital marketing and web development
+              agency dedicated to scaling your online footprint.
             </p>
             {/* Social Icons */}
             <div className="flex items-center space-x-4">
@@ -212,9 +212,7 @@ export function PublicFooter() {
 
         {/* Bottom Bar: Legal Info & Copyright */}
         <div className="mt-12 lg:mt-16 pt-8 border-t border-brand-dark flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-gray-300">
-          <div>
-            &copy; {currentYear} Digital Resolution. All rights reserved.
-          </div>
+          <div>&copy; {currentYear} Databist. All rights reserved.</div>
           <div className="flex items-center space-x-6">
             <Link
               href="/terms-of-service"

@@ -21,7 +21,7 @@ import FaqSection from "./components/FaqSection";
 import { TopBanner } from "../components/public/home/TopBanner";
 
 export const metadata: Metadata = {
-  title: "Digital Resolution | Web Development & Digital Marketing Agency",
+  title: "Databist | Web Development & Digital Marketing Agency",
   description:
     "Full-service digital marketing and web development agency serving Bangladesh, the UAE, and beyond. Book a free consultation today.",
 };

@@ -48,7 +48,7 @@ export async function sendEmail({
   replyTo,
 }: SendEmailOptions) {
   const mailOptions = {
-    from: `"Digital Resolution" <${process.env.SMTP_USER}>`,
+    from: `"Databist" <${process.env.SMTP_USER}>`,
     to,
     subject,
     html,

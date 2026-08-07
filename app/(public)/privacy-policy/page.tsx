@@ -1,8 +1,8 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Digital Resolution",
-  description: "How Digital Resolution collects, uses, and protects your data.",
+  title: "Privacy Policy | Databist",
+  description: "How Databist collects, uses, and protects your data.",
 };
 
 export default function PrivacyPolicyPage() {

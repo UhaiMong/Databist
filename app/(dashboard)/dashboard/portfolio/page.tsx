@@ -6,7 +6,7 @@ import { Plus } from "lucide-react";
 import PortfolioTable from "@/app/components/dashboard/portfolio/PortfolioTable";
 
 export const metadata = {
-  title: "Portfolio Management | Digital Resolution",
+  title: "Portfolio Management | Databist",
 };
 
 async function getItems() {

@@ -6,7 +6,7 @@ import { Plus } from "lucide-react";
 import BlogTable from "@/app/components/dashboard/blog/BlogTable";
 
 export const metadata = {
-  title: "Blog Management | Digital Resolution",
+  title: "Blog Management | Databist",
 };
 
 async function getPosts() {

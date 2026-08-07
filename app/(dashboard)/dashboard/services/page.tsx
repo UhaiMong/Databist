@@ -6,7 +6,7 @@ import { Plus } from "lucide-react";
 import ServicesTable from "@/app/components/dashboard/services/ServicesTable";
 
 export const metadata = {
-  title: "Service Management | Digital Resolution",
+  title: "Service Management | Databist",
 };
 
 async function getServices() {

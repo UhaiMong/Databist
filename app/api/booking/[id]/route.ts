@@ -147,7 +147,7 @@ export async function PATCH(
           // 1. Notify Client
           sendEmail({
             to: updated.email,
-            subject: "Your Booking Has Been Rescheduled — Digital Resolution",
+            subject: "Your Booking Has Been Rescheduled — Databist",
             html: bookingRescheduledTemplate(updated),
           }),
         ];
@@ -213,7 +213,7 @@ export async function PATCH(
         // 1. Notify Client
         sendEmail({
           to: updated.email,
-          subject: `Booking Status Updated: ${updated.status.toUpperCase()} — Digital Resolution`,
+          subject: `Booking Status Updated: ${updated.status.toUpperCase()} — Databist`,
           html: bookingStatusUpdateTemplate(updated),
         }),
       ];

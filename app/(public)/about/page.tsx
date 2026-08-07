@@ -8,9 +8,9 @@ import TrustTrip from "../components/TrustStrip";
 import HeaderBannerSection from "../components/HeaderBannerSection";
 
 export const metadata: Metadata = {
-  title: "About Us | Digital Resolution",
+  title: "About Us | Databist",
   description:
-    "Digital Resolution is a full-service digital marketing and web development agency serving clients in Bangladesh, the UAE, and beyond.",
+    "Databist is a full-service digital marketing and web development agency serving clients in Bangladesh, the UAE, and beyond.",
 };
 
 export const revalidate = 60;
@@ -34,16 +34,16 @@ export default async function AboutUsPage() {
   const offices = await getOffices();
 
   return (
-    <section className="mt-16">
+    <section className="mt-16 bg-page-bg text-ink">
       <HeaderBannerSection
-        title="Digital Resolution"
+        title="Databist"
         subtitle="Connecting offices and clients worldwide"
         imageSrc="/aboutBanner.jpg"
-        overlayClass="bg-linear-to-b from-brand/30 via-brand-dark/40 to-brand/70"
+        overlayClass="bg-app-bg/50"
       />
       <div className="mx-auto max-w-3xl text-center mt-4 py-3.5">
         <h1 className="text-2xl font-bold tracking-tight sm:text-3xl inline-block bg-linear-to-r from-indigo-500 to-pink-500 bg-clip-text text-transparent">
-          About Digital Resolution
+          About Databist
         </h1>
         <p className="mt-4 text-lg text-muted-foreground">
           A full-service digital marketing and web development agency helping
@@ -54,9 +54,7 @@ export default async function AboutUsPage() {
 
       <TrustTrip />
       <div className="mx-auto mt-16 max-w-3xl space-y-4">
-        <h2 className="text-2xl font-semibold">
-          Why Choose Digital Resolution
-        </h2>
+        <h2 className="text-2xl font-semibold">Why Choose Databist</h2>
         <p className="text-muted-foreground">
           We combine project-based pricing with senior-level execution across
           web development, design, content, and marketing — so clients get one
@@ -73,7 +71,7 @@ export default async function AboutUsPage() {
               key={office.label}
               className="flex gap-4 rounded-lg border p-6"
             >
-              <MapPin className="mt-1 h-5 w-5 shrink-0 text-primary" />
+              <MapPin className="mt-1 h-5 w-5 shrink-0" />
               <div>
                 <p className="font-semibold">{office.label} Office</p>
                 <p className="mt-1 text-sm text-muted-foreground">
@@ -85,9 +83,13 @@ export default async function AboutUsPage() {
         </div>
       </div>
 
-      <div className="mx-auto mt-16 max-w-3xl rounded-lg border bg-muted/40 p-8 text-center">
+      <div className="mx-auto max-w-3xl rounded-lg border bg-muted/40 mt-10 p-8 text-center">
         <h2 className="text-xl font-semibold">Ready to work together?</h2>
-        <Button asChild size="lg" className="mt-4">
+        <Button
+          asChild
+          size="lg"
+          className="mt-4 bg-linear-to-r from-indigo-500 to-pink-500"
+        >
           <Link href="/booking">
             Book a Free Consultation <ArrowRight className="ml-2 h-4 w-4" />
           </Link>

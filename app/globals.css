@@ -80,7 +80,7 @@
   --radius-sm: calc(var(--radius) - 4px);
 
   /* Custom theme for Hero */
-  --color-ink: #0a0f1c;
+  --color-ink: #edeae2;
   --color-ink-2: #0d1424;
   --color-blue-line: #4e7a98;
   --color-blue-line-dim: #2c4051;

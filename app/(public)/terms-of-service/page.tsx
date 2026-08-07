@@ -1,9 +1,8 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Terms of Service | Digital Resolution",
-  description:
-    "Engagement terms for Digital Resolution's paid service packages.",
+  title: "Terms of Service | Databist",
+  description: "Engagement terms for Databist's paid service packages.",
 };
 
 export default function TermsOfServicePage() {
@@ -17,11 +16,11 @@ export default function TermsOfServicePage() {
 
         <h2>1. Services</h2>
         <p>
-          Digital Resolution provides website development, graphic design,
-          content writing, SEO, video ads, social media management, digital
-          marketing, and online maintenance packages as described on our
-          Services pages. Package pricing shown is a starting price; final scope
-          and pricing are confirmed during consultation.
+          Databist provides website development, graphic design, content
+          writing, SEO, video ads, social media management, digital marketing,
+          and online maintenance packages as described on our Services pages.
+          Package pricing shown is a starting price; final scope and pricing are
+          confirmed during consultation.
         </p>
 
         <h2>2. Engagement Model</h2>
@@ -53,9 +52,9 @@ export default function TermsOfServicePage() {
 
         <h2>6. Limitation of Liability</h2>
         <p>
-          Digital Resolution will perform services with reasonable skill and
-          care but does not guarantee specific business outcomes (e.g. search
-          rankings, ad performance) resulting from marketing or SEO services.
+          Databist will perform services with reasonable skill and care but does
+          not guarantee specific business outcomes (e.g. search rankings, ad
+          performance) resulting from marketing or SEO services.
         </p>
 
         <h2>7. Contact</h2>

@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card";
 import { CalendarCheck, Package, Newspaper, Images, Clock } from "lucide-react";
 
 export const metadata = {
-  title: "Dashboard Overview | Digital Resolution",
+  title: "Dashboard Overview | Databist",
 };
 
 function startOfWeek(): string {

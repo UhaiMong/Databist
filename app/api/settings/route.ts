@@ -4,7 +4,7 @@ import { SiteSettings } from "@/lib/models";
 
 const DEFAULT_SETTINGS = {
   key: "global",
-  companyName: "Digital Resolution",
+  companyName: "Databist",
   contactEmail: "",
   phone: "+880 1840-930768",
   whatsapp: "+880 1840-930768",

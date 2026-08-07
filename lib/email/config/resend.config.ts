@@ -17,7 +17,7 @@ export async function sendEmail({
   replyTo,
 }: SendEmailOptions) {
   const { data, error } = await resend.emails.send({
-    from: `Digital Resolution <${FROM_RESEND_EMAIL}>`,
+    from: `Databist <${FROM_RESEND_EMAIL}>`,
     to,
     subject,
     html,

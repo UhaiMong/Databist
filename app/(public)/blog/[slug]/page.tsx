@@ -42,10 +42,10 @@ export async function generateMetadata({
   const { slug } = await params;
   const { post } = await getPost(slug);
 
-  if (!post) return { title: "Article Not Found | Digital Resolution" };
+  if (!post) return { title: "Article Not Found | Databist" };
 
   return {
-    title: `${post.title} | Digital Resolution Blog`,
+    title: `${post.title} | Databist Blog`,
     description: post.excerpt,
   };
 }

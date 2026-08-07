@@ -4,7 +4,7 @@ import { Blog } from "@/lib/models";
 import BlogForm from "@/app/components/dashboard/blog/BlogForm";
 
 export const metadata = {
-  title: "Edit Blog Post | Digital Resolution",
+  title: "Edit Blog Post | Databist",
 };
 
 interface EditBlogPageProps {

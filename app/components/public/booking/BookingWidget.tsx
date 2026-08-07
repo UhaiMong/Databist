@@ -74,7 +74,7 @@ export default function BookingWidget({
 
   return (
     <>
-      <div className="mx-auto max-w-4xl mt-14">
+      <div className="mx-auto w-full md:max-w-5xl mt-10 shadow-2xl bg-page-bg/90">
         <div className="w-full">
           <Card className="rounded-2xl bg-page-bg text-slate-50">
             <CardContent

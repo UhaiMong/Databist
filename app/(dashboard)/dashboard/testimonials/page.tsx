@@ -3,7 +3,7 @@ import { Testimonial } from "@/lib/models";
 import TestimonialManager from "@/app/components/dashboard/testimonials/TestimonialManager";
 
 export const metadata = {
-  title: "Testimonial Management | Digital Resolution",
+  title: "Testimonial Management | Databist",
 };
 
 async function getTestimonials() {

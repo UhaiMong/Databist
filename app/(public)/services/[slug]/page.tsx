@@ -28,10 +28,10 @@ export async function generateMetadata({
   const { slug } = await params;
   const service = await getService(slug);
 
-  if (!service) return { title: "Service Not Found | Digital Resolution" };
+  if (!service) return { title: "Service Not Found | Databist" };
 
   return {
-    title: `${service.name} | Digital Resolution`,
+    title: `${service.name} | Databist`,
     description: service.shortDescription,
   };
 }
@@ -47,7 +47,7 @@ export default async function ServiceDetailPage({
   if (!service) notFound();
 
   return (
-    <section className="mt-16">
+    <section className="mt-16 bg-page-bg text-ink">
       <HeaderBannerSection
         title={service?.name}
         subtitle={service?.shortDescription}
@@ -63,14 +63,16 @@ export default async function ServiceDetailPage({
           <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
             {service.name}
           </h1>
-          <p className="mt-2 text-2xl font-bold text-primary">
-            $ {service.priceLabel}
-          </p>
+          <p className="mt-2 text-3xl font-bold">$ {service.priceLabel}</p>
           <p className="mt-4 text-lg text-muted-foreground">
             {service.shortDescription}
           </p>
 
-          <Button asChild size="lg" className="mt-6 bg-brand text-slate-50">
+          <Button
+            asChild
+            size="lg"
+            className="mt-6 bg-brand text-slate-50 bg-linear-to-r from-indigo-500 to-pink-500"
+          >
             <Link
               href={`/booking?serviceId=${encodeURIComponent(service._id)}`}
             >
@@ -91,7 +93,7 @@ export default async function ServiceDetailPage({
               <ul className="grid gap-3 sm:grid-cols-2">
                 {service.inclusions.map((item: string, i: number) => (
                   <li key={i} className="flex items-start gap-2">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0" />
                     <span>{item}</span>
                   </li>
                 ))}
@@ -137,7 +139,7 @@ export default async function ServiceDetailPage({
               asChild
               variant="link"
               size="lg"
-              className="mt-4 bg-brand text-primary-foreground"
+              className="mt-4 bg-linear-to-r from-indigo-500 to-pink-500"
             >
               <Link
                 href={`/booking?serviceId=${encodeURIComponent(service._id)}`}

@@ -3,7 +3,7 @@ import connectDB from "@/lib/db/connectDB";
 import { Contact, Subscriber } from "@/lib/models";
 
 export const metadata = {
-  title: "Contact List | Digital Resolution",
+  title: "Contact List | Databist",
 };
 
 async function getContactList() {

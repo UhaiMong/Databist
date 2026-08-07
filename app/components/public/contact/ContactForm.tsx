@@ -73,10 +73,10 @@ export default function ContactForm() {
   }
 
   return (
-    <Card>
-      <CardContent className="p-4">
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <div className="space-y-2">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+      <Card>
+        <CardContent className="p-4">
+          <div className="space-y-4">
             <Label htmlFor="name">Name</Label>
             <Input id="name" placeholder="Uhai Mong" {...register("name")} />
             {errors.name && (
@@ -84,7 +84,7 @@ export default function ContactForm() {
             )}
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-4 mt-4">
             <Label htmlFor="email">Email</Label>
             <Input
               id="email"
@@ -96,7 +96,7 @@ export default function ContactForm() {
               <p className="text-sm text-destructive">{errors.email.message}</p>
             )}
           </div>
-          <div className="space-y-2">
+          <div className="space-y-4 mt-4">
             <Label htmlFor="phone">Phone</Label>
             <Input
               id="phone"
@@ -109,7 +109,7 @@ export default function ContactForm() {
             )}
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-4 mt-4">
             <Label htmlFor="subject">Subject</Label>
             <Input
               id="subject"
@@ -123,7 +123,7 @@ export default function ContactForm() {
             )}
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-4 mt-4">
             <Label htmlFor="message">Message</Label>
             <Textarea
               id="message"
@@ -152,11 +152,11 @@ export default function ContactForm() {
             <p className="text-sm text-destructive">{submitError}</p>
           )}
 
-          <Button type="submit" className="w-full" disabled={isSubmitting}>
+          <Button type="submit" className="w-full mt-4" disabled={isSubmitting}>
             {isSubmitting ? "Sending..." : "Send Message"}
           </Button>
-        </form>
-      </CardContent>
-    </Card>
+        </CardContent>
+      </Card>
+    </form>
   );
 }

@@ -4,7 +4,7 @@ import { FaqGlobal } from "@/lib/models";
 import FaqPageClient from "@/app/components/public/faq/FaqPageClient";
 
 export const metadata: Metadata = {
-  title: "FAQ | Digital Resolution",
+  title: "FAQ | Databist",
   description:
     "Answers to common questions about our services, pricing, delivery timelines, support, and engagement models.",
 };
@@ -29,7 +29,7 @@ export default async function FaqPage() {
           Frequently Asked Questions
         </h1>
         <p className="mt-3 text-muted-foreground">
-          Everything you need to know about working with Digital Resolution.
+          Everything you need to know about working with Databist.
         </p>
       </div>
 

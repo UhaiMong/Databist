@@ -1,7 +1,7 @@
 import BlogForm from "@/app/components/dashboard/blog/BlogForm";
 
 export const metadata = {
-  title: "New Blog Post | Digital Resolution",
+  title: "New Blog Post | Databist",
 };
 
 export default function NewBlogPostPage() {

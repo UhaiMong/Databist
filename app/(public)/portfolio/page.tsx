@@ -5,9 +5,9 @@ import PortfolioGrid from "@/app/components/public/portfolio/PortfolioGrid";
 import HeaderBannerSection from "../components/HeaderBannerSection";
 
 export const metadata: Metadata = {
-  title: "Portfolio | Digital Resolution",
+  title: "Portfolio | Databist",
   description:
-    "Case studies and past work from Digital Resolution across web, design, and marketing.",
+    "Case studies and past work from Databist across web, design, and marketing.",
 };
 
 export const revalidate = 60;
@@ -24,7 +24,7 @@ export default async function PortfolioPage() {
   const items = await getPortfolioItems();
 
   return (
-    <section className="mt-16">
+    <section className="mt-16 bg-page-bg text-ink">
       <HeaderBannerSection
         title="To Visualize Development"
         subtitle="Seamless visualization of your thinking"
@@ -39,7 +39,7 @@ export default async function PortfolioPage() {
           A selection of projects across web development, design, and marketing.
         </p>
       </div>
-      <div className="container mx-auto px-4 py-16">
+      <div className="container mx-auto px-4 py-7">
         <PortfolioGrid items={items} />
       </div>
     </section>

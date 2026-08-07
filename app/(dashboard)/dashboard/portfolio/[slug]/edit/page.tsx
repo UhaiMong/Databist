@@ -4,7 +4,7 @@ import { Portfolio } from "@/lib/models";
 import PortfolioForm from "@/app/components/dashboard/portfolio/PortfolioForm";
 
 export const metadata = {
-  title: "Edit Portfolio Item | Digital Resolution",
+  title: "Edit Portfolio Item | Databist",
 };
 
 interface EditPortfolioPageProps {

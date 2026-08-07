@@ -3,11 +3,11 @@ import { SiteSettings } from "@/lib/models";
 import SettingsForm from "@/app/components/dashboard/settings/SettingsForm";
 
 export const metadata = {
-  title: "Site Settings | Digital Resolution",
+  title: "Site Settings | Databist",
 };
 
 const DEFAULT_SETTINGS = {
-  companyName: "Digital Resolution",
+  companyName: "Databist",
   contactEmail: "",
   phone: "",
   whatsapp: "",

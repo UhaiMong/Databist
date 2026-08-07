@@ -92,7 +92,7 @@ export async function POST(req: NextRequest) {
         // 1. User acknowledgement
         sendEmail({
           to: data?.email,
-          subject: "We've received your message - Digital Resolution",
+          subject: "We've received your message - Databist",
           html: contactAcknowledgementTemplate(data.name),
         }),
       ];

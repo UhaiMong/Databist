@@ -286,7 +286,7 @@ export function BookingFormModal({
                 </Label>
                 <Input
                   id="company"
-                  placeholder="Digital Resolution"
+                  placeholder="Databist"
                   {...register("company")}
                 />
               </div>

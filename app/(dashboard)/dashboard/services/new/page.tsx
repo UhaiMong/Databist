@@ -1,7 +1,7 @@
 import ServiceForm from "@/app/components/dashboard/services/ServiceForm";
 
 export const metadata = {
-  title: "Add Service | Digital Resolution",
+  title: "Add Service | Databist",
 };
 
 export default function NewServicePage() {
