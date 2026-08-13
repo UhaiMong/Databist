@@ -73,7 +73,7 @@ export default async function AboutUsPage() {
             >
               <MapPin className="mt-1 h-5 w-5 shrink-0" />
               <div>
-                <p className="font-semibold">{office.label} Office</p>
+                <p className="font-semibold">{office.label}</p>
                 <p className="mt-1 text-sm text-muted-foreground">
                   {office.address}
                 </p>

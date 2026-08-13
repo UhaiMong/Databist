@@ -60,7 +60,7 @@ export default async function ContactPage() {
             {settings?.phone && (
               <div className="flex gap-4">
                 <Phone className="mt-1 h-5 w-5 shrink-0" />
-                <div>
+                <div className="">
                   <p className="font-semibold">Phone / WhatsApp</p>
                   <a
                     href={`tel:${settings.phone}`}
@@ -68,8 +68,9 @@ export default async function ContactPage() {
                   >
                     {settings.phone}
                   </a>
+                  <span> / </span>
                   <a
-                    href={`https://wa.me/${settings.whatsapp?.replace(/[^0-9]/g, "")}`}
+                    href={`https://wa.me/${settings.whatsapp}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-sm text-muted-foreground hover:underline"

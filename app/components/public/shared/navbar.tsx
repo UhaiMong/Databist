@@ -55,9 +55,12 @@ export function PublicNavbar() {
       <div className="w-full h-16 lg:h-18 lg:max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between w-full">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 group shrink-0">
-            <div className="w-15 h-15 rounded-lg overflow-hidden shadow-md ring-1 ring-white/20">
-              {logo ? (
+          <Link
+            href="/"
+            className="flex items-center gap-2.5 group shrink-0 pt-2"
+          >
+            <div className="w-12 h-12 rounded-lg overflow-hidden shadow-md ring-1 ring-white/20">
+              {logo && (
                 <Image
                   className="w-full h-full object-cover"
                   src={logo}
@@ -67,11 +70,12 @@ export function PublicNavbar() {
                   width={60}
                   height={60}
                 />
-              ) : (
-                <div>
-                  <h2>Databist</h2>
-                </div>
               )}
+            </div>
+            <div>
+              <h2 className="text-sm font-black tracking-wide text-[#FF3131]">
+                Data<span className="text-secondary">bist</span>
+              </h2>
             </div>
           </Link>
 

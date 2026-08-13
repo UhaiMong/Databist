@@ -64,7 +64,6 @@ export default async function ServicesPage() {
             </CardHeader>
             <CardContent className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
               <div>
-                <p className="text-lg font-bold">$ {combo.priceLabel}</p>
                 <p className="mt-1">{combo.shortDescription}</p>
               </div>
               <Button
@@ -87,9 +86,6 @@ export default async function ServicesPage() {
             >
               <CardHeader>
                 <CardTitle>{service.name}</CardTitle>
-                <p className="text-sm font-medium text-primary">
-                  {service.priceLabel}
-                </p>
               </CardHeader>
               <CardContent className="flex flex-1 flex-col justify-between gap-4">
                 <p className="text-sm text-muted-foreground">

@@ -34,7 +34,7 @@ export default function Services({ services }: { services: any }) {
             Capabilities — Itemized
           </span>
           <h2
-            className="mt-3 text-4xl sm:text-5xl text-[#EDEAE2] italic"
+            className="mt-3 text-4xl sm:text-5xl text-ink italic"
             style={{ fontFamily: "var(--font-fraunces)" }}
           >
             What we build
@@ -86,7 +86,7 @@ export default function Services({ services }: { services: any }) {
                 {/* Body */}
                 <div className="flex-1 px-5 pt-5 pb-4">
                   <h3
-                    className="text-lg leading-snug text-[#EDEAE2] italic"
+                    className="text-lg leading-snug text-ink italic"
                     style={{ fontFamily: "var(--font-fraunces)" }}
                   >
                     {service.name}
@@ -131,12 +131,6 @@ export default function Services({ services }: { services: any }) {
 
                 {/* Price footer */}
                 <div className="flex items-center justify-between px-5 py-4">
-                  <span
-                    className="text-xl text-[#EDEAE2]"
-                    style={{ fontFamily: "var(--font-plex-mono)" }}
-                  >
-                    ${service.priceLabel}
-                  </span>
                   <span className="flex items-center gap-1 text-[11px] tracking-wide text-[#8A8779] transition-colors group-hover:text-[#C9A15A]">
                     View
                     <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -151,7 +145,7 @@ export default function Services({ services }: { services: any }) {
         <div className="mt-14 flex justify-center">
           <Link
             href="/services"
-            className="group inline-flex items-center gap-2 text-xs tracking-[0.2em] uppercase text-[#EDEAE2] border-b border-[#2A2B31] pb-1 transition-colors hover:border-[#C9A15A] hover:text-[#C9A15A]"
+            className="group inline-flex items-center gap-2 text-xs tracking-[0.2em] uppercase text-ink border-b border-[#2A2B31] pb-1 transition-colors hover:border-[#C9A15A] hover:text-[#C9A15A]"
             style={{ fontFamily: "var(--font-plex-mono)" }}
           >
             View full manifest

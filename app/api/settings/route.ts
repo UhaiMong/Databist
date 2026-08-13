@@ -6,8 +6,8 @@ const DEFAULT_SETTINGS = {
   key: "global",
   companyName: "Databist",
   contactEmail: "",
-  phone: "+880 1840-930768",
-  whatsapp: "+880 1840-930768",
+  phone: "+880 1516-341885",
+  whatsapp: "+880 1516-341885",
   offices: [
     {
       label: "Bangladesh",

@@ -137,10 +137,9 @@ export function PublicFooter() {
                 <MapPin className="w-5 h-5 text-brand-light shrink-0 mt-0.5" />
                 <div>
                   <span className="font-semibold text-white block">
-                    Bangladesh Office
+                    Bangladesh
                   </span>
-                  Software Technology Park, 6th Floor, Singapore Bangkok Market,
-                  Agrabad, Chattogram
+                  We are connected virtually and origin from Bandarban
                 </div>
               </div>
 
@@ -148,28 +147,26 @@ export function PublicFooter() {
               <div className="flex items-start space-x-3">
                 <MapPin className="w-5 h-5 text-brand-light shrink-0 mt-0.5" />
                 <div>
-                  <span className="font-semibold text-white block">
-                    UAE Office
-                  </span>
-                  Al Qouz, Street No. 21A, Villa 30, Dubai, UAE
+                  <span className="font-semibold text-white block">CHINA</span>
+                  Connected from China Senzhen, Guangdong, China
                 </div>
               </div>
 
               {/* Phone & Email */}
               <div className="pt-2 border-t border-brand-dark space-y-2">
                 <a
-                  href="https://wa.me/8801840930768"
+                  href="https://wa.me/+8801516341885"
                   className="flex items-center space-x-3 hover:text-brand-light transition-colors duration-200"
                 >
                   <Phone className="w-4 h-4 text-brand-light shrink-0" />
-                  <span>+880 1840-930768</span>
+                  <span>+880 1516-341885</span>
                 </a>
                 <a
-                  href="mailto:info@digitalresolution.demo"
+                  href="mailto:contact@databist.com"
                   className="flex items-center space-x-3 hover:text-brand-light transition-colors duration-200"
                 >
                   <Mail className="w-4 h-4 text-brand-light shrink-0" />
-                  <span>info@digitalresolution.demo</span>
+                  <span>contact@databist.com</span>
                 </a>
               </div>
             </div>
