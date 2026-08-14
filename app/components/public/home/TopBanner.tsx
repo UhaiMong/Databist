@@ -17,18 +17,10 @@ export function TopBanner() {
       />
 
       {/* corner registration marks */}
-      <RegMark className="left-5 top-14" />
-      <RegMark className="right-5 top-14" />
+      <RegMark className="left-5 top-10" />
+      <RegMark className="right-5 top-10" />
       <RegMark className="bottom-14 left-5" />
       <RegMark className="bottom-14 right-5" />
-
-      {/* wordmark bar */}
-      {/* <div className="relative z-10 mx-auto flex max-w-310 items-center justify-between px-8 pt-7 mt-10 font-mono text-[13px] tracking-[0.08em] text-steel">
-        <span className="font-display font-semibold tracking-tight text-paper">
-          <span className="align-super text-[10px] text-amber">°</span>
-        </span>
-        <span>IT SOLUTIONS STUDIO</span>
-      </div> */}
 
       <div className="relative z-10 mx-auto grid max-w-310 grid-cols-1 items-center gap-12 px-8 pb-10 pt-16 md:grid-cols-[1.05fr_0.95fr] md:pt-20">
         {/* left column */}

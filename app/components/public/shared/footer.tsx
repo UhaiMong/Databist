@@ -1,16 +1,39 @@
-"use client";
-import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { MapPin, Phone, Mail, Send } from "lucide-react";
 import Facebook from "@mui/icons-material/Facebook";
-import Instagram from "@mui/icons-material/Instagram";
 import LinkedIn from "@mui/icons-material/LinkedIn";
-import YouTube from "@mui/icons-material/YouTube";
-import X from "@mui/icons-material/X";
-import { toast } from "sonner";
 
+import WhatsAppIcon from "@mui/icons-material/WhatsApp";
+import XIcon from "@mui/icons-material/X";
+
+import NewsletterForm from "./NewsletterForm";
+import connectDB from "@/lib/db/connectDB";
+import { Portfolio, ServicePackage, SiteSettings } from "@/lib/models";
 const logo = "/logo.svg";
+
+export const revalidate = 60;
+
+async function getSettings() {
+  await connectDB();
+
+  const [services, portfolioItems, settings] = await Promise.all([
+    ServicePackage.find({ status: "published" })
+      .sort({ order: 1 })
+      .limit(8)
+      .lean(),
+    Portfolio.find({ status: "completed" }).sort({ order: 1 }).limit(3).lean(),
+    SiteSettings.findOne({ key: "global" }).lean(),
+  ]);
+
+  return JSON.parse(
+    JSON.stringify({
+      services,
+      portfolioItems,
+      settings,
+    }),
+  );
+}
 
 // Provided footer navigation links
 const FOOTER_LINKS = [
@@ -19,42 +42,17 @@ const FOOTER_LINKS = [
   { label: "Blog", href: "/blog" },
   { label: "Consultant", href: "/booking" },
   { label: "Contact", href: "/contact" },
-  { label: "Sitemap", href: "/sitemap" },
+  { label: "Sitemap", href: "/sitemap.xml" },
 ] as const;
 
-// Social Links (using # as placeholder before launch)
-const SOCIAL_LINKS = [
-  { icon: Facebook, href: "#", label: "Facebook" },
-  { icon: Instagram, href: "#", label: "Instagram" },
-  { icon: LinkedIn, href: "#", label: "LinkedIn" },
-  { icon: YouTube, href: "#", label: "YouTube" },
-  { icon: X, href: "#", label: "X" },
-] as const;
-
-export function PublicFooter() {
+export async function PublicFooter() {
   const currentYear = new Date().getFullYear();
-  const [loading, setLoading] = useState(false);
-  const [email, setEmail] = useState("");
 
-  async function handleNewsletterSubmit(e: React.SubmitEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setLoading(true);
-    const res = await fetch("/api/newsletter", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email }),
-    });
+  const { services, portfolioItems, settings } = await getSettings();
 
-    const data = await res.json();
-    setLoading(false);
+  if (!settings?.offices?.length) return null;
 
-    if (data.success) {
-      toast.success("We appriciate it! ", data.message ?? "");
-      setEmail("");
-    } else {
-      toast.error(data.message ?? "Something went wrong");
-    }
-  }
+  const offices = settings.offices as any[];
 
   return (
     <footer className="relative text-ink">
@@ -72,7 +70,7 @@ export function PublicFooter() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* Column 1: Company Branding & Socials */}
           <div className="flex flex-col space-y-6">
-            <Link href="/" className="inline-block">
+            <Link href="/" className="inline-block w-18 h-18">
               <Image
                 src={logo}
                 alt="Databist Logo"
@@ -83,26 +81,45 @@ export function PublicFooter() {
               />
             </Link>
             <p className="text-sm text-gray-200 leading-relaxed">
-              Databist — a full-service digital marketing and web development
+              Databist A full-service digital marketing and web development
               agency dedicated to scaling your online footprint.
             </p>
             {/* Social Icons */}
             <div className="flex items-center space-x-4">
-              {SOCIAL_LINKS.map((social) => {
-                const Icon = social.icon;
-                return (
-                  <a
-                    key={social.label}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-2 bg-yellow-800 rounded-full hover:bg-brand-light transition-colors duration-200 group"
-                    aria-label={social.label}
-                  >
-                    <Icon className="w-4 h-4 text-white group-hover:scale-110 transition-transform" />
-                  </a>
-                );
-              })}
+              {settings?.socialLinks?.facebook && (
+                <a
+                  href={settings?.socialLinks?.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 bg-yellow-800 rounded-full hover:bg-blue-800 transition-colors duration-200 group"
+                  aria-label={settings?.socialLinks?.facebook}
+                >
+                  <Facebook className="w-4 h-4 text-white group-hover:scale-110 transition-transform" />
+                </a>
+              )}
+              {settings?.socialLinks?.linkedin && (
+                <a
+                  href={settings?.socialLinks?.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 bg-yellow-800 rounded-full hover:bg-blue-900 transition-colors duration-200 group"
+                  aria-label={settings?.socialLinks?.linkedin}
+                >
+                  <LinkedIn className="w-4 h-4 text-white group-hover:scale-110 transition-transform" />
+                </a>
+              )}
+
+              {settings?.socialLinks?.twiter && (
+                <a
+                  href={settings?.socialLinks?.x}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 bg-yellow-800 rounded-full hover:bg-black transition-colors duration-200 group"
+                  aria-label={settings?.socialLinks?.x}
+                >
+                  <XIcon className="w-4 h-4 text-white group-hover:scale-110 transition-transform" />
+                </a>
+              )}
             </div>
           </div>
 
@@ -133,40 +150,39 @@ export function PublicFooter() {
 
             <div className="space-y-4 text-sm text-gray-200">
               {/* Bangladesh Address */}
-              <div className="flex items-start space-x-3">
-                <MapPin className="w-5 h-5 text-brand-light shrink-0 mt-0.5" />
-                <div>
-                  <span className="font-semibold text-white block">
-                    Bangladesh
-                  </span>
-                  We are connected virtually and origin from Bandarban
+              {offices.map((office: any) => (
+                <div key={office.label} className="flex items-start space-x-3">
+                  <MapPin className="w-5 h-5 text-brand-light shrink-0 mt-0.5" />
+                  <div>
+                    <span className="font-semibold text-white block">
+                      {office.label}
+                    </span>
+                    {office.address}
+                  </div>
                 </div>
-              </div>
-
-              {/* UAE Address */}
-              <div className="flex items-start space-x-3">
-                <MapPin className="w-5 h-5 text-brand-light shrink-0 mt-0.5" />
-                <div>
-                  <span className="font-semibold text-white block">CHINA</span>
-                  Connected from China Senzhen, Guangdong, China
-                </div>
-              </div>
-
+              ))}
               {/* Phone & Email */}
-              <div className="pt-2 border-t border-brand-dark space-y-2">
+              <div className="pt-2 border-t border-brand-dark space-y-2 flex flex-col justify-start">
                 <a
-                  href="https://wa.me/+8801516341885"
+                  href={`https://wa.me/${settings?.whatsapp}`}
+                  className="flex items-center space-x-3 hover:text-brand-light transition-colors duration-200"
+                >
+                  <WhatsAppIcon className="w-4 h-4 text-brand-light shrink-0" />
+                  <span>{settings?.whatsapp}</span>
+                </a>
+                <a
+                  href={`tel:${settings?.phone}`}
                   className="flex items-center space-x-3 hover:text-brand-light transition-colors duration-200"
                 >
                   <Phone className="w-4 h-4 text-brand-light shrink-0" />
-                  <span>+880 1516-341885</span>
+                  <span>{settings?.phone}</span>
                 </a>
                 <a
-                  href="mailto:contact@databist.com"
+                  href={`mailto:${settings?.contactEmail}`}
                   className="flex items-center space-x-3 hover:text-brand-light transition-colors duration-200"
                 >
                   <Mail className="w-4 h-4 text-brand-light shrink-0" />
-                  <span>contact@databist.com</span>
+                  <span>{settings?.contactEmail}</span>
                 </a>
               </div>
             </div>
@@ -181,29 +197,7 @@ export function PublicFooter() {
               Subscribe to our newsletter to receive the latest updates, design
               trends, and marketing tips.
             </p>
-            <form onSubmit={handleNewsletterSubmit} className="space-y-2">
-              <div className="relative flex items-center">
-                <input
-                  type="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter your email"
-                  className="w-full px-4 py-2.5 pr-12 text-sm text-brand-muted bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-brand-light transition-all placeholder:text-gray-400"
-                />
-                <button
-                  type="submit"
-                  className="absolute right-1 p-2 bg-yellow-600 hover:bg-yellow-700 text-white rounded-md transition-colors duration-200 cursor-pointer"
-                  aria-label="Subscribe"
-                >
-                  {loading ? (
-                    <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
-                  ) : (
-                    <Send className="w-4 h-4" />
-                  )}
-                </button>
-              </div>
-            </form>
+            <NewsletterForm />
           </div>
         </div>
 

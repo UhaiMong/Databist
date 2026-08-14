@@ -119,9 +119,9 @@ export default function BookingWidget({
                     </p>
                   ) : (
                     <div className="grid grid-cols-3 gap-2">
-                      {slots.map((slot) => (
+                      {slots.map((slot, i: number) => (
                         <Button
-                          key={slot}
+                          key={i + 1}
                           type="button"
                           variant={
                             selectedSlot === slot ? "default" : "outline"

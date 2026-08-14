@@ -12,11 +12,11 @@ const DEFAULT_SETTINGS = {
     {
       label: "Bangladesh",
       address:
-        "Software Technology Park, 6th Floor, Singapore Bangkok Market, Agrabad, Chattogram",
+        "We are connected on virtual and origin from Bandarban, Bangladesh",
     },
     {
-      label: "UAE",
-      address: "Al Qouz, Street No. 21A, Villa 30, Dubai, UAE",
+      label: "China",
+      address: "Connected from China Senzhen, Guangdong, China",
     },
   ],
   socialLinks: {},

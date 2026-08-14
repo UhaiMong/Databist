@@ -5,13 +5,14 @@ import { Geist } from "next/font/google";
 import { cn } from "@/lib/utils";
 import AppProviders from "./components/providers/AppProviders";
 import { Toaster } from "./components/ui/sonner";
+import { GoogleTagManager } from "@next/third-parties/google";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
   title: "Databist",
   description:
-    "A full-service digital agency offering website development, graphic design, content writing, SEO, video ads, social media management, digital marketing, and online maintenance packages.",
+    "A full-service of offering website development, content writing, SEO, video ads, social media management, digital marketing, and online maintenance packages.",
   icons: { icon: "/favicon.ico" },
 };
 
@@ -32,6 +33,7 @@ export default function RootLayout({
       )}
     >
       <body className="min-h-full flex flex-col">
+        <GoogleTagManager gtmId="GTM-NCFL883Q" />
         <AppProviders>
           {children}
           <Toaster richColors position="top-left" />

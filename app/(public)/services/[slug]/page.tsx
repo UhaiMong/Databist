@@ -8,6 +8,8 @@ import { Badge } from "@/app/components/ui/badge";
 import { CheckCircle2, ArrowRight } from "lucide-react";
 import FaqAccordion from "@/app/components/public/faq/FaqAccordion";
 import HeaderBannerSection from "../../components/HeaderBannerSection";
+import CTA from "@/app/components/public/button/CTA";
+import { phone, whatsApp } from "@/lib/constant";
 
 interface ServiceDetailPageProps {
   params: Promise<{ slug: string }>;
@@ -55,8 +57,8 @@ export default async function ServiceDetailPage({
         heightClass="h-[450px] md:h-[500px]"
         overlayClass="bg-linear-to-b from-brand/30 via-brand-dark/40 to-brand/70"
       />
-      <article className="container mx-auto px-4 py-3.5 mt-4">
-        <div className="mx-auto max-w-3xl">
+      <div className="max-w-7xl mx-auto px-4 py-3.5 mt-4">
+        <div className="w-full">
           {service.isCombo && (
             <Badge className="mb-3 bg-brand text-slate-50">Best Value</Badge>
           )}
@@ -123,32 +125,32 @@ export default async function ServiceDetailPage({
 
           {service.faqs?.length > 0 && (
             <div className="mt-12 space-y-4">
-              <h2 className="text-2xl font-semibold">
-                Frequently Asked Questions
-              </h2>
+              <div className="flex justify-between">
+                <div>
+                  <strong className="text-[#A431FF]">FAQ_</strong>
+                  <h2 className="text-2xl font-semibold">
+                    Frequently Asked Questions
+                  </h2>
+                </div>
+                <div>
+                  <h2>Not found here?</h2>
+                  <a href="tel:+8801516341885">Call</a>
+                </div>
+              </div>
               <FaqAccordion items={service.faqs} />
             </div>
           )}
 
-          <div className="mt-12 rounded-lg border bg-muted/40 p-8 text-center">
-            <h2 className="text-xl font-semibold">
-              Ready to get started with {service.name}?
-            </h2>
-            <Button
-              asChild
-              variant="link"
-              size="lg"
-              className="mt-4 bg-linear-to-r from-indigo-500 to-pink-500"
-            >
-              <Link
-                href={`/booking?serviceId=${encodeURIComponent(service._id)}`}
-              >
-                Book a Free Consultation
-              </Link>
-            </Button>
-          </div>
+          <CTA
+            styleCall="bg-primary"
+            styleWhatsApp="bg-green-800 text-white hover:bg-green-500 hover:text-white transaction-colors duration-300 px-3"
+            service={service}
+            contactNo={phone}
+            whatsappNo={whatsApp}
+            imageUrl="/contact.jpg"
+          />
         </div>
-      </article>
+      </div>
     </section>
   );
 }

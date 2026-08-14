@@ -6,6 +6,9 @@ import { Button } from "@/app/components/ui/button";
 import { MapPin, ArrowRight } from "lucide-react";
 import TrustTrip from "../components/TrustStrip";
 import HeaderBannerSection from "../components/HeaderBannerSection";
+import OrgChart from "@/app/components/public/about/OrgChart";
+import CTA from "@/app/components/public/button/CTA";
+import { phone, whatsApp } from "@/lib/constant";
 
 export const metadata: Metadata = {
   title: "About Us | Databist",
@@ -52,8 +55,10 @@ export default async function AboutUsPage() {
         </p>
       </div>
 
-      <TrustTrip />
-      <div className="mx-auto mt-16 max-w-3xl space-y-4">
+      <OrgChart />
+
+      {/* <TrustTrip /> */}
+      <div className="mx-auto max-w-3xl space-y-4 py-4 mt-3.5">
         <h2 className="text-2xl font-semibold">Why Choose Databist</h2>
         <p className="text-muted-foreground">
           We combine project-based pricing with senior-level execution across
@@ -64,7 +69,9 @@ export default async function AboutUsPage() {
       </div>
 
       <div className="mx-auto mt-16 max-w-4xl">
-        <h2 className="mb-6 text-center text-2xl font-semibold">We located_</h2>
+        <h2 className="text-center text-2xl font-semibold my-2.5">
+          We Connected Throught_
+        </h2>
         <div className="grid gap-6 sm:grid-cols-2">
           {offices.map((office: any) => (
             <div
@@ -82,18 +89,14 @@ export default async function AboutUsPage() {
           ))}
         </div>
       </div>
-
-      <div className="mx-auto max-w-3xl rounded-lg border bg-muted/40 mt-10 p-8 text-center">
-        <h2 className="text-xl font-semibold">Ready to work together?</h2>
-        <Button
-          asChild
-          size="lg"
-          className="mt-4 bg-linear-to-r from-indigo-500 to-pink-500"
-        >
-          <Link href="/booking">
-            Book a Free Consultation <ArrowRight className="ml-2 h-4 w-4" />
-          </Link>
-        </Button>
+      <div className="w-full bg-page-bg border border-transparent">
+        <CTA
+          styleCall="bg-primary"
+          styleWhatsApp="bg-green-800 text-white hover:bg-green-500 hover:text-white transaction-colors duration-300 px-3"
+          contactNo={phone}
+          whatsappNo={whatsApp}
+          imageUrl="/contact.jpg"
+        />
       </div>
     </section>
   );

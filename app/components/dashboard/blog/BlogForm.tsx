@@ -81,12 +81,7 @@ export default function BlogForm({ mode, initialData }: BlogFormProps) {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit, (errors) => {
-        console.log(errors);
-      })}
-      className="space-y-6"
-    >
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
       <Card>
         <CardContent className="space-y-4 p-6">
           <div className="grid gap-4 sm:grid-cols-2">

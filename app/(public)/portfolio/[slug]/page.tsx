@@ -7,6 +7,8 @@ import { Portfolio } from "@/lib/models";
 import { Badge } from "@/app/components/ui/badge";
 import { Button } from "@/app/components/ui/button";
 import { ArrowLeft, ArrowRight, ArrowUpRightSquare } from "lucide-react";
+import CTA from "@/app/components/public/button/CTA";
+import { phone, whatsApp } from "@/lib/constant";
 
 interface PortfolioDetailPageProps {
   params: Promise<{ slug: string }>;
@@ -98,18 +100,15 @@ export default async function PortfolioDetailPage({
             <ArrowUpRightSquare size={19} />
           </div>
         )}
-
-        <div className="mt-12 rounded-lg border bg-muted/40 p-8 text-center">
-          <h2 className="text-xl font-semibold">
-            Want results like this for your business?
-          </h2>
-          <Button asChild size="lg" className="mt-4">
-            <Link href="/booking">
-              Book a Free Consultation <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-          </Button>
-        </div>
       </div>
+      <CTA
+        service={item}
+        styleCall="bg-primary text-slate-200"
+        styleWhatsApp="bg-green-800 text-white hover:bg-green-500 hover:text-white transaction-colors duration-300 px-3"
+        contactNo={phone}
+        whatsappNo={whatsApp}
+        imageUrl="/contact.jpg"
+      />
     </article>
   );
 }

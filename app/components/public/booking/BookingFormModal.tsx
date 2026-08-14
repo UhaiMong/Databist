@@ -213,12 +213,7 @@ export function BookingFormModal({
             </div>
 
             {/* Added error callback to handleSubmit to surface invalid fields */}
-            <form
-              onSubmit={handleSubmit(onSubmit, (invalidFields) => {
-                console.log("Zod Validation Failed:", invalidFields);
-              })}
-              className="space-y-4"
-            >
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               <div className="space-y-1.5">
                 <Label
                   htmlFor="name"

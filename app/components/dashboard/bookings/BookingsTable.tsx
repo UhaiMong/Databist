@@ -62,7 +62,6 @@ export default function BookingsTable({ initialBookings }: BookingsTableProps) {
         : bookings.filter((b) => b.status === statusFilter),
     [bookings, statusFilter],
   );
-  console.log("Bookings:", bookings);
   async function updateStatus(id: string, status: BookingStatus) {
     setUpdatingId(id);
 

@@ -98,8 +98,6 @@ export default function AvailabilityManager({
     await fetch(`/api/booking/blackout-dates?id=${id}`, { method: "DELETE" });
     setBlackoutDates((prev) => prev.filter((b) => b._id !== id));
   }
-  console.log(rules);
-  console.log(blackoutDates);
   return (
     <div className="grid gap-6 lg:grid-cols-2">
       <Card>
