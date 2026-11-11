@@ -1,10 +1,18 @@
 "use client";
 
 import WhatsApp from "@mui/icons-material/WhatsApp";
-export default function WhatsAppButton() {
+import { toWhatsAppNumber } from "@/lib/site";
+
+type WhatsAppButtonProps = {
+  phone?: string | null;
+};
+
+export default function WhatsAppButton({ phone }: WhatsAppButtonProps) {
+  const digits = toWhatsAppNumber(phone);
+  if (!digits) return null;
+
   const message = "Hello, I'd like to know more!";
-  const phone = "+8801516341885";
-  const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+  const whatsappUrl = `https://wa.me/${digits}?text=${encodeURIComponent(message)}`;
 
   return (
     <a
