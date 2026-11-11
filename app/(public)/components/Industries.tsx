@@ -62,7 +62,7 @@ export default function Industries() {
                 key={industry.name}
                 className="group flex flex-col items-center gap-4 px-2 text-center"
               >
-                <div className="flex h-16 w-16 items-center justify-center rounded-full ring-1 ring-[#2A2B31] text-[#8A8779] transition-colors duration-300 group-hover:ring-[#C9A15A]/70 group-hover:text-[#C9A15A]">
+                <div className="flex h-16 w-16 items-center justify-center rounded-full ring-1 ring-[#2A2B31] text-[#8A8779] transition-colors duration-300 group-hover:ring-brand-gold/70 group-hover:text-brand-gold">
                   <Icon className="h-6 w-6" />
                 </div>
                 <span

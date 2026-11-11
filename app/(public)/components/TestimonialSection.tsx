@@ -133,7 +133,7 @@ export default function TestimonialSection({
                 type="button"
                 onClick={scrollPrev}
                 aria-label="Previous testimonial"
-                className="flex h-9 w-9 items-center justify-center rounded-full ring-1 transition-colors hover:text-[#C9A15A]"
+                className="flex h-9 w-9 items-center justify-center rounded-full ring-1 transition-colors hover:text-brand-gold"
                 style={{
                   borderColor: DesignTokens.hairline,
                   color: DesignTokens.muted,
@@ -145,7 +145,7 @@ export default function TestimonialSection({
                 type="button"
                 onClick={scrollNext}
                 aria-label="Next testimonial"
-                className="flex h-9 w-9 items-center justify-center rounded-full ring-1 transition-colors hover:text-[#C9A15A]"
+                className="flex h-9 w-9 items-center justify-center rounded-full ring-1 transition-colors hover:text-brand-gold"
                 style={{
                   borderColor: DesignTokens.hairline,
                   color: DesignTokens.muted,

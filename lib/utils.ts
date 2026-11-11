@@ -23,6 +23,7 @@ export const plexMono = IBM_Plex_Mono({
 
 // Design token
 
+/** Surface tokens for dark marketing sections — accents follow logo gold. */
 export const DesignTokens = {
   bg: "#101014",
   surface: "#15161B",
@@ -31,5 +32,7 @@ export const DesignTokens = {
   muted: "#8A8779",
   mutedDark: "#5C5A50",
   hairline: "#2A2B31",
-  gold: "#C9A15A",
+  gold: "#E9AE17",
+  red: "#FF3131",
+  purple: "#A431FF",
 } as const;

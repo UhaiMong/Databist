@@ -44,7 +44,7 @@ export default async function ServicesPage() {
         overlayClass="bg-linear-to-b from-brand/30 via-brand-dark/40 to-brand/70"
       />
       <div className="mx-auto mb-7 max-w-2xl text-center mt-4 py-3.5">
-        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl inline-block bg-linear-to-r from-indigo-500 to-pink-500 bg-clip-text text-transparent">
+        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl inline-block brand-text-gradient">
           Our Service Packages
         </h1>
         <p className="mt-3 text-muted-foreground">
@@ -57,7 +57,7 @@ export default async function ServicesPage() {
         {combo && (
           <Card className="mb-10 bg-page-bg/90 text-ink shadow-2xl p-4">
             <CardHeader>
-              <Badge className="w-fit bg-linear-to-r from-indigo-500 to-pink-500">
+              <Badge className="w-fit brand-gradient text-white border-0">
                 Best Value
               </Badge>
               <CardTitle className="text-2xl">{combo.name}</CardTitle>
@@ -66,10 +66,7 @@ export default async function ServicesPage() {
               <div>
                 <p className="mt-1">{combo.shortDescription}</p>
               </div>
-              <Button
-                className="bg-linear-to-r from-indigo-500 to-pink-500"
-                asChild
-              >
+              <Button className="brand-gradient text-white" asChild>
                 <Link href={`/services/${combo.slug}`}>
                   View Bundle <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
@@ -94,7 +91,7 @@ export default async function ServicesPage() {
                 <Button
                   asChild
                   variant="default"
-                  className="w-full bg-linear-to-r from-indigo-500 to-pink-500"
+                  className="w-full brand-gradient text-white"
                 >
                   <Link href={`/services/${service.slug}`}>
                     View Details <ArrowRight className="ml-2 h-4 w-4" />

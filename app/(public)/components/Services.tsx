@@ -56,7 +56,7 @@ export default function Services({ services }: { services: any }) {
               <Link
                 key={service.slug}
                 href={`/services/${service.slug}`}
-                className="group relative flex flex-col rounded-sm bg-[#15161B] ring-1 ring-[#2A2B31] transition-colors hover:ring-[#C9A15A]/60"
+                className="group relative flex flex-col rounded-sm bg-[#15161B] ring-1 ring-[#2A2B31] transition-colors hover:ring-brand-gold/60"
               >
                 {/* Stub header */}
                 <div className="relative flex items-center justify-between px-5 pt-4 pb-3">
@@ -68,7 +68,7 @@ export default function Services({ services }: { services: any }) {
                   </span>
                   {service.isCombo && (
                     <span
-                      className="text-[10px] tracking-[0.15em] text-[#C9A15A] border border-[#C9A15A]/40 rounded-full px-2 py-0.5"
+                      className="text-[10px] tracking-[0.15em] text-brand-gold border border-brand-gold/40 rounded-full px-2 py-0.5"
                       style={{ fontFamily: "var(--font-plex-mono)" }}
                     >
                       BUNDLE
@@ -100,7 +100,7 @@ export default function Services({ services }: { services: any }) {
                           className="flex gap-2 text-xs text-[#8A8779]"
                           style={{ fontFamily: "var(--font-plex-mono)" }}
                         >
-                          <span className="text-[#C9A15A]">—</span>
+                          <span className="text-brand-gold">—</span>
                           <span className="leading-relaxed">{item}</span>
                         </li>
                       ))}
@@ -131,7 +131,7 @@ export default function Services({ services }: { services: any }) {
 
                 {/* Price footer */}
                 <div className="flex items-center justify-between px-5 py-4">
-                  <span className="flex items-center gap-1 text-[11px] tracking-wide text-[#8A8779] transition-colors group-hover:text-[#C9A15A]">
+                  <span className="flex items-center gap-1 text-[11px] tracking-wide text-[#8A8779] transition-colors group-hover:text-brand-gold">
                     View
                     <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                   </span>
@@ -145,7 +145,7 @@ export default function Services({ services }: { services: any }) {
         <div className="mt-14 flex justify-center">
           <Link
             href="/services"
-            className="group inline-flex items-center gap-2 text-xs tracking-[0.2em] uppercase text-ink border-b border-[#2A2B31] pb-1 transition-colors hover:border-[#C9A15A] hover:text-[#C9A15A]"
+            className="group inline-flex items-center gap-2 text-xs tracking-[0.2em] uppercase text-ink border-b border-[#2A2B31] pb-1 transition-colors hover:border-brand-gold hover:text-brand-gold"
             style={{ fontFamily: "var(--font-plex-mono)" }}
           >
             View full manifest

@@ -72,7 +72,7 @@ export async function PublicFooter() {
                   href={settings.socialLinks.facebook}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2 bg-yellow-800 rounded-full hover:bg-blue-800 transition-colors duration-200 group"
+                  className="p-2 bg-brand/30 rounded-full hover:bg-brand transition-colors duration-200 group"
                   aria-label="Facebook"
                 >
                   <Facebook className="w-4 h-4 text-white group-hover:scale-110 transition-transform" />
@@ -83,7 +83,7 @@ export async function PublicFooter() {
                   href={settings.socialLinks.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2 bg-yellow-800 rounded-full hover:bg-blue-900 transition-colors duration-200 group"
+                  className="p-2 bg-brand/30 rounded-full hover:bg-brand transition-colors duration-200 group"
                   aria-label="LinkedIn"
                 >
                   <LinkedIn className="w-4 h-4 text-white group-hover:scale-110 transition-transform" />
@@ -94,7 +94,7 @@ export async function PublicFooter() {
                   href={settings.socialLinks.x}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2 bg-yellow-800 rounded-full hover:bg-black transition-colors duration-200 group"
+                  className="p-2 bg-brand/30 rounded-full hover:bg-brand-red transition-colors duration-200 group"
                   aria-label="X"
                 >
                   <XIcon className="w-4 h-4 text-white group-hover:scale-110 transition-transform" />

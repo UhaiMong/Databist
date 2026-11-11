@@ -32,7 +32,7 @@ export default async function PortfolioPage() {
         overlayClass="bg-linear-to-b from-brand/30 via-brand-dark/40 to-brand/70"
       />
       <div className="mx-auto mb-10 max-w-2xl text-center py-3.5">
-        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl inline-block bg-linear-to-r from-indigo-500 to-pink-500 bg-clip-text text-transparent">
+        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl inline-block brand-text-gradient">
           Our Impact
         </h1>
         <p className="mt-3 text-muted-foreground">

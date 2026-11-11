@@ -45,7 +45,7 @@ export default async function AboutUsPage() {
         overlayClass="bg-app-bg/50"
       />
       <div className="mx-auto max-w-3xl text-center mt-4 py-3.5">
-        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl inline-block bg-linear-to-r from-indigo-500 to-pink-500 bg-clip-text text-transparent">
+        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl inline-block brand-text-gradient">
           About Databist
         </h1>
         <p className="mt-4 text-lg text-muted-foreground">

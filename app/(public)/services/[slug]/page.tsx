@@ -72,7 +72,7 @@ export default async function ServiceDetailPage({
           <Button
             asChild
             size="lg"
-            className="mt-6 bg-brand text-slate-50 bg-linear-to-r from-indigo-500 to-pink-500"
+            className="mt-6 brand-gradient text-white"
           >
             <Link
               href={`/booking?serviceId=${encodeURIComponent(service._id)}`}
@@ -127,7 +127,7 @@ export default async function ServiceDetailPage({
             <div className="mt-12 space-y-4">
               <div className="flex justify-between">
                 <div>
-                  <strong className="text-[#A431FF]">FAQ_</strong>
+                  <strong className="text-brand">FAQ_</strong>
                   <h2 className="text-2xl font-semibold">
                     Frequently Asked Questions
                   </h2>

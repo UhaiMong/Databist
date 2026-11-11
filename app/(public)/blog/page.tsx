@@ -59,7 +59,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
       />
       <article className="overflow-hidden">
         <div className="mx-auto mb-5 max-w-2xl text-center mt-4 py-3.5">
-          <h1 className="text-2xl font-bold tracking-tight md:text-3xl inline-block bg-linear-to-r from-indigo-600 via-pink-500 to-indigo-700 bg-clip-text text-transparent">
+          <h1 className="text-2xl font-bold tracking-tight md:text-3xl inline-block brand-text-gradient">
             Recent Article
           </h1>
           <p className="mt-3 text-muted-foreground">

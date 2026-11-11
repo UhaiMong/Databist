@@ -8,10 +8,13 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --brand: oklch(0.623 0.214 259.815);
-  --brand-dark: #1d4ed8;
-  --brand-light: #c8d6e7;
-  --brand-muted: #64748b;
+  /* Logo palette: red / purple / gold */
+  --brand: #a431ff;
+  --brand-dark: #7b1fd4;
+  --brand-light: #e8d4ff;
+  --brand-muted: #8b7a9e;
+  --brand-red: #ff3131;
+  --brand-gold: #e9ae17;
   --app-bg: #f8fafc;
   --page-bg: #101014;
   --card: oklch(1 0 0);
@@ -55,38 +58,41 @@
   --color-brand-dark: var(--brand-dark);
   --color-brand-light: var(--brand-light);
   --color-brand-muted: var(--brand-muted);
+  --color-brand-red: var(--brand-red);
+  --color-brand-gold: var(--brand-gold);
   --color-page-bg: var(--page-bg);
-  --color-background: hsl(var(--background));
-  --color-foreground: hsl(var(--foreground));
-  --color-card: hsl(var(--card));
-  --color-card-foreground: hsl(var(--card-foreground));
-  --color-popover: hsl(var(--popover));
-  --color-popover-foreground: hsl(var(--popover-foreground));
-  --color-primary: hsl(var(--primary));
-  --color-primary-foreground: hsl(var(--primary-foreground));
-  --color-secondary: hsl(var(--secondary));
-  --color-secondary-foreground: hsl(var(--secondary-foreground));
-  --color-muted: hsl(var(--muted));
-  --color-muted-foreground: hsl(var(--muted-foreground));
-  --color-accent: hsl(var(--accent));
-  --color-accent-foreground: hsl(var(--accent-foreground));
-  --color-destructive: hsl(var(--destructive));
-  --color-destructive-foreground: hsl(var(--destructive-foreground));
-  --color-border: hsl(var(--border));
-  --color-input: hsl(var(--input));
-  --color-ring: hsl(var(--ring));
+  /* Values are already oklch/hex — do not wrap in hsl() */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
 
-  /* Custom theme for Hero */
+  /* Custom theme for Hero (technical drafting accents) */
   --color-ink: #edeae2;
   --color-ink-2: #0d1424;
   --color-blue-line: #4e7a98;
   --color-blue-line-dim: #2c4051;
   --color-blue-bright: #a8d8f0;
   --color-paper: #eceef2;
-  --color-amber: #f0a83c;
+  --color-amber: var(--brand-gold);
   --color-steel: #8791a1;
 
   /* --- type roles ---
@@ -129,7 +135,12 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
-  --brand: oklch(0.707 0.165 254.624);
+  --brand: #c084fc;
+  --brand-dark: #a431ff;
+  --brand-light: #f3e8ff;
+  --brand-muted: #a78bb8;
+  --brand-red: #ff5c5c;
+  --brand-gold: #f0c14a;
   --highlight: oklch(0.852 0.199 91.936);
 }
 
@@ -262,6 +273,11 @@ html[data-scroll-locked] {
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
   --color-brand: var(--brand);
+  --color-brand-dark: var(--brand-dark);
+  --color-brand-light: var(--brand-light);
+  --color-brand-muted: var(--brand-muted);
+  --color-brand-red: var(--brand-red);
+  --color-brand-gold: var(--brand-gold);
   --color-highlight: var(--highlight);
 }
 
@@ -323,6 +339,25 @@ html[data-scroll-locked] {
   }
   .animate-status-pulse {
     animation: db-status-pulse 2.2s ease-in-out infinite;
+  }
+
+  /* Logo-aligned CTA / title treatments */
+  .brand-gradient {
+    background-image: linear-gradient(
+      90deg,
+      var(--brand-red),
+      var(--brand)
+    );
+  }
+  .brand-text-gradient {
+    background-image: linear-gradient(
+      90deg,
+      var(--brand-red),
+      var(--brand)
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
 }
 

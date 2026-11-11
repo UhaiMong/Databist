@@ -6,7 +6,7 @@ export function CTA() {
   return (
     <div className="mt-12 text-center">
       <Button
-        className="bg-linear-to-r from-indigo-500 to-pink-500"
+        className="brand-gradient text-white"
         asChild
         size="lg"
       >

@@ -74,7 +74,7 @@ export default function NewsletterForm() {
         <button
           type="submit"
           disabled={loading}
-          className="absolute right-1 p-2 bg-yellow-600 hover:bg-yellow-700 text-white rounded-md transition-colors duration-200 cursor-pointer disabled:opacity-60"
+          className="absolute right-1 p-2 bg-brand-gold hover:brightness-110 text-page-bg rounded-md transition-colors duration-200 cursor-pointer disabled:opacity-60"
           aria-label="Subscribe"
         >
           {loading ? (
