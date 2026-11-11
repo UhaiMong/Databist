@@ -113,7 +113,7 @@ export default function ContactForm() {
             <Label htmlFor="subject">Subject</Label>
             <Input
               id="subject"
-              placeholder="To build a scallable web application"
+              placeholder="Looking to build a scalable web application"
               {...register("subject")}
             />
             {errors.subject && (

@@ -2,11 +2,15 @@ import { Metadata } from "next";
 import BookingWidget from "@/app/components/public/booking/BookingWidget";
 import HeaderBannerSection from "../components/HeaderBannerSection";
 
-export const metadata: Metadata = {
-  title: "Book a Free Consultation | Databist",
+import { buildPageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = buildPageMetadata({
+  title: "Book a Free Consultation",
   description:
     "Pick a time that works for you — no back-and-forth emails. Book a free consultation with Databist.",
-};
+  path: "/booking",
+  image: "/blogBanner.jpg",
+});
 
 interface BookingPageProps {
   searchParams: Promise<{ serviceId?: string }>;

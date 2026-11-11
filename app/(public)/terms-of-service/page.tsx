@@ -1,18 +1,20 @@
 import { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Terms of Service | Databist",
+export const metadata: Metadata = buildPageMetadata({
+  title: "Terms of Service",
   description: "Engagement terms for Databist's paid service packages.",
-};
+  path: "/terms-of-service",
+});
+
+const LAST_UPDATED = "August 8, 2026";
 
 export default function TermsOfServicePage() {
   return (
     <article className="container mx-auto px-4 py-16 mt-7">
       <div className="prose prose-neutral mx-auto max-w-3xl dark:prose-invert">
         <h1>Terms of Service</h1>
-        <p className="text-muted-foreground">
-          Last updated: {new Date().toLocaleDateString()}
-        </p>
+        <p className="text-muted-foreground">Last updated: {LAST_UPDATED}</p>
 
         <h2>1. Services</h2>
         <p>

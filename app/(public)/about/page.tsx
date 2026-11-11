@@ -9,11 +9,15 @@ import OrgChart from "@/app/components/public/about/OrgChart";
 import CTA from "@/app/components/public/button/CTA";
 import { phone, whatsApp } from "@/lib/constant";
 
-export const metadata: Metadata = {
-  title: "About Us | Databist",
+import { buildPageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = buildPageMetadata({
+  title: "About Us",
   description:
     "Databist is a full-service digital marketing and web development agency serving clients in Bangladesh, the UAE, and beyond.",
-};
+  path: "/about",
+  image: "/aboutBanner.jpg",
+});
 
 export const revalidate = 60;
 

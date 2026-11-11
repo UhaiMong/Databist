@@ -10,6 +10,8 @@ import FaqAccordion from "@/app/components/public/faq/FaqAccordion";
 import HeaderBannerSection from "../../components/HeaderBannerSection";
 import CTA from "@/app/components/public/button/CTA";
 import { phone, whatsApp } from "@/lib/constant";
+import JsonLd from "@/app/components/seo/JsonLd";
+import { buildPageMetadata, serviceJsonLd } from "@/lib/seo";
 
 interface ServiceDetailPageProps {
   params: Promise<{ slug: string }>;
@@ -30,12 +32,14 @@ export async function generateMetadata({
   const { slug } = await params;
   const service = await getService(slug);
 
-  if (!service) return { title: "Service Not Found | Databist" };
+  if (!service) return { title: "Service Not Found" };
 
-  return {
-    title: `${service.name} | Databist`,
+  return buildPageMetadata({
+    title: service.name,
     description: service.shortDescription,
-  };
+    path: `/services/${service.slug}`,
+    image: service.heroImage,
+  });
 }
 
 export const revalidate = 60;
@@ -50,6 +54,7 @@ export default async function ServiceDetailPage({
 
   return (
     <section className="mt-16 bg-page-bg text-ink">
+      <JsonLd data={serviceJsonLd(service)} />
       <HeaderBannerSection
         title={service?.name}
         subtitle={service?.shortDescription}

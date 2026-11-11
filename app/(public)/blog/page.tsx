@@ -8,11 +8,15 @@ import { Button } from "@/app/components/ui/button";
 import HeaderBannerSection from "../components/HeaderBannerSection";
 import { cn } from "@/lib/utils";
 
-export const metadata: Metadata = {
-  title: "Blog | Databist",
+import { buildPageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = buildPageMetadata({
+  title: "Blog",
   description:
     "Insights on web development, design, SEO, and digital marketing from Databist.",
-};
+  path: "/blog",
+  image: "/blogBanner.jpg",
+});
 
 export const revalidate = 60;
 

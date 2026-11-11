@@ -14,11 +14,15 @@ import { Button } from "@/app/components/ui/button";
 import HeaderBannerSection from "../components/HeaderBannerSection";
 import { CTA } from "../components/CTA";
 
-export const metadata: Metadata = {
-  title: "Our Services | Databist",
+import { buildPageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = buildPageMetadata({
+  title: "Our Services",
   description:
     "Website development, graphic design, content writing, SEO, video ads, social media, and digital marketing packages.",
-};
+  path: "/services",
+  image: "/serviceBanner.jpg",
+});
 
 export const revalidate = 60;
 

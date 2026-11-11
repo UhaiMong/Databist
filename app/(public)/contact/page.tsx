@@ -5,11 +5,15 @@ import ContactForm from "@/app/components/public/contact/ContactForm";
 import { Mail, Phone, MapPin } from "lucide-react";
 import HeaderBannerSection from "../components/HeaderBannerSection";
 
-export const metadata: Metadata = {
-  title: "Contact Us | Databist",
+import { buildPageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = buildPageMetadata({
+  title: "Contact Us",
   description:
     "Get in touch with Databist — office locations, phone, WhatsApp, and email.",
-};
+  path: "/contact",
+  image: "/contact.jpg",
+});
 
 export const revalidate = 60;
 

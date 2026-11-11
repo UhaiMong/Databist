@@ -4,11 +4,15 @@ import { Portfolio } from "@/lib/models";
 import PortfolioGrid from "@/app/components/public/portfolio/PortfolioGrid";
 import HeaderBannerSection from "../components/HeaderBannerSection";
 
-export const metadata: Metadata = {
-  title: "Portfolio | Databist",
+import { buildPageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = buildPageMetadata({
+  title: "Portfolio",
   description:
     "Case studies and past work from Databist across web, design, and marketing.",
-};
+  path: "/portfolio",
+  image: "/portfolioBanner.jpg",
+});
 
 export const revalidate = 60;
 

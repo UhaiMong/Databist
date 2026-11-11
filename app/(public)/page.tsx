@@ -18,11 +18,17 @@ import BookingSection from "./components/BookingSection";
 import BlogSection from "./components/BlogSection";
 import FaqSection from "./components/FaqSection";
 import { TopBanner } from "../components/public/home/TopBanner";
+import { buildPageMetadata, SEO_DEFAULTS } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Databist | Web Development & Digital Marketing Agency",
-  description:
-    "Full-service digital marketing and web development agency serving Bangladesh, the UAE, and beyond. Book a free consultation today.",
+  ...buildPageMetadata({
+    title: `${SEO_DEFAULTS.siteName} | Web Development & Digital Marketing Agency`,
+    description: SEO_DEFAULTS.description,
+    path: "/",
+  }),
+  title: {
+    absolute: `${SEO_DEFAULTS.siteName} | Web Development & Digital Marketing Agency`,
+  },
 };
 
 export const revalidate = 60;

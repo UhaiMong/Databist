@@ -143,7 +143,7 @@ export default function BookingWidget({
                 </div>
               ) : (
                 <div className="text-lg font-semibold text-brand-light italic flex-1">
-                  <span>Please Select a date to book a free consultantion</span>
+                  <span>Please select a date to book a free consultation</span>
                 </div>
               )}
             </CardContent>
