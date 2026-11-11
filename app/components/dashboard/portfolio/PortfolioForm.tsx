@@ -13,6 +13,7 @@ import { Switch } from "../../ui/switch";
 import { portfolioSchema } from "@/lib/validations/misc";
 import slugify from "slugify";
 import { z } from "zod";
+import MediaPickerField from "@/app/components/dashboard/media/MediaPickerField";
 
 type PortfolioValues = z.infer<typeof portfolioSchema>;
 
@@ -124,12 +125,14 @@ export default function PortfolioForm({
                 placeholder="Retail & E-commerce"
               />
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="thumbnail">Thumbnail Image URL</Label>
-              <Input
+            <div className="space-y-2 sm:col-span-2">
+              <MediaPickerField
                 id="thumbnail"
-                placeholder="https://www.img.come"
-                {...register("thumbnail")}
+                label="Thumbnail Image"
+                value={watch("thumbnail") ?? ""}
+                onChange={(url) =>
+                  setValue("thumbnail", url, { shouldValidate: true })
+                }
               />
             </div>
             <div className="space-y-2">

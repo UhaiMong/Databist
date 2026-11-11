@@ -10,6 +10,7 @@ import {
   CalendarCheck,
   Newspaper,
   Images,
+  FolderOpen,
   HelpCircle,
   MessageSquareQuote,
   Settings,
@@ -31,6 +32,7 @@ const NAV_ITEMS = [
   },
   { label: "Blog", href: "/dashboard/blog", icon: Newspaper },
   { label: "Portfolio", href: "/dashboard/portfolio", icon: Images },
+  { label: "Media", href: "/dashboard/media", icon: FolderOpen },
   { label: "Contact", href: "/dashboard/contact", icon: PhoneCall },
   { label: "FAQ", href: "/dashboard/faq", icon: HelpCircle },
   {

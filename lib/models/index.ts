@@ -9,3 +9,4 @@ export { FaqGlobal } from "./FaqGlobal";
 export { SiteSettings } from "./SiteSettings";
 export { Subscriber } from "./Subscriber";
 export { Contact } from "./contact";
+export { Media } from "./Media";

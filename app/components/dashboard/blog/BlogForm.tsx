@@ -19,6 +19,7 @@ import {
 } from "../../ui/select";
 import { blogPostSchema, BlogPostValues } from "@/lib/validations/blog";
 import TextEditor from "@/app/editor/TextEditor";
+import MediaPickerField from "@/app/components/dashboard/media/MediaPickerField";
 
 interface BlogFormProps {
   mode: "create" | "edit";
@@ -120,12 +121,14 @@ export default function BlogForm({ mode, initialData }: BlogFormProps) {
                 {...register("category")}
               />
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="featuredImage">Featured Image URL</Label>
-              <Input
+            <div className="space-y-2 sm:col-span-2">
+              <MediaPickerField
                 id="featuredImage"
-                placeholder="https://image.come"
-                {...register("featuredImage")}
+                label="Featured Image"
+                value={watch("featuredImage") ?? ""}
+                onChange={(url) =>
+                  setValue("featuredImage", url, { shouldValidate: true })
+                }
               />
             </div>
             <div className="space-y-2">
