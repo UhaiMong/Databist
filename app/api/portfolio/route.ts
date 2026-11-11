@@ -2,14 +2,20 @@ import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db/connectDB";
 import { Portfolio } from "@/lib/models";
 import { portfolioSchema } from "@/lib/validations/misc";
+import { requireAuth } from "@/lib/auth/apiAuth";
 
 export async function GET(req: NextRequest) {
   try {
     await connectDB();
 
-    const status = req.nextUrl.searchParams.get("status") ?? "published";
+    const status = req.nextUrl.searchParams.get("status") ?? "completed";
     const serviceType = req.nextUrl.searchParams.get("serviceType");
     const industry = req.nextUrl.searchParams.get("industry");
+
+    if (status !== "completed") {
+      const auth = await requireAuth();
+      if (auth.error) return auth.error;
+    }
 
     const filter: Record<string, unknown> = status === "all" ? {} : { status };
     if (serviceType) filter.serviceType = serviceType;
@@ -29,6 +35,9 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
+    const auth = await requireAuth();
+    if (auth.error) return auth.error;
+
     const body = await req.json();
     const parsed = portfolioSchema.safeParse(body);
 

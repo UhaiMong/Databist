@@ -3,12 +3,16 @@ import mongoose from "mongoose";
 import connectDB from "@/lib/db/connectDB";
 import { Testimonial } from "@/lib/models";
 import { testimonialSchema } from "@/lib/validations/misc";
+import { requireAuth } from "@/lib/auth/apiAuth";
 
 export async function PATCH(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
   try {
+    const auth = await requireAuth();
+    if (auth.error) return auth.error;
+
     const { id } = await params;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -56,10 +60,13 @@ export async function PATCH(
 }
 
 export async function DELETE(
-  req: NextRequest,
+  _req: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
   try {
+    const auth = await requireAuth();
+    if (auth.error) return auth.error;
+
     const { id } = await params;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {

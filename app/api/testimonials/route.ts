@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db/connectDB";
 import { Testimonial } from "@/lib/models";
 import { testimonialSchema } from "@/lib/validations/misc";
+import { requireAuth } from "@/lib/auth/apiAuth";
 
 export async function GET(req: NextRequest) {
   try {
@@ -27,6 +28,9 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
+    const auth = await requireAuth();
+    if (auth.error) return auth.error;
+
     const body = await req.json();
     const parsed = testimonialSchema.safeParse(body);
 

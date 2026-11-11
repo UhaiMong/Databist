@@ -6,18 +6,21 @@ import {
   bookingStatusUpdateSchema,
   rescheduleSchema,
 } from "@/lib/validations/booking";
-// import { sendEmail } from "@/lib/email/config/resend.config";
 import {
   bookingRescheduledTemplate,
   bookingStatusUpdateTemplate,
 } from "@/lib/email/templates";
 import { sendEmail } from "@/lib/email/config/nodemail.config";
+import { requireAuth } from "@/lib/auth/apiAuth";
 
 export async function GET(
-  req: NextRequest,
+  _req: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
   try {
+    const auth = await requireAuth();
+    if (auth.error) return auth.error;
+
     const { id } = await params;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -54,6 +57,9 @@ export async function PATCH(
   { params }: { params: Promise<{ id: string }> },
 ) {
   try {
+    const auth = await requireAuth();
+    if (auth.error) return auth.error;
+
     const { id } = await params;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -253,10 +259,13 @@ export async function PATCH(
 }
 
 export async function DELETE(
-  req: NextRequest,
+  _req: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
   try {
+    const auth = await requireAuth();
+    if (auth.error) return auth.error;
+
     const { id } = await params;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {

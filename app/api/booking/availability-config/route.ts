@@ -2,9 +2,13 @@ import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db/connectDB";
 import { Availability } from "@/lib/models";
 import { availabilitySchema } from "@/lib/validations/booking";
+import { requireAuth } from "@/lib/auth/apiAuth";
 
 export async function GET() {
   try {
+    const auth = await requireAuth();
+    if (auth.error) return auth.error;
+
     await connectDB();
 
     const rules = await Availability.find()
@@ -23,6 +27,9 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
   try {
+    const auth = await requireAuth();
+    if (auth.error) return auth.error;
+
     const body = await req.json();
     const parsed = availabilitySchema.safeParse(body);
 

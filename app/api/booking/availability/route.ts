@@ -6,9 +6,21 @@ import {
   isPastDate,
 } from "@/lib/utils/timeSlots";
 import { Availability, BlackoutDate, Booking } from "@/lib/models";
+import {
+  getClientIp,
+  rateLimit,
+  tooManyRequests,
+} from "@/lib/security/rateLimit";
 
 export async function GET(req: NextRequest) {
   try {
+    const ip = getClientIp(req);
+    const limited = rateLimit(`availability:${ip}`, {
+      limit: 60,
+      windowMs: 15 * 60 * 1000,
+    });
+    if (!limited.success) return tooManyRequests(limited.retryAfterSec);
+
     const date = req.nextUrl.searchParams.get("date");
 
     if (!date || !/^\d{4}-\d{2}-\d{2}$/.test(date)) {

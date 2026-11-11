@@ -13,4 +13,5 @@ export type ContactFormValues = z.infer<typeof contactFormSchema>;
 
 export const newsletterSchema = z.object({
   email: z.email("Invalid email address"),
+  honeypot: z.string().max(0, "Spam detected").optional(),
 });

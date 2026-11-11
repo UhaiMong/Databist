@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db/connectDB";
 import { SiteSettings } from "@/lib/models";
+import { requireAdmin } from "@/lib/auth/apiAuth";
 
 const DEFAULT_SETTINGS = {
   key: "global",
@@ -44,6 +45,9 @@ export async function GET() {
 
 export async function PATCH(req: NextRequest) {
   try {
+    const auth = await requireAdmin();
+    if (auth.error) return auth.error;
+
     const body = await req.json();
     delete body.key; // key is immutable
 

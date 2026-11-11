@@ -7,40 +7,23 @@ import {
   contactNotificationTemplate,
 } from "@/lib/email/templates";
 import { sendEmail } from "@/lib/email/config/nodemail.config";
-// import { sendEmail } from "@/lib/email/config/resend.config";
-
-async function verifyRecaptcha(token: string): Promise<boolean> {
-  if (!process.env.RECAPTCHA_SECRET_KEY) return true;
-
-  try {
-    const params = new URLSearchParams({
-      secret: process.env.RECAPTCHA_SECRET_KEY,
-      response: token,
-    });
-
-    const res = await fetch("https://www.google.com/recaptcha/api/siteverify", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: params.toString(),
-    });
-    const data = await res.json();
-
-    if (!data.success) {
-      console.error("reCAPTCHA verification failed:", data["error-codes"]);
-    } else if (typeof data.score === "number" && data.score < 0.5) {
-      console.warn("reCAPTCHA low score:", data.score);
-      return false;
-    }
-
-    return data.success === true;
-  } catch (err) {
-    console.error("reCAPTCHA verification request error:", err);
-    return false;
-  }
-}
+import { requireAuth } from "@/lib/auth/apiAuth";
+import { verifyRecaptcha } from "@/lib/security/recaptcha";
+import {
+  getClientIp,
+  rateLimit,
+  tooManyRequests,
+} from "@/lib/security/rateLimit";
 
 export async function POST(req: NextRequest) {
   try {
+    const ip = getClientIp(req);
+    const limited = rateLimit(`contact:${ip}`, {
+      limit: 5,
+      windowMs: 15 * 60 * 1000,
+    });
+    if (!limited.success) return tooManyRequests(limited.retryAfterSec);
+
     const body = await req.json();
     const { recaptchaToken, ...formData } = body;
 
@@ -85,19 +68,15 @@ export async function POST(req: NextRequest) {
 
     const submission = await Contact.create(data);
 
-    // Email sending
     try {
       const agencyEmail = process.env.AGENCY_NOTIFY_EMAIL;
       const emailPromise: Promise<unknown>[] = [
-        // 1. User acknowledgement
         sendEmail({
           to: data?.email,
           subject: "We've received your message - Databist",
           html: contactAcknowledgementTemplate(data.name),
         }),
       ];
-
-      //2. Agency Notification with replyTo
 
       if (agencyEmail) {
         emailPromise.push(
@@ -114,8 +93,6 @@ export async function POST(req: NextRequest) {
       results.forEach((result, index) => {
         if (result.status === "rejected") {
           console.error(`Side effect task [${index}] failed:`, result.reason);
-        } else {
-          console.log(`Side effect task [${index}] succeeded`, result.value);
         }
       });
     } catch (emailError) {
@@ -138,9 +115,11 @@ export async function POST(req: NextRequest) {
   }
 }
 
-// Get contact list
 export async function GET(req: NextRequest) {
   try {
+    const auth = await requireAuth();
+    if (auth.error) return auth.error;
+
     await connectDB();
 
     const status = req.nextUrl.searchParams.get("status");
