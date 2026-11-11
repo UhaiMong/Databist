@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { sendGTMEvent } from "@next/third-parties/google";
 import { Phone, CalendarClock, ArrowRight } from "lucide-react";
-import WhatsAppIcon from "@mui/icons-material/WhatsApp";
+import { WhatsAppIcon } from "@/app/components/icons/BrandIcons";
 import { Button } from "../../ui/button";
 import { cn } from "@/lib/utils";
 import { phoneStr } from "@/lib/constant";

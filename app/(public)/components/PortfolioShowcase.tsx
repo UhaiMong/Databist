@@ -3,21 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Fraunces, IBM_Plex_Mono } from "next/font/google";
 import { ArrowUpRight } from "lucide-react";
-
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  style: ["normal", "italic"],
-  variable: "--font-fraunces",
-});
-
-const plexMono = IBM_Plex_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  variable: "--font-plex-mono",
-});
 
 function ProjectCard({ item }: { item: any }) {
   const [revealed, setRevealed] = useState(false);
@@ -110,7 +96,7 @@ export default function PortfolioShowcase({
 
   return (
     <section
-      className={`${fraunces.variable} ${plexMono.variable} relative py-24 px-4 sm:px-6`}
+      className="relative px-4 py-24 sm:px-6"
       style={{ background: "#101014" }}
     >
       <div className="mx-auto max-w-6xl">

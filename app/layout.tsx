@@ -1,7 +1,6 @@
-import { spaceGrotesk, plexMono } from "./fonts";
+import { geist, spaceGrotesk, plexMono, fraunces } from "./fonts";
 import type { Metadata } from "next";
 import "./globals.css";
-import { Geist } from "next/font/google";
 import { cn } from "@/lib/utils";
 import AppProviders from "./components/providers/AppProviders";
 import { Toaster } from "./components/ui/sonner";
@@ -12,8 +11,6 @@ import { absoluteImageUrl, SEO_DEFAULTS } from "@/lib/seo";
 function siteUrl() {
   return getSiteUrl();
 }
-
-const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl()),
@@ -74,11 +71,11 @@ export default function RootLayout({
     <html
       lang="en"
       className={cn(
-        "h-full",
-        "antialiased",
-        "font-sans",
+        "h-full antialiased font-sans",
         geist.variable,
-        `${spaceGrotesk.variable} ${plexMono.variable}`,
+        spaceGrotesk.variable,
+        plexMono.variable,
+        fraunces.variable,
       )}
     >
       <body className="min-h-full flex flex-col">

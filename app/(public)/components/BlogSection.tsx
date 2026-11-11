@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { DesignTokens, fraunces, plexMono } from "@/lib/utils";
+import { DesignTokens } from "@/lib/utils";
 
 function FeaturedPost({ post }: { post: any }) {
   return (
@@ -148,7 +148,7 @@ export default function BlogSection({ posts }: { posts: any }) {
 
   return (
     <section
-      className={`${fraunces.variable} ${plexMono.variable} w-full px-4 py-24 sm:px-6`}
+      className="w-full px-4 py-24 sm:px-6"
       style={{ background: DesignTokens.bg }}
     >
       <div className="mx-auto max-w-6xl">

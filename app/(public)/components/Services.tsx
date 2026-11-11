@@ -1,29 +1,11 @@
 import Link from "next/link";
-import { Fraunces, IBM_Plex_Mono } from "next/font/google";
 import { ArrowUpRight } from "lucide-react";
-
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  style: ["normal", "italic"],
-  variable: "--font-fraunces",
-});
-
-const plexMono = IBM_Plex_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  variable: "--font-plex-mono",
-});
-
-const PAGE_BG = "#101014";
 
 export default function Services({ services }: { services: any }) {
   if (!services?.length) return null;
 
   return (
-    <section
-      className={`${fraunces.variable} ${plexMono.variable} relative py-24 px-4 sm:px-6 bg-page-bg`}
-    >
+    <section className="relative bg-page-bg px-4 py-24 sm:px-6">
       <div className="mx-auto max-w-6xl">
         {/* Header */}
         <div className="mb-14 md:mb-16 max-w-xl">

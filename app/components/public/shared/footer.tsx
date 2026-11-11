@@ -1,26 +1,20 @@
 import Link from "next/link";
 import Image from "next/image";
 import { MapPin, Phone, Mail } from "lucide-react";
-import Facebook from "@mui/icons-material/Facebook";
-import LinkedIn from "@mui/icons-material/LinkedIn";
-
-import WhatsAppIcon from "@mui/icons-material/WhatsApp";
-import XIcon from "@mui/icons-material/X";
+import {
+  FacebookIcon,
+  LinkedInIcon,
+  WhatsAppIcon,
+  XIcon,
+} from "@/app/components/icons/BrandIcons";
 
 import NewsletterForm from "./NewsletterForm";
-import connectDB from "@/lib/db/connectDB";
-import { SiteSettings } from "@/lib/models";
+import { getSiteSettings } from "@/lib/data/site";
 import { toWhatsAppNumber } from "@/lib/site";
 
 const logo = "/logo.svg";
 
 export const revalidate = 60;
-
-async function getSettings() {
-  await connectDB();
-  const settings = await SiteSettings.findOne({ key: "global" }).lean();
-  return settings ? JSON.parse(JSON.stringify(settings)) : null;
-}
 
 const FOOTER_LINKS = [
   { label: "Services", href: "/services" },
@@ -34,7 +28,7 @@ const FOOTER_LINKS = [
 
 export async function PublicFooter() {
   const currentYear = new Date().getFullYear();
-  const settings = await getSettings();
+  const settings = await getSiteSettings();
   const offices = (settings?.offices as { label: string; address: string }[]) ?? [];
   const whatsappDigits = toWhatsAppNumber(settings?.whatsapp);
 
@@ -75,7 +69,7 @@ export async function PublicFooter() {
                   className="p-2 bg-brand/30 rounded-full hover:bg-brand transition-colors duration-200 group"
                   aria-label="Facebook"
                 >
-                  <Facebook className="w-4 h-4 text-white group-hover:scale-110 transition-transform" />
+                  <FacebookIcon className="w-4 h-4 text-white group-hover:scale-110 transition-transform" />
                 </a>
               )}
               {settings?.socialLinks?.linkedin && (
@@ -86,7 +80,7 @@ export async function PublicFooter() {
                   className="p-2 bg-brand/30 rounded-full hover:bg-brand transition-colors duration-200 group"
                   aria-label="LinkedIn"
                 >
-                  <LinkedIn className="w-4 h-4 text-white group-hover:scale-110 transition-transform" />
+                  <LinkedInIcon className="w-4 h-4 text-white group-hover:scale-110 transition-transform" />
                 </a>
               )}
               {settings?.socialLinks?.x && (

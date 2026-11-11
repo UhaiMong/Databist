@@ -1,27 +1,9 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { Fraunces, IBM_Plex_Mono } from "next/font/google";
 
-// Clsx
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
-
-// Font
-export const fraunces = Fraunces({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  style: ["normal", "italic"],
-  variable: "--font-fraunces",
-});
-
-export const plexMono = IBM_Plex_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  variable: "--font-plex-mono",
-});
-
-// Design token
 
 /** Surface tokens for dark marketing sections — accents follow logo gold. */
 export const DesignTokens = {

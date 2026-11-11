@@ -151,10 +151,7 @@ body {
   margin: 0;
   padding: 0;
   @apply bg-background text-foreground;
-  font-family: "DM Sans", sans-serif;
-
-  margin: 0;
-  padding: 0;
+  font-family: var(--font-sans), system-ui, sans-serif;
   position: relative;
   overflow-x: hidden;
 }
@@ -227,7 +224,7 @@ html[data-scroll-locked] {
   h1,
   h2,
   h3 {
-    font-family: "Playfair Display", serif;
+    font-family: var(--font-space-grotesk), var(--font-fraunces), serif;
   }
 }
 

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Button } from "../../ui/button";
 import { Trash2, Download } from "lucide-react";
+import { downloadCsv, toCsv } from "@/lib/csv";
 
 interface Subscriber {
   _id: string;
@@ -37,25 +38,24 @@ export default function ContactListTable({
   }
 
   function exportCsv() {
-    const headers = ["Name", "Phone", "Email", "Message", "Contacted On"];
-    const rows = contactList.map((s) => [
-      s.name,
-      s.phone,
-      s.email,
-      s.message,
-      new Date(s.createdAt).toLocaleDateString(),
-    ]);
+    const rows = contactList.map((s) => ({
+      name: s.name,
+      phone: s.phone,
+      email: s.email,
+      message: s.message,
+      contactedOn: new Date(s.createdAt).toLocaleDateString(),
+    }));
 
-    const csv = [headers, ...rows]
-      .map((row) => row.map((v) => `"${v}"`).join(","))
-      .join("\n");
-    const blob = new Blob([csv], { type: "text/csv" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `ContactList-${new Date().toISOString().split("T")[0]}.csv`;
-    a.click();
-    URL.revokeObjectURL(url);
+    downloadCsv(
+      `ContactList-${new Date().toISOString().split("T")[0]}.csv`,
+      toCsv(rows, [
+        { key: "name", header: "Name" },
+        { key: "phone", header: "Phone" },
+        { key: "email", header: "Email" },
+        { key: "message", header: "Message" },
+        { key: "contactedOn", header: "Contacted On" },
+      ]),
+    );
   }
 
   return (

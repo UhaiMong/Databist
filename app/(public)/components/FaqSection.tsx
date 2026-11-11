@@ -2,21 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Fraunces, IBM_Plex_Mono } from "next/font/google";
 import { Plus } from "lucide-react";
-
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  style: ["normal", "italic"],
-  variable: "--font-fraunces",
-});
-
-const plexMono = IBM_Plex_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  variable: "--font-plex-mono",
-});
 
 export default function FaqSection({ faqs }: { faqs: any }) {
   const [openId, setOpenId] = useState<string | number | null>(null);
@@ -25,7 +11,7 @@ export default function FaqSection({ faqs }: { faqs: any }) {
 
   return (
     <section
-      className={`${fraunces.variable} ${plexMono.variable} relative py-24 px-4 sm:px-6`}
+      className="relative px-4 py-24 sm:px-6"
       style={{ background: "#101014" }}
     >
       <div className="mx-auto max-w-3xl">

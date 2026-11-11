@@ -1,4 +1,4 @@
-import { DesignTokens, fraunces, plexMono } from "@/lib/utils";
+import { DesignTokens } from "@/lib/utils";
 import {
   Shirt,
   ShoppingCart,
@@ -27,7 +27,7 @@ const ICONS: Record<string, LucideIcon> = {
 export default function Industries() {
   return (
     <section
-      className={`${fraunces.variable} ${plexMono.variable} w-full px-4 py-24 sm:px-6`}
+      className="w-full px-4 py-24 sm:px-6"
       style={{ background: DesignTokens.bg }}
     >
       <div className="mx-auto max-w-5xl">

@@ -10,11 +10,7 @@
     "seed:admin": "tsx scripts/seedAdmin.ts"
   },
   "dependencies": {
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.1",
     "@hookform/resolvers": "^5.4.0",
-    "@mui/icons-material": "^9.2.0",
-    "@mui/material": "^9.2.0",
     "@next/third-parties": "^16.3.1",
     "@platejs/basic-nodes": "^53.0.0",
     "@platejs/basic-styles": "^53.0.0",

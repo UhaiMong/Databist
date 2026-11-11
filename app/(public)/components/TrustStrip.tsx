@@ -1,4 +1,4 @@
-import { DesignTokens, fraunces, plexMono } from "@/lib/utils";
+import { DesignTokens } from "@/lib/utils";
 import AnimatedNumber from "./AnimatedNumber";
 
 export type TrustStats = {
@@ -40,7 +40,7 @@ export default function TrustTrip({ stats }: TrustTripProps) {
 
   return (
     <section
-      className={`${fraunces.variable} ${plexMono.variable} relative border-y py-8`}
+      className="relative border-y py-8"
       style={{
         background: DesignTokens.bg,
         borderColor: DesignTokens.hairline,

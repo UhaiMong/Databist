@@ -19,6 +19,7 @@ import {
 import { MoreVertical, Download } from "lucide-react";
 import { BookingStatus } from "@/app/types";
 import { RescheduleModal } from "./RescheduleModal";
+import { downloadCsv, toCsv } from "@/lib/csv";
 
 interface Booking {
   _id: string;
@@ -82,35 +83,31 @@ export default function BookingsTable({ initialBookings }: BookingsTableProps) {
   }
 
   function exportCsv() {
-    const headers = [
-      "Name",
-      "Email",
-      "Phone",
-      "Service",
-      "Date",
-      "Time",
-      "Status",
-    ];
-    const rows = filtered.map((b) => [
-      b.name,
-      b.email,
-      b.phone,
-      b.serviceOfInterest ?? "",
-      b.date,
-      b.timeSlot,
-      b.status,
-    ]);
+    const rows = filtered.map((b) => ({
+      name: b.name,
+      email: b.email,
+      phone: b.phone,
+      service:
+        typeof b.serviceOfInterest === "object" && b.serviceOfInterest
+          ? b.serviceOfInterest.name
+          : (b.serviceOfInterest ?? ""),
+      date: b.date,
+      timeSlot: b.timeSlot,
+      status: b.status,
+    }));
 
-    const csv = [headers, ...rows]
-      .map((row) => row.map((v) => `"${v}"`).join(","))
-      .join("\n");
-    const blob = new Blob([csv], { type: "text/csv" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `bookings-${new Date().toISOString().split("T")[0]}.csv`;
-    a.click();
-    URL.revokeObjectURL(url);
+    downloadCsv(
+      `bookings-${new Date().toISOString().split("T")[0]}.csv`,
+      toCsv(rows, [
+        { key: "name", header: "Name" },
+        { key: "email", header: "Email" },
+        { key: "phone", header: "Phone" },
+        { key: "service", header: "Service" },
+        { key: "date", header: "Date" },
+        { key: "timeSlot", header: "Time" },
+        { key: "status", header: "Status" },
+      ]),
+    );
   }
 
   return (

@@ -21,6 +21,7 @@ const DEFAULT_SETTINGS = {
     },
   ],
   socialLinks: {},
+  partners: [],
 };
 
 export async function GET() {
