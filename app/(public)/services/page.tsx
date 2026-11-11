@@ -38,20 +38,11 @@ export default async function ServicesPage() {
   return (
     <section className="mt-16 bg-page-bg text-ink">
       <HeaderBannerSection
-        title="What we provide you"
-        subtitle="Choice one, visulaize your brand in the world"
+        title="Our Services"
+        subtitle="Straightforward, project-based packages across web, design, and marketing — pick one or bundle them together."
         imageSrc="/serviceBanner.jpg"
         overlayClass="bg-linear-to-b from-brand/30 via-brand-dark/40 to-brand/70"
       />
-      <div className="mx-auto mb-7 max-w-2xl text-center mt-4 py-3.5">
-        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl inline-block brand-text-gradient">
-          Our Service Packages
-        </h1>
-        <p className="mt-3 text-muted-foreground">
-          Straightforward, project-based pricing across every service you need
-          to grow — pick one package or bundle them together.
-        </p>
-      </div>
 
       <div className="container md:max-w-5xl w-full mx-auto px-4 py-16 ">
         {combo && (

@@ -62,12 +62,11 @@ export default async function ServiceDetailPage({
           {service.isCombo && (
             <Badge className="mb-3 bg-brand text-slate-50">Best Value</Badge>
           )}
-          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            {service.name}
-          </h1>
-          <p className="mt-4 text-lg text-muted-foreground">
-            {service.shortDescription}
-          </p>
+          {service.priceLabel && (
+            <p className="text-xl font-semibold text-brand-gold">
+              {service.priceLabel}
+            </p>
+          )}
 
           <Button
             asChild

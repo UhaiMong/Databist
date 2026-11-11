@@ -61,10 +61,10 @@ export function TopBanner() {
 
           <div className="animate-fade-up flex flex-wrap border-t border-blue-line-dim pt-6 [animation-delay:.32s]">
             {[
-              ["15+", "Systems shipped"],
-              ["99.9%", "Uptime SLA"],
-              ["12", "Industries served"],
-            ].map(([num, label], i) => (
+              ["Build", "Web applications"],
+              ["Grow", "Digital marketing"],
+              ["Ship", "Production systems"],
+            ].map(([num, label]) => (
               <div
                 key={label}
                 className="mr-7 border-r border-blue-line-dim pr-7 last:mr-0 last:border-r-0 last:pr-0"
