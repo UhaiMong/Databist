@@ -19,7 +19,7 @@ export default async function DashboardLayout({
       <DashboardSidebar role={session.user.role} />
       <div className="flex flex-1 flex-col">
         <DashboardHeader user={session.user} />
-        <main className="flex-1 bg-muted/20 p-6">{children}</main>
+        <main className="flex-1 bg-muted/20 p-4 sm:p-6">{children}</main>
       </div>
     </div>
   );

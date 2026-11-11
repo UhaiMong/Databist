@@ -47,13 +47,13 @@ export function TopBanner() {
           <div className="animate-fade-up mb-14 flex flex-wrap gap-3.5 [animation-delay:.24s]">
             <Link
               href="/contact"
-              className="flex items-center gap-2.5 py-0.5 px-1 rounded-sm bg-yellow-500 text-white hover:bg-yellow-600 hover:-translate-y-px hover:shadow-xl"
+              className="flex items-center gap-2.5 rounded-sm bg-brand-gold px-3 py-2 text-page-bg hover:brightness-110 hover:-translate-y-px hover:shadow-xl"
             >
               Start a project <ArrowRight className="ml-1 size-4" />
             </Link>
             <Link
               href="/portfolio"
-              className="py-0.5 px-1 rounded-sm border-blue-line-dim bg-brand text-paper hover:border-blue-bright hover:text-blue-bright"
+              className="rounded-sm border border-brand/40 bg-brand px-3 py-2 text-paper hover:border-brand-light hover:brightness-110"
             >
               See the work
             </Link>
@@ -61,10 +61,10 @@ export function TopBanner() {
 
           <div className="animate-fade-up flex flex-wrap border-t border-blue-line-dim pt-6 [animation-delay:.32s]">
             {[
-              ["15+", "Systems shipped"],
-              ["99.9%", "Uptime SLA"],
-              ["12", "Industries served"],
-            ].map(([num, label], i) => (
+              ["Build", "Web applications"],
+              ["Grow", "Digital marketing"],
+              ["Ship", "Production systems"],
+            ].map(([num, label]) => (
               <div
                 key={label}
                 className="mr-7 border-r border-blue-line-dim pr-7 last:mr-0 last:border-r-0 last:pr-0"

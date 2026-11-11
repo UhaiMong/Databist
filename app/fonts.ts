@@ -1,4 +1,10 @@
-import { Space_Grotesk, IBM_Plex_Mono } from "next/font/google";
+import { Space_Grotesk, IBM_Plex_Mono, Fraunces, Geist } from "next/font/google";
+
+export const geist = Geist({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+});
 
 export const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -11,5 +17,13 @@ export const plexMono = IBM_Plex_Mono({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
   variable: "--font-plex-mono",
+  display: "swap",
+});
+
+export const fraunces = Fraunces({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
+  variable: "--font-fraunces",
   display: "swap",
 });

@@ -6,9 +6,8 @@ import {
   Testimonial,
   Blog,
   FaqGlobal,
-  SiteSettings,
 } from "@/lib/models";
-import HeroSlider from "@/app/components/public/home/HeroSlider";
+import { getSiteSettings } from "@/lib/data/site";
 import TrustTrip from "./components/TrustStrip";
 import GlobalPresence from "./components/GlobePresence";
 import Services from "./components/Services";
@@ -18,12 +17,19 @@ import TestimonialSection from "./components/TestimonialSection";
 import BookingSection from "./components/BookingSection";
 import BlogSection from "./components/BlogSection";
 import FaqSection from "./components/FaqSection";
+import PartnersStrip from "./components/PartnersStrip";
 import { TopBanner } from "../components/public/home/TopBanner";
+import { buildPageMetadata, SEO_DEFAULTS } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Databist | Web Development & Digital Marketing Agency",
-  description:
-    "Full-service digital marketing and web development agency serving Bangladesh, the UAE, and beyond. Book a free consultation today.",
+  ...buildPageMetadata({
+    title: `${SEO_DEFAULTS.siteName} | Web Development & Digital Marketing Agency`,
+    description: SEO_DEFAULTS.description,
+    path: "/",
+  }),
+  title: {
+    absolute: `${SEO_DEFAULTS.siteName} | Web Development & Digital Marketing Agency`,
+  },
 };
 
 export const revalidate = 60;
@@ -31,24 +37,36 @@ export const revalidate = 60;
 async function getHomeData() {
   await connectDB();
 
-  const [services, portfolioItems, testimonials, posts, faqs, settings] =
-    await Promise.all([
-      ServicePackage.find({ status: "published" })
-        .sort({ order: 1 })
-        .limit(8)
-        .lean(),
-      Portfolio.find({ status: "completed" })
-        .sort({ order: 1 })
-        .limit(3)
-        .lean(),
-      Testimonial.find({ isFeatured: true }).sort({ order: 1 }).limit(4).lean(),
-      Blog.find({ status: "published" })
-        .sort({ publishedAt: -1 })
-        .limit(3)
-        .lean(),
-      FaqGlobal.find({ isPublished: true }).sort({ order: 1 }).limit(6).lean(),
-      SiteSettings.findOne({ key: "global" }).lean(),
-    ]);
+  const [
+    services,
+    portfolioItems,
+    testimonials,
+    posts,
+    faqs,
+    settings,
+    serviceCount,
+    projectCount,
+    postCount,
+  ] = await Promise.all([
+    ServicePackage.find({ status: "published" })
+      .sort({ order: 1 })
+      .limit(8)
+      .lean(),
+    Portfolio.find({ status: "completed" })
+      .sort({ order: 1 })
+      .limit(3)
+      .lean(),
+    Testimonial.find({ isFeatured: true }).sort({ order: 1 }).limit(4).lean(),
+    Blog.find({ status: "published" })
+      .sort({ publishedAt: -1 })
+      .limit(3)
+      .lean(),
+    FaqGlobal.find({ isPublished: true }).sort({ order: 1 }).limit(6).lean(),
+    getSiteSettings(),
+    ServicePackage.countDocuments({ status: "published" }),
+    Portfolio.countDocuments({ status: "completed" }),
+    Blog.countDocuments({ status: "published" }),
+  ]);
 
   return JSON.parse(
     JSON.stringify({
@@ -58,19 +76,32 @@ async function getHomeData() {
       posts,
       faqs,
       settings,
+      trustStats: {
+        serviceCount,
+        projectCount,
+        postCount,
+        officeCount: settings?.offices?.length ?? 0,
+      },
     }),
   );
 }
 
 export default async function HomePage() {
-  const { services, portfolioItems, testimonials, posts, faqs, settings } =
-    await getHomeData();
+  const {
+    services,
+    portfolioItems,
+    testimonials,
+    posts,
+    faqs,
+    settings,
+    trustStats,
+  } = await getHomeData();
 
   return (
     <>
       <TopBanner />
-      <HeroSlider />
-      <TrustTrip />
+      <TrustTrip stats={trustStats} />
+      <PartnersStrip partners={settings?.partners ?? []} />
       <Services services={services} />
       <Industries />
       <PortfolioShowcase portfolioItems={portfolioItems} />

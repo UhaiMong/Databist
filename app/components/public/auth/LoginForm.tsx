@@ -54,7 +54,7 @@ export default function LoginForm() {
               id="email"
               type="email"
               value={email}
-              placeholder="admin@digitalresolution.net"
+              placeholder="admin@databist.com"
               onChange={(e) => setEmail(e.target.value)}
               required
             />

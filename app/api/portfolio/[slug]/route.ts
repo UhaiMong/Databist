@@ -2,9 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db/connectDB";
 import { Portfolio } from "@/lib/models";
 import { portfolioSchema } from "@/lib/validations/misc";
+import { requireAuth } from "@/lib/auth/apiAuth";
 
 export async function GET(
-  req: NextRequest,
+  _req: NextRequest,
   { params }: { params: Promise<{ slug: string }> },
 ) {
   try {
@@ -17,6 +18,11 @@ export async function GET(
         { success: false, message: "Portfolio item not found" },
         { status: 404 },
       );
+    }
+
+    if ((item as { status?: string }).status !== "completed") {
+      const auth = await requireAuth();
+      if (auth.error) return auth.error;
     }
 
     return NextResponse.json({ success: true, item });
@@ -34,6 +40,9 @@ export async function PATCH(
   { params }: { params: Promise<{ slug: string }> },
 ) {
   try {
+    const auth = await requireAuth();
+    if (auth.error) return auth.error;
+
     const body = await req.json();
     const parsed = portfolioSchema.partial().safeParse(body);
     const { slug } = await params;
@@ -72,10 +81,13 @@ export async function PATCH(
 }
 
 export async function DELETE(
-  req: NextRequest,
+  _req: NextRequest,
   { params }: { params: Promise<{ slug: string }> },
 ) {
   try {
+    const auth = await requireAuth();
+    if (auth.error) return auth.error;
+
     await connectDB();
     const { slug } = await params;
     const deleted = await Portfolio.findOneAndDelete({ slug });

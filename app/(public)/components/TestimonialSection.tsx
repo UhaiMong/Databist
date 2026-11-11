@@ -5,7 +5,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { cn, DesignTokens, fraunces, plexMono } from "@/lib/utils";
+import { cn, DesignTokens } from "@/lib/utils";
 
 function RatingSeal({ rating, max = 5 }: { rating: number; max?: number }) {
   const size = 52;
@@ -89,7 +89,7 @@ export default function TestimonialSection({
 
   return (
     <section
-      className={`${fraunces.variable} ${plexMono.variable} relative overflow-hidden px-4 py-24 sm:px-6`}
+      className="relative overflow-hidden px-4 py-24 sm:px-6"
       style={{ background: DesignTokens.bg }}
     >
       <div className="mx-auto max-w-6xl">
@@ -133,7 +133,7 @@ export default function TestimonialSection({
                 type="button"
                 onClick={scrollPrev}
                 aria-label="Previous testimonial"
-                className="flex h-9 w-9 items-center justify-center rounded-full ring-1 transition-colors hover:text-[#C9A15A]"
+                className="flex h-9 w-9 items-center justify-center rounded-full ring-1 transition-colors hover:text-brand-gold"
                 style={{
                   borderColor: DesignTokens.hairline,
                   color: DesignTokens.muted,
@@ -145,7 +145,7 @@ export default function TestimonialSection({
                 type="button"
                 onClick={scrollNext}
                 aria-label="Next testimonial"
-                className="flex h-9 w-9 items-center justify-center rounded-full ring-1 transition-colors hover:text-[#C9A15A]"
+                className="flex h-9 w-9 items-center justify-center rounded-full ring-1 transition-colors hover:text-brand-gold"
                 style={{
                   borderColor: DesignTokens.hairline,
                   color: DesignTokens.muted,

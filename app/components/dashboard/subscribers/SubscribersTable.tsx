@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button } from "../../ui/button";
 import { Trash2, Download } from "lucide-react";
 import { Badge } from "../../ui/badge";
+import { downloadCsv, toCsv } from "@/lib/csv";
 
 interface Subscriber {
   _id: string;
@@ -36,23 +37,20 @@ export default function SubscribersTable({
   }
 
   function exportCsv() {
-    const headers = ["Email", "Status", "Subscribed On"];
-    const rows = subscribers.map((s) => [
-      s.email,
-      s.status,
-      new Date(s.createdAt).toLocaleDateString(),
-    ]);
+    const rows = subscribers.map((s) => ({
+      email: s.email,
+      status: s.status,
+      subscribedOn: new Date(s.createdAt).toLocaleDateString(),
+    }));
 
-    const csv = [headers, ...rows]
-      .map((row) => row.map((v) => `"${v}"`).join(","))
-      .join("\n");
-    const blob = new Blob([csv], { type: "text/csv" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `subscribers-${new Date().toISOString().split("T")[0]}.csv`;
-    a.click();
-    URL.revokeObjectURL(url);
+    downloadCsv(
+      `subscribers-${new Date().toISOString().split("T")[0]}.csv`,
+      toCsv(rows, [
+        { key: "email", header: "Email" },
+        { key: "status", header: "Status" },
+        { key: "subscribedOn", header: "Subscribed On" },
+      ]),
+    );
   }
 
   return (

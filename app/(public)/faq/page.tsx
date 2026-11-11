@@ -2,12 +2,15 @@ import { Metadata } from "next";
 import connectDB from "@/lib/db/connectDB";
 import { FaqGlobal } from "@/lib/models";
 import FaqPageClient from "@/app/components/public/faq/FaqPageClient";
+import JsonLd from "@/app/components/seo/JsonLd";
+import { buildPageMetadata, faqJsonLd } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "FAQ | Databist",
+export const metadata: Metadata = buildPageMetadata({
+  title: "FAQ",
   description:
     "Answers to common questions about our services, pricing, delivery timelines, support, and engagement models.",
-};
+  path: "/faq",
+});
 
 export const revalidate = 60;
 
@@ -24,6 +27,7 @@ export default async function FaqPage() {
 
   return (
     <section className="container mx-auto px-4 py-16 mt-7">
+      <JsonLd data={faqJsonLd(faqs)} />
       <div className="mx-auto mb-10 max-w-2xl text-center">
         <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
           Frequently Asked Questions

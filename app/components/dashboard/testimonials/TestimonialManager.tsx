@@ -15,6 +15,7 @@ import {
   DialogTrigger,
 } from "../../ui/dialog";
 import { Pencil, Trash2, Plus, Star } from "lucide-react";
+import MediaPickerField from "@/app/components/dashboard/media/MediaPickerField";
 
 interface Testimonial {
   _id: string;
@@ -172,13 +173,11 @@ export default function TestimonialManager({
                     }
                   />
                 </div>
-                <div className="space-y-2">
-                  <Label>Avatar URL</Label>
-                  <Input
+                <div className="space-y-2 sm:col-span-2">
+                  <MediaPickerField
+                    label="Avatar"
                     value={form.avatar}
-                    onChange={(e) =>
-                      setForm({ ...form, avatar: e.target.value })
-                    }
+                    onChange={(url) => setForm({ ...form, avatar: url })}
                   />
                 </div>
                 <div className="space-y-2">

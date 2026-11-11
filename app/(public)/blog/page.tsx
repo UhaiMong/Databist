@@ -8,11 +8,15 @@ import { Button } from "@/app/components/ui/button";
 import HeaderBannerSection from "../components/HeaderBannerSection";
 import { cn } from "@/lib/utils";
 
-export const metadata: Metadata = {
-  title: "Blog | Databist",
+import { buildPageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = buildPageMetadata({
+  title: "Blog",
   description:
     "Insights on web development, design, SEO, and digital marketing from Databist.",
-};
+  path: "/blog",
+  image: "/blogBanner.jpg",
+});
 
 export const revalidate = 60;
 
@@ -53,19 +57,11 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
   return (
     <section className="mt-16 bg-page-bg text-ink">
       <HeaderBannerSection
-        title="Our Insights"
-        subtitle="A global impact of techlogies is the part of Databist"
+        title="Blog"
+        subtitle="Insights on web development, design, SEO, and digital marketing."
         imageSrc="/blogBanner.jpg"
       />
       <article className="overflow-hidden">
-        <div className="mx-auto mb-5 max-w-2xl text-center mt-4 py-3.5">
-          <h1 className="text-2xl font-bold tracking-tight md:text-3xl inline-block bg-linear-to-r from-indigo-600 via-pink-500 to-indigo-700 bg-clip-text text-transparent">
-            Recent Article
-          </h1>
-          <p className="mt-3 text-muted-foreground">
-            Insights on web development, design, SEO, and digital marketing.
-          </p>
-        </div>
         <div className="mx-auto px-4 py-7">
           <div className="mb-8 flex flex-wrap justify-center gap-2">
             <Link href="/blog">

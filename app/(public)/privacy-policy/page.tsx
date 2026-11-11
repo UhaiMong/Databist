@@ -1,18 +1,20 @@
 import { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Privacy Policy | Databist",
+export const metadata: Metadata = buildPageMetadata({
+  title: "Privacy Policy",
   description: "How Databist collects, uses, and protects your data.",
-};
+  path: "/privacy-policy",
+});
+
+const LAST_UPDATED = "August 8, 2026";
 
 export default function PrivacyPolicyPage() {
   return (
     <article className="container mx-auto px-4 py-16 mt-7">
       <div className="prose prose-neutral mx-auto max-w-3xl dark:prose-invert">
         <h1>Privacy Policy</h1>
-        <p className="text-muted-foreground">
-          Last updated: {new Date().toLocaleDateString()}
-        </p>
+        <p className="text-muted-foreground">Last updated: {LAST_UPDATED}</p>
 
         <h2>1. Information We Collect</h2>
         <p>
@@ -33,10 +35,10 @@ export default function PrivacyPolicyPage() {
 
         <h2>3. Analytics</h2>
         <p>
-          We use Google Analytics (GA4) to understand how visitors use our site,
-          including page views, form submissions, bookings, and
-          click-to-call/WhatsApp interactions. This data is aggregated and does
-          not directly identify you.
+          We use Google Tag Manager / Google Analytics (GA4) to understand how
+          visitors use our site, including page views, form submissions,
+          bookings, and click-to-call/WhatsApp interactions. This data is
+          aggregated and does not directly identify you.
         </p>
 
         <h2>4. How We Use Your Information</h2>

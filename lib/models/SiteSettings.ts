@@ -23,6 +23,13 @@ const SiteSettingsSchema = new Schema(
       linkedin: { type: String },
       youtube: { type: String },
     },
+    partners: [
+      {
+        name: { type: String, required: true },
+        logoUrl: { type: String, required: true },
+        url: { type: String },
+      },
+    ],
     ga4MeasurementId: { type: String },
   },
   { timestamps: true },

@@ -5,11 +5,15 @@ import ContactForm from "@/app/components/public/contact/ContactForm";
 import { Mail, Phone, MapPin } from "lucide-react";
 import HeaderBannerSection from "../components/HeaderBannerSection";
 
-export const metadata: Metadata = {
-  title: "Contact Us | Databist",
+import { buildPageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = buildPageMetadata({
+  title: "Contact Us",
   description:
     "Get in touch with Databist — office locations, phone, WhatsApp, and email.",
-};
+  path: "/contact",
+  image: "/contact.jpg",
+});
 
 export const revalidate = 60;
 
@@ -25,23 +29,13 @@ export default async function ContactPage() {
   return (
     <section className="mt-16 bg-page-bg text-ink">
       <HeaderBannerSection
-        title="Hi, We're here"
-        subtitle="A global impact of techlogies is the part of Databist"
+        title="Contact Us"
+        subtitle="Prefer email or phone over booking a slot? Reach out and we'll get back to you."
         imageSrc="/contact.jpg"
         overlayClass="bg-linear-to-b from-brand/70 via-brand-dark/80 to-brand/90"
       />
       <div className="w-full md:max-w-4xl lg:max-w-5xl xl:max-w-6xl mx-auto bg-page-bg/80 py-7 shadow-xl">
-        <div className="mx-auto mb-12 max-w-2xl text-center">
-          <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
-            Let's Talk
-          </h1>
-          <p className="mt-3 text-muted-foreground">
-            Prefer email or phone over booking a slot directly? Reach out and
-            we&apos;ll get back to you.
-          </p>
-        </div>
-
-        <div className="grid gap-10 lg:grid-cols-2">
+        <div className="grid gap-10 lg:grid-cols-2 px-4">
           <ContactForm />
 
           <div className="space-y-8">

@@ -35,15 +35,15 @@ export default function FaqAccordion({ items }: FaqAccordionProps) {
             className={cn(
               "group relative overflow-hidden rounded-2xl border border-slate-200 bg-white/2 shadow-sm transition-all duration-300 ease-in-out",
               "hover:shadow-md hover:border-slate-300",
-              "data-[state=open]:border-[#FF3131]/40 data-[state=open]:shadow-md data-[state=open]:shadow-[#FF3131]/5 data-[state=open]:bg-slate-800",
+              "data-[state=open]:border-brand-red/40 data-[state=open]:shadow-md data-[state=open]:shadow-brand-red/5 data-[state=open]:bg-slate-800",
             )}
           >
             {/* Subtle left-border highlight effect when active */}
-            <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#FF3131] opacity-0 transition-opacity duration-300 group-data-[state=open]:opacity-100" />
+            <div className="absolute left-0 top-0 bottom-0 w-1 bg-brand-red opacity-0 transition-opacity duration-300 group-data-[state=open]:opacity-100" />
 
-            <AccordionTrigger className="text-left hover:no-underline py-6 font-semibold text-slate-300 transition-colors group-data-[state=open]:text-[#FF3131]">
+            <AccordionTrigger className="text-left hover:no-underline py-6 font-semibold text-slate-300 transition-colors group-data-[state=open]:text-brand-red">
               <div className="flex items-center gap-3 pr-4">
-                <div className="shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-slate-900 text-slate-300 transition-colors duration-300 group-data-[state=open]:bg-[#FF3131]/10 group-data-[state=open]:text-[#FF3131]">
+                <div className="shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-slate-900 text-slate-300 transition-colors duration-300 group-data-[state=open]:bg-brand-red/10 group-data-[state=open]:text-brand-red">
                   <MessageCircleQuestion className="w-4 h-4" />
                 </div>
                 <span className="leading-snug text-[18px]">

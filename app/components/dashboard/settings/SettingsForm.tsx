@@ -5,11 +5,18 @@ import { Button } from "../../ui/button";
 import { Input } from "../../ui/input";
 import { Label } from "../../ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card";
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, Plus, Trash2 } from "lucide-react";
+import MediaPickerField from "@/app/components/dashboard/media/MediaPickerField";
 
 interface Office {
   label: string;
   address: string;
+}
+
+interface Partner {
+  name: string;
+  logoUrl: string;
+  url?: string;
 }
 
 interface SettingsData {
@@ -19,6 +26,7 @@ interface SettingsData {
   whatsapp: string;
   offices: Office[];
   socialLinks: Record<string, string>;
+  partners?: Partner[];
   ga4MeasurementId?: string;
 }
 
@@ -36,7 +44,10 @@ const SOCIAL_PLATFORMS = [
 ];
 
 export default function SettingsForm({ initialData }: SettingsFormProps) {
-  const [form, setForm] = useState(initialData);
+  const [form, setForm] = useState<SettingsData>({
+    ...initialData,
+    partners: initialData.partners ?? [],
+  });
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
 
@@ -169,6 +180,92 @@ export default function SettingsForm({ initialData }: SettingsFormProps) {
               />
             </div>
           ))}
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader className="flex flex-row items-center justify-between">
+          <CardTitle>Partner Logos</CardTitle>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={() =>
+              setForm({
+                ...form,
+                partners: [
+                  ...(form.partners ?? []),
+                  { name: "", logoUrl: "", url: "" },
+                ],
+              })
+            }
+          >
+            <Plus className="mr-2 h-4 w-4" /> Add partner
+          </Button>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          {(form.partners ?? []).length === 0 ? (
+            <p className="text-sm text-muted-foreground">
+              Add partner logos to show a trust strip on the homepage.
+            </p>
+          ) : (
+            (form.partners ?? []).map((partner, i) => (
+              <div
+                key={i}
+                className="space-y-3 rounded-md border p-3"
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <div className="grid flex-1 gap-3 sm:grid-cols-2">
+                    <div className="space-y-2">
+                      <Label>Name</Label>
+                      <Input
+                        value={partner.name}
+                        onChange={(e) => {
+                          const partners = [...(form.partners ?? [])];
+                          partners[i] = { ...partners[i], name: e.target.value };
+                          setForm({ ...form, partners });
+                        }}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label>Website URL (optional)</Label>
+                      <Input
+                        value={partner.url ?? ""}
+                        onChange={(e) => {
+                          const partners = [...(form.partners ?? [])];
+                          partners[i] = { ...partners[i], url: e.target.value };
+                          setForm({ ...form, partners });
+                        }}
+                        placeholder="https://"
+                      />
+                    </div>
+                  </div>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon"
+                    aria-label="Remove partner"
+                    onClick={() => {
+                      const partners = [...(form.partners ?? [])];
+                      partners.splice(i, 1);
+                      setForm({ ...form, partners });
+                    }}
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                </div>
+                <MediaPickerField
+                  label="Logo"
+                  value={partner.logoUrl}
+                  onChange={(url) => {
+                    const partners = [...(form.partners ?? [])];
+                    partners[i] = { ...partners[i], logoUrl: url };
+                    setForm({ ...form, partners });
+                  }}
+                />
+              </div>
+            ))
+          )}
         </CardContent>
       </Card>
 

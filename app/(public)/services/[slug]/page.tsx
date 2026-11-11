@@ -10,6 +10,8 @@ import FaqAccordion from "@/app/components/public/faq/FaqAccordion";
 import HeaderBannerSection from "../../components/HeaderBannerSection";
 import CTA from "@/app/components/public/button/CTA";
 import { phone, whatsApp } from "@/lib/constant";
+import JsonLd from "@/app/components/seo/JsonLd";
+import { buildPageMetadata, serviceJsonLd } from "@/lib/seo";
 
 interface ServiceDetailPageProps {
   params: Promise<{ slug: string }>;
@@ -30,12 +32,14 @@ export async function generateMetadata({
   const { slug } = await params;
   const service = await getService(slug);
 
-  if (!service) return { title: "Service Not Found | Databist" };
+  if (!service) return { title: "Service Not Found" };
 
-  return {
-    title: `${service.name} | Databist`,
+  return buildPageMetadata({
+    title: service.name,
     description: service.shortDescription,
-  };
+    path: `/services/${service.slug}`,
+    image: service.heroImage,
+  });
 }
 
 export const revalidate = 60;
@@ -50,6 +54,7 @@ export default async function ServiceDetailPage({
 
   return (
     <section className="mt-16 bg-page-bg text-ink">
+      <JsonLd data={serviceJsonLd(service)} />
       <HeaderBannerSection
         title={service?.name}
         subtitle={service?.shortDescription}
@@ -62,17 +67,16 @@ export default async function ServiceDetailPage({
           {service.isCombo && (
             <Badge className="mb-3 bg-brand text-slate-50">Best Value</Badge>
           )}
-          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            {service.name}
-          </h1>
-          <p className="mt-4 text-lg text-muted-foreground">
-            {service.shortDescription}
-          </p>
+          {service.priceLabel && (
+            <p className="text-xl font-semibold text-brand-gold">
+              {service.priceLabel}
+            </p>
+          )}
 
           <Button
             asChild
             size="lg"
-            className="mt-6 bg-brand text-slate-50 bg-linear-to-r from-indigo-500 to-pink-500"
+            className="mt-6 brand-gradient text-white"
           >
             <Link
               href={`/booking?serviceId=${encodeURIComponent(service._id)}`}
@@ -127,7 +131,7 @@ export default async function ServiceDetailPage({
             <div className="mt-12 space-y-4">
               <div className="flex justify-between">
                 <div>
-                  <strong className="text-[#A431FF]">FAQ_</strong>
+                  <strong className="text-brand">FAQ_</strong>
                   <h2 className="text-2xl font-semibold">
                     Frequently Asked Questions
                   </h2>

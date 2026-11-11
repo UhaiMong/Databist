@@ -2,14 +2,13 @@ import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db/connectDB";
 import { Blog } from "@/lib/models";
 import { blogPostSchema } from "@/lib/validations/blog";
+import { requireAuth } from "@/lib/auth/apiAuth";
 
 function estimateReadingTime(content: unknown): number {
   let plainText = "";
   if (typeof content === "string") {
-    // If it's HTML or plain text string
     if (content.startsWith("[") || content.startsWith("{")) {
       try {
-        // Handle stringified JSON
         const parsed = JSON.parse(content);
         plainText = extractTextFromPlate(parsed);
       } catch {
@@ -22,7 +21,6 @@ function estimateReadingTime(content: unknown): number {
     Array.isArray(content) ||
     (typeof content === "object" && content !== null)
   ) {
-    // If it's already a Plate.js JSON array/object
     plainText = extractTextFromPlate(content);
   }
 
@@ -42,12 +40,10 @@ function extractTextFromPlate(nodes: unknown): string {
   if (typeof nodes === "object" && nodes !== null) {
     const node = nodes as { text?: string; children?: unknown[] };
 
-    // If it's a leaf node containing text
     if (typeof node.text === "string") {
       return node.text;
     }
 
-    // If it has children nodes (paragraphs, headings, lists, etc.)
     if (Array.isArray(node.children)) {
       return node.children.map(extractTextFromPlate).join(" ");
     }
@@ -57,7 +53,7 @@ function extractTextFromPlate(nodes: unknown): string {
 }
 
 export async function GET(
-  req: NextRequest,
+  _req: NextRequest,
   { params }: { params: Promise<{ slug: string }> },
 ) {
   const { slug } = await params;
@@ -71,6 +67,11 @@ export async function GET(
         { success: false, message: "Post not found" },
         { status: 404 },
       );
+    }
+
+    if ((post as { status?: string }).status !== "published") {
+      const auth = await requireAuth();
+      if (auth.error) return auth.error;
     }
 
     const related = await Blog.find({
@@ -99,10 +100,14 @@ export async function PATCH(
   req: NextRequest,
   { params }: { params: Promise<{ slug: string }> },
 ) {
-  const { slug } = await params;
   try {
+    const auth = await requireAuth();
+    if (auth.error) return auth.error;
+
+    const { slug } = await params;
     const body = await req.json();
     const parsed = blogPostSchema.partial().safeParse(body);
+
     if (!parsed.success) {
       return NextResponse.json(
         {
@@ -117,24 +122,24 @@ export async function PATCH(
     await connectDB();
 
     const data: Record<string, unknown> = { ...parsed.data };
-    if (parsed.data.body)
+    if (parsed.data.body !== undefined) {
       data.readingTimeMinutes = estimateReadingTime(parsed.data.body);
-    if (parsed.data.status === "published" && !parsed.data.publishedAt)
+    }
+    if (parsed.data.status === "published" && !parsed.data.publishedAt) {
       data.publishedAt = new Date();
+    }
 
     try {
-      const updated = await Blog.findOneAndUpdate({ slug }, data, {
-        new: true,
-      });
+      const post = await Blog.findOneAndUpdate({ slug }, data, { new: true });
 
-      if (!updated) {
+      if (!post) {
         return NextResponse.json(
           { success: false, message: "Post not found" },
           { status: 404 },
         );
       }
 
-      return NextResponse.json({ success: true, post: updated });
+      return NextResponse.json({ success: true, post });
     } catch (err: any) {
       if (err.code === 11000) {
         return NextResponse.json(
@@ -147,18 +152,21 @@ export async function PATCH(
   } catch (error) {
     console.error("PATCH /api/blog/[slug] error:", error);
     return NextResponse.json(
-      { success: false, message: "Failed to update post" },
+      { success: false, message: "Failed to update blog post" },
       { status: 500 },
     );
   }
 }
 
 export async function DELETE(
-  req: NextRequest,
+  _req: NextRequest,
   { params }: { params: Promise<{ slug: string }> },
 ) {
-  const { slug } = await params;
   try {
+    const auth = await requireAuth();
+    if (auth.error) return auth.error;
+
+    const { slug } = await params;
     await connectDB();
 
     const deleted = await Blog.findOneAndDelete({ slug });
@@ -174,7 +182,7 @@ export async function DELETE(
   } catch (error) {
     console.error("DELETE /api/blog/[slug] error:", error);
     return NextResponse.json(
-      { success: false, message: "Failed to delete post" },
+      { success: false, message: "Failed to delete blog post" },
       { status: 500 },
     );
   }

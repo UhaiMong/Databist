@@ -8,6 +8,8 @@ import { Badge } from "@/app/components/ui/badge";
 import { Button } from "@/app/components/ui/button";
 import ShareButtons from "@/app/components/public/blog/ShareButtons";
 import { BlogReader } from "../../components/BlogReader";
+import JsonLd from "@/app/components/seo/JsonLd";
+import { articleJsonLd, buildPageMetadata } from "@/lib/seo";
 
 interface BlogArticlePageProps {
   params: Promise<{ slug: string }>;
@@ -42,12 +44,15 @@ export async function generateMetadata({
   const { slug } = await params;
   const { post } = await getPost(slug);
 
-  if (!post) return { title: "Article Not Found | Databist" };
+  if (!post) return { title: "Article Not Found" };
 
-  return {
-    title: `${post.title} | Databist Blog`,
+  return buildPageMetadata({
+    title: post.title,
     description: post.excerpt,
-  };
+    path: `/blog/${post.slug}`,
+    image: post.featuredImage,
+    type: "article",
+  });
 }
 
 export const revalidate = 60;
@@ -62,6 +67,7 @@ export default async function BlogArticlePage({
 
   return (
     <article className="container mx-auto px-4 py-16 mt-7">
+      <JsonLd data={articleJsonLd(post)} />
       <div className="mx-auto max-w-3xl">
         <Badge variant="secondary" className="mb-3">
           {post.category}

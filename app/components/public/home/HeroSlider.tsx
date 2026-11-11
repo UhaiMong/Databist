@@ -97,9 +97,9 @@ export default function HeroSlider({ slides = SLIDES }: { slides?: Slide[] }) {
                 )}
               >
                 <div className="my-7">
-                  <h1 className="text-2xl md:text-3xl font-black text-slate-100">
+                  <h2 className="text-2xl md:text-3xl font-black text-slate-100">
                     {slide?.headline}
-                  </h1>
+                  </h2>
                 </div>
                 <SlideCard
                   slide={slide}

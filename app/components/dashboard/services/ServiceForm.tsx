@@ -16,6 +16,7 @@ import {
   servicePackageSchema,
   ServicePackageValues,
 } from "@/lib/validations/servicePackage";
+import MediaPickerField from "@/app/components/dashboard/media/MediaPickerField";
 
 interface ServiceFormProps {
   mode: "create" | "edit";
@@ -158,10 +159,14 @@ export default function ServiceForm({ mode, initialData }: ServiceFormProps) {
             />
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="heroImage">Hero Image URL</Label>
-            <Input id="heroImage" {...register("heroImage")} />
-          </div>
+          <MediaPickerField
+            id="heroImage"
+            label="Hero Image"
+            value={watch("heroImage") ?? ""}
+            onChange={(url) =>
+              setValue("heroImage", url, { shouldValidate: true })
+            }
+          />
 
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-2">

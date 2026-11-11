@@ -16,6 +16,7 @@ const DEFAULT_SETTINGS = {
     { label: "UAE", address: "" },
   ],
   socialLinks: {},
+  partners: [],
   ga4MeasurementId: "",
 };
 

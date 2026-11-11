@@ -3,6 +3,7 @@ import Credentials from "next-auth/providers/credentials";
 import connectDB from "@/lib/db/connectDB";
 import { User } from "@/lib/models";
 import { verifyPassword } from "@/lib/auth/password";
+import { isRateLimited, rateLimit } from "@/lib/security/rateLimit";
 
 export const authConfig: NextAuthOptions = {
   pages: {
@@ -22,18 +23,28 @@ export const authConfig: NextAuthOptions = {
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null;
 
+        const email = (credentials.email as string).toLowerCase().trim();
+        const loginKey = `login-fail:${email}`;
+        const loginWindow = { limit: 5, windowMs: 15 * 60 * 1000 };
+        const locked = isRateLimited(loginKey, loginWindow);
+        if (locked.limited) return null;
+
         await connectDB();
 
-        const user = await User.findOne({
-          email: (credentials.email as string).toLowerCase(),
-        });
-        if (!user) return null;
+        const user = await User.findOne({ email });
+        if (!user) {
+          rateLimit(loginKey, loginWindow);
+          return null;
+        }
 
         const isValid = await verifyPassword(
           credentials.password as string,
           user.passwordHash,
         );
-        if (!isValid) return null;
+        if (!isValid) {
+          rateLimit(loginKey, loginWindow);
+          return null;
+        }
 
         return {
           id: user._id.toString(),

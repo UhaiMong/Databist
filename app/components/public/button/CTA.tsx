@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { sendGTMEvent } from "@next/third-parties/google";
 import { Phone, CalendarClock, ArrowRight } from "lucide-react";
-import WhatsAppIcon from "@mui/icons-material/WhatsApp";
+import { WhatsAppIcon } from "@/app/components/icons/BrandIcons";
 import { Button } from "../../ui/button";
 import { cn } from "@/lib/utils";
 import { phoneStr } from "@/lib/constant";
@@ -65,14 +65,12 @@ export default function CTA({
         {/* Left Side: Content & Actions */}
         <div className="flex-1 p-8 md:p-12 lg:p-16 flex flex-col justify-center relative z-10">
           <div className="mb-8">
-            <span className="inline-block py-1 px-3 rounded-full bg-slate-100 text-[#FF3131] text-xs font-bold tracking-wider uppercase mb-4">
+            <span className="inline-block py-1 px-3 rounded-full bg-slate-100 text-brand-red text-xs font-bold tracking-wider uppercase mb-4">
               Take the next step
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4 leading-tight">
               Ready to get started with{" "}
-              <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-500 to-pink-500">
-                {service?.name}?
-              </span>
+              <span className="brand-text-gradient">{service?.name}?</span>
             </h2>
             <p className="text-slate-600 text-lg max-w-xl">
               Connect with the Databist team today. Schedule a free,
@@ -88,7 +86,7 @@ export default function CTA({
               asChild
               size="lg"
               onClick={handleBookingClick}
-              className="w-full sm:w-auto bg-linear-to-r from-indigo-500 to-pink-500 hover:opacity-90 transition-opacity text-white font-semibold rounded-xl h-14 px-8 shadow-md shadow-indigo-500/20 group"
+              className="w-full sm:w-auto brand-gradient hover:opacity-90 transition-opacity text-white font-semibold rounded-xl h-14 px-8 shadow-md shadow-brand/20 group"
             >
               {service?._id ? (
                 <Link
@@ -115,7 +113,7 @@ export default function CTA({
                 size="lg"
                 onClick={handleCallClick}
                 className={cn(
-                  "flex-1 sm:flex-none h-14 rounded-xl border-slate-300 hover:bg-slate-50 hover:text-[#FF3131] hover:border-[#FF3131]/30 transition-all",
+                  "flex-1 sm:flex-none h-14 rounded-xl border-slate-300 hover:bg-slate-50 hover:text-brand-red hover:border-brand-red/30 transition-all",
                   styleCall,
                 )}
               >

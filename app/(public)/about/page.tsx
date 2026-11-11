@@ -4,26 +4,22 @@ import connectDB from "@/lib/db/connectDB";
 import { SiteSettings } from "@/lib/models";
 import { Button } from "@/app/components/ui/button";
 import { MapPin, ArrowRight } from "lucide-react";
-import TrustTrip from "../components/TrustStrip";
 import HeaderBannerSection from "../components/HeaderBannerSection";
 import OrgChart from "@/app/components/public/about/OrgChart";
 import CTA from "@/app/components/public/button/CTA";
 import { phone, whatsApp } from "@/lib/constant";
 
-export const metadata: Metadata = {
-  title: "About Us | Databist",
+import { buildPageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = buildPageMetadata({
+  title: "About Us",
   description:
     "Databist is a full-service digital marketing and web development agency serving clients in Bangladesh, the UAE, and beyond.",
-};
+  path: "/about",
+  image: "/aboutBanner.jpg",
+});
 
 export const revalidate = 60;
-
-const MILESTONES = [
-  { label: "Years in Operation", value: "6+" },
-  { label: "Clients Served", value: "150+" },
-  { label: "Countries Served", value: "10+" },
-  { label: "Projects Delivered", value: "300+" },
-];
 
 async function getOffices() {
   await connectDB();
@@ -39,26 +35,15 @@ export default async function AboutUsPage() {
   return (
     <section className="mt-16 bg-page-bg text-ink">
       <HeaderBannerSection
-        title="Databist"
-        subtitle="Connecting offices and clients worldwide"
+        title="About Us"
+        subtitle="A full-service digital agency helping businesses across Bangladesh, the UAE, and beyond build a stronger digital presence."
         imageSrc="/aboutBanner.jpg"
         overlayClass="bg-app-bg/50"
       />
-      <div className="mx-auto max-w-3xl text-center mt-4 py-3.5">
-        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl inline-block bg-linear-to-r from-indigo-500 to-pink-500 bg-clip-text text-transparent">
-          About Databist
-        </h1>
-        <p className="mt-4 text-lg text-muted-foreground">
-          A full-service digital marketing and web development agency helping
-          businesses across Bangladesh, the UAE, and beyond build a stronger
-          digital presence — from websites and branding to SEO and paid growth.
-        </p>
-      </div>
 
       <OrgChart />
 
-      {/* <TrustTrip /> */}
-      <div className="mx-auto max-w-3xl space-y-4 py-4 mt-3.5">
+      <div className="mx-auto max-w-3xl space-y-4 py-4 mt-3.5 px-4">
         <h2 className="text-2xl font-semibold">Why Choose Databist</h2>
         <p className="text-muted-foreground">
           We combine project-based pricing with senior-level execution across
@@ -68,9 +53,9 @@ export default async function AboutUsPage() {
         </p>
       </div>
 
-      <div className="mx-auto mt-16 max-w-4xl">
+      <div className="mx-auto mt-16 max-w-4xl px-4">
         <h2 className="text-center text-2xl font-semibold my-2.5">
-          We Connected Throught_
+          Where We Connect
         </h2>
         <div className="grid gap-6 sm:grid-cols-2">
           {offices.map((office: any) => (

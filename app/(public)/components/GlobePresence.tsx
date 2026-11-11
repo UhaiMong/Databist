@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { MapPin, Globe2 } from "lucide-react";
-import { DesignTokens, fraunces, plexMono } from "@/lib/utils";
+import { DesignTokens } from "@/lib/utils";
 
 export default function GlobalPresence({ settings }: { settings: any }) {
   if (!settings?.offices?.length) return null;
@@ -11,7 +11,7 @@ export default function GlobalPresence({ settings }: { settings: any }) {
 
   return (
     <section
-      className={`${fraunces.variable} ${plexMono.variable} w-full px-4 py-24 sm:px-6`}
+      className="w-full px-4 py-24 sm:px-6"
       style={{ background: DesignTokens.bg }}
     >
       <div className="mx-auto max-w-6xl">

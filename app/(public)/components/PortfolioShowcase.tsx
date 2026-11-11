@@ -3,21 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Fraunces, IBM_Plex_Mono } from "next/font/google";
 import { ArrowUpRight } from "lucide-react";
-
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  style: ["normal", "italic"],
-  variable: "--font-fraunces",
-});
-
-const plexMono = IBM_Plex_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  variable: "--font-plex-mono",
-});
 
 function ProjectCard({ item }: { item: any }) {
   const [revealed, setRevealed] = useState(false);
@@ -32,7 +18,7 @@ function ProjectCard({ item }: { item: any }) {
     <Link
       href={`/portfolio/${item.slug}`}
       onClick={handleClick}
-      className="group relative block overflow-hidden rounded-sm bg-[#15161B] ring-1 ring-[#2A2B31] transition-colors duration-300 hover:ring-[#C9A15A]/60"
+      className="group relative block overflow-hidden rounded-sm bg-[#15161B] ring-1 ring-[#2A2B31] transition-colors duration-300 hover:ring-brand-gold/60"
     >
       <div className="relative aspect-4/3 w-full overflow-hidden">
         <Image
@@ -54,7 +40,7 @@ function ProjectCard({ item }: { item: any }) {
         {/* Service type tag */}
         {item.serviceType && (
           <span
-            className="absolute left-4 top-4 rounded-full border border-[#C9A15A]/40 bg-black/80 px-2.5 py-1 text-[11px] tracking-[0.15em] text-brand-light backdrop-blur-sm"
+            className="absolute left-4 top-4 rounded-full border border-brand-gold/40 bg-black/80 px-2.5 py-1 text-[11px] tracking-[0.15em] text-brand-light backdrop-blur-sm"
             style={{ fontFamily: "var(--font-plex-mono)" }}
           >
             {item.serviceType}
@@ -110,7 +96,7 @@ export default function PortfolioShowcase({
 
   return (
     <section
-      className={`${fraunces.variable} ${plexMono.variable} relative py-24 px-4 sm:px-6`}
+      className="relative px-4 py-24 sm:px-6"
       style={{ background: "#101014" }}
     >
       <div className="mx-auto max-w-6xl">
@@ -141,7 +127,7 @@ export default function PortfolioShowcase({
         <div className="mt-14 flex justify-center">
           <Link
             href="/portfolio"
-            className="group inline-flex items-center gap-2 border-b border-[#2A2B31] pb-1 text-xs tracking-[0.2em] uppercase text-ink transition-colors hover:border-[#C9A15A] hover:text-[#C9A15A]"
+            className="group inline-flex items-center gap-2 border-b border-[#2A2B31] pb-1 text-xs tracking-[0.2em] uppercase text-ink transition-colors hover:border-brand-gold hover:text-brand-gold"
             style={{ fontFamily: "var(--font-plex-mono)" }}
           >
             View all work

@@ -9,6 +9,7 @@ import { Button } from "@/app/components/ui/button";
 import { ArrowLeft, ArrowRight, ArrowUpRightSquare } from "lucide-react";
 import CTA from "@/app/components/public/button/CTA";
 import { phone, whatsApp } from "@/lib/constant";
+import { buildPageMetadata } from "@/lib/seo";
 
 interface PortfolioDetailPageProps {
   params: Promise<{ slug: string }>;
@@ -26,12 +27,14 @@ export async function generateMetadata({
   const { slug } = await params;
   const item = await getItem(slug);
 
-  if (!item) return { title: "Case Study Not Found | Databist" };
+  if (!item) return { title: "Case Study Not Found" };
 
-  return {
-    title: `${item.title} | Databist Portfolio`,
+  return buildPageMetadata({
+    title: item.title,
     description: item.summary,
-  };
+    path: `/portfolio/${item.slug}`,
+    image: item.thumbnail,
+  });
 }
 
 export const revalidate = 60;

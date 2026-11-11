@@ -2,21 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Fraunces, IBM_Plex_Mono } from "next/font/google";
 import { Plus } from "lucide-react";
-
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  style: ["normal", "italic"],
-  variable: "--font-fraunces",
-});
-
-const plexMono = IBM_Plex_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  variable: "--font-plex-mono",
-});
 
 export default function FaqSection({ faqs }: { faqs: any }) {
   const [openId, setOpenId] = useState<string | number | null>(null);
@@ -25,7 +11,7 @@ export default function FaqSection({ faqs }: { faqs: any }) {
 
   return (
     <section
-      className={`${fraunces.variable} ${plexMono.variable} relative py-24 px-4 sm:px-6`}
+      className="relative px-4 py-24 sm:px-6"
       style={{ background: "#101014" }}
     >
       <div className="mx-auto max-w-3xl">
@@ -76,8 +62,8 @@ export default function FaqSection({ faqs }: { faqs: any }) {
                   <span
                     className={`relative mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full ring-1 transition-colors ${
                       isOpen
-                        ? "ring-[#C9A15A] text-[#C9A15A]"
-                        : "ring-[#2A2B31] text-[#8A8779] group-hover:ring-[#C9A15A]/60"
+                        ? "ring-brand-gold text-brand-gold"
+                        : "ring-[#2A2B31] text-[#8A8779] group-hover:ring-brand-gold/60"
                     }`}
                   >
                     <Plus
@@ -111,7 +97,7 @@ export default function FaqSection({ faqs }: { faqs: any }) {
         <div className="mt-12 flex justify-center">
           <Link
             href="/faq"
-            className="group inline-flex items-center gap-2 border-b border-[#2A2B31] pb-1 text-xs tracking-[0.2em] uppercase text-[#EDEAE2] transition-colors hover:border-[#C9A15A] hover:text-[#C9A15A]"
+            className="group inline-flex items-center gap-2 border-b border-[#2A2B31] pb-1 text-xs tracking-[0.2em] uppercase text-[#EDEAE2] transition-colors hover:border-brand-gold hover:text-brand-gold"
             style={{ fontFamily: "var(--font-plex-mono)" }}
           >
             View all questions

@@ -2,9 +2,12 @@
 
 import { Link2 } from "lucide-react";
 import { Button } from "../../ui/button";
-import Facebook from "@mui/icons-material/Facebook";
-import Linkedin from "@mui/icons-material/LinkedIn";
-import Twitter from "@mui/icons-material/Twitter";
+import {
+  FacebookIcon,
+  LinkedInIcon,
+  XIcon,
+} from "@/app/components/icons/BrandIcons";
+
 interface ShareButtonsProps {
   title: string;
 }
@@ -31,13 +34,13 @@ export default function ShareButtons({ title }: ShareButtonsProps) {
     <div className="mt-8 flex items-center gap-2 border-t pt-6">
       <span className="text-sm text-muted-foreground">Share:</span>
       <Button variant="outline" size="icon" onClick={() => share("facebook")}>
-        <Facebook className="h-4 w-4" />
+        <FacebookIcon className="h-4 w-4" />
       </Button>
       <Button variant="outline" size="icon" onClick={() => share("twitter")}>
-        <Twitter className="h-4 w-4" />
+        <XIcon className="h-4 w-4" />
       </Button>
       <Button variant="outline" size="icon" onClick={() => share("linkedin")}>
-        <Linkedin className="h-4 w-4" />
+        <LinkedInIcon className="h-4 w-4" />
       </Button>
       <Button variant="outline" size="icon" onClick={copyLink}>
         <Link2 className="h-4 w-4" />

@@ -2,14 +2,13 @@ import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db/connectDB";
 import { Blog } from "@/lib/models";
 import { blogPostSchema } from "@/lib/validations/blog";
+import { requireAuth } from "@/lib/auth/apiAuth";
 
 function estimateReadingTime(content: unknown): number {
   let plainText = "";
   if (typeof content === "string") {
-    // If it's HTML or plain text string
     if (content.startsWith("[") || content.startsWith("{")) {
       try {
-        // Handle stringified JSON
         const parsed = JSON.parse(content);
         plainText = extractTextFromPlate(parsed);
       } catch {
@@ -22,7 +21,6 @@ function estimateReadingTime(content: unknown): number {
     Array.isArray(content) ||
     (typeof content === "object" && content !== null)
   ) {
-    // If it's already a Plate.js JSON array/object
     plainText = extractTextFromPlate(content);
   }
 
@@ -42,12 +40,10 @@ function extractTextFromPlate(nodes: unknown): string {
   if (typeof nodes === "object" && nodes !== null) {
     const node = nodes as { text?: string; children?: unknown[] };
 
-    // If it's a leaf node containing text
     if (typeof node.text === "string") {
       return node.text;
     }
 
-    // If it has children nodes (paragraphs, headings, lists, etc.)
     if (Array.isArray(node.children)) {
       return node.children.map(extractTextFromPlate).join(" ");
     }
@@ -64,6 +60,11 @@ export async function GET(req: NextRequest) {
     const category = req.nextUrl.searchParams.get("category");
     const page = parseInt(req.nextUrl.searchParams.get("page") ?? "1", 10);
     const limit = parseInt(req.nextUrl.searchParams.get("limit") ?? "9", 10);
+
+    if (status !== "published") {
+      const auth = await requireAuth();
+      if (auth.error) return auth.error;
+    }
 
     const filter: Record<string, unknown> = status === "all" ? {} : { status };
     if (category) filter.category = category;
@@ -93,6 +94,9 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
+    const auth = await requireAuth();
+    if (auth.error) return auth.error;
+
     const body = await req.json();
     const parsed = blogPostSchema.safeParse(body);
 

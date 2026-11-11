@@ -1,9 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db/connectDB";
 import { BlackoutDate } from "@/lib/models";
+import { requireAuth } from "@/lib/auth/apiAuth";
 
 export async function GET() {
   try {
+    const auth = await requireAuth();
+    if (auth.error) return auth.error;
+
     await connectDB();
     const dates = await BlackoutDate.find().sort({ date: 1 }).lean();
     return NextResponse.json({ success: true, dates });
@@ -18,6 +22,9 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
   try {
+    const auth = await requireAuth();
+    if (auth.error) return auth.error;
+
     const body = await req.json();
 
     if (!body.date || !/^\d{4}-\d{2}-\d{2}$/.test(body.date)) {
@@ -55,6 +62,9 @@ export async function POST(req: NextRequest) {
 
 export async function DELETE(req: NextRequest) {
   try {
+    const auth = await requireAuth();
+    if (auth.error) return auth.error;
+
     const id = req.nextUrl.searchParams.get("id");
 
     if (!id) {

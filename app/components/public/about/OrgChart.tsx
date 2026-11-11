@@ -97,7 +97,7 @@ export default function OrgChart({
               <TooltipProvider delayDuration={200}>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <div className="relative z-10 w-full max-w-md bg-yellow-400 border-2 border-slate-400 rounded-xl p-3 flex items-center gap-4 cursor-help transition-transform hover:-translate-y-1 shadow-sm">
+                    <div className="relative z-10 w-full max-w-md bg-brand-gold border-2 border-brand-gold/60 rounded-xl p-3 flex items-center gap-4 cursor-help transition-transform hover:-translate-y-1 shadow-sm">
                       {dept.leader.imageUrl ? (
                         <img
                           src={dept.leader.imageUrl}

@@ -2,9 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db/connectDB";
 import { ServicePackage } from "@/lib/models";
 import { servicePackageSchema } from "@/lib/validations/servicePackage";
+import { requireAuth } from "@/lib/auth/apiAuth";
 
 export async function GET(
-  req: NextRequest,
+  _req: NextRequest,
   { params }: { params: Promise<{ slug: string }> },
 ) {
   const { slug } = await params;
@@ -18,6 +19,11 @@ export async function GET(
         { success: false, message: "Service not found" },
         { status: 404 },
       );
+    }
+
+    if ((service as { status?: string }).status !== "published") {
+      const auth = await requireAuth();
+      if (auth.error) return auth.error;
     }
 
     return NextResponse.json({ success: true, service });
@@ -35,6 +41,9 @@ export async function PATCH(
   { params }: { params: Promise<{ slug: string }> },
 ) {
   try {
+    const auth = await requireAuth();
+    if (auth.error) return auth.error;
+
     const { slug } = await params;
     const body = await req.json();
     const parsed = servicePackageSchema.partial().safeParse(body);
@@ -89,11 +98,14 @@ export async function PATCH(
 }
 
 export async function DELETE(
-  req: NextRequest,
+  _req: NextRequest,
   { params }: { params: Promise<{ slug: string }> },
 ) {
   const { slug } = await params;
   try {
+    const auth = await requireAuth();
+    if (auth.error) return auth.error;
+
     await connectDB();
 
     const deleted = await ServicePackage.findOneAndDelete({

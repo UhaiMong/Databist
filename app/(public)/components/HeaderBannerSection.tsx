@@ -1,4 +1,4 @@
-import { cn, DesignTokens, fraunces, plexMono } from "@/lib/utils";
+import { cn, DesignTokens } from "@/lib/utils";
 import Image from "next/image";
 import { ReactNode } from "react";
 
@@ -23,7 +23,7 @@ export default function HeaderBannerSection({
 }: HeaderBannerProps) {
   return (
     <div
-      className={`${fraunces.variable} ${plexMono.variable} ${heightClass} w-full relative -mt-16`}
+      className={`${heightClass} relative -mt-16 w-full`}
     >
       <div className={`w-full h-full`} style={{ background: DesignTokens.bg }}>
         {/* Background image */}

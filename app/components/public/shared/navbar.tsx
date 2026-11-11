@@ -91,8 +91,8 @@ export function PublicNavbar({ services = [], works = [] }: PublicNavbarProps) {
               )}
             </div>
             <div>
-              <h2 className="text-[18px] font-black tracking-wide text-[#FF3131]">
-                Data<span className="text-[#A431FF]">bist</span>
+              <h2 className="text-[18px] font-black tracking-wide text-brand-red">
+                Data<span className="text-brand">bist</span>
               </h2>
             </div>
           </Link>
@@ -115,7 +115,7 @@ export function PublicNavbar({ services = [], works = [] }: PublicNavbarProps) {
                     className={cn(
                       "px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 flex items-center gap-2",
                       isActive
-                        ? "bg-slate-100 text-[#FF3131]"
+                        ? "bg-slate-100 text-brand-red"
                         : "hover:bg-slate-50 hover:text-slate-900",
                     )}
                   >
@@ -143,7 +143,7 @@ export function PublicNavbar({ services = [], works = [] }: PublicNavbarProps) {
                               href={`${href}/${item.slug}`}
                               className="group/item flex flex-col"
                             >
-                              <span className="text-sm font-medium text-slate-300 group-hover/item:text-[#FF3131] transition-colors line-clamp-2">
+                              <span className="text-sm font-medium text-slate-300 group-hover/item:text-brand-red transition-colors line-clamp-2">
                                 {item.title}
                               </span>
                             </Link>
@@ -165,7 +165,7 @@ export function PublicNavbar({ services = [], works = [] }: PublicNavbarProps) {
           <Button
             variant="ghost"
             size="icon"
-            className="transition-colors duration-200 bg-linear-to-r from-indigo-500 to-pink-500 text-white"
+            className="transition-colors duration-200 brand-gradient text-white"
             aria-label="Open menu"
           >
             {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -194,8 +194,8 @@ export function PublicNavbar({ services = [], works = [] }: PublicNavbarProps) {
                 height={40}
               />
             </div>
-            <h2 className="text-sm font-black tracking-wide text-[#FF3131]">
-              Data<span className="text-slate-800">bist</span>
+            <h2 className="text-sm font-black tracking-wide text-brand-red">
+              Data<span className="text-brand">bist</span>
             </h2>
           </div>
 
@@ -217,8 +217,8 @@ export function PublicNavbar({ services = [], works = [] }: PublicNavbarProps) {
                     className={cn(
                       "px-4 py-3 rounded-xl text-sm font-medium transition-colors duration-300 flex justify-between items-center",
                       isActive
-                        ? "bg-slate-100 text-[#FF3131]"
-                        : "text-slate-600 hover:bg-slate-50 hover:text-slate-900",
+                        ? "bg-white/10 text-brand-red"
+                        : "text-slate-300 hover:bg-white/5 hover:text-white",
                     )}
                   >
                     <div className="flex items-center gap-2.5">
@@ -235,7 +235,7 @@ export function PublicNavbar({ services = [], works = [] }: PublicNavbarProps) {
                           key={item._id || item.id || item.slug}
                           href={`${href}/${item.slug}`}
                           onClick={() => setOpen(false)}
-                          className="py-2 text-sm text-slate-500 hover:text-[#FF3131] transition-colors"
+                          className="py-2 text-sm text-slate-500 hover:text-brand-red transition-colors"
                         >
                           {item.title}
                         </Link>
